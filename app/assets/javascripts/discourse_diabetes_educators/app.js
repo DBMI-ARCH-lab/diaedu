@@ -5,7 +5,7 @@
       '<h1>Diabetes Educator Community</h1>' +
     '</div>'+
     '<nav class="kb-main">' + 
-      '<a href="/kb">Knowledge Base</a>' +
+      '<a href="/kb" class="active">Knowledge Base</a>' +
       '<a href="/">Community</a>' +
       '<a href="/kb/about">About</a>' +
     '</nav>'
@@ -37,6 +37,8 @@ $(document).ready(function(){
 
 Discourse.KbHomeController = Ember.Controller.extend({
   goToPage: function(link) {
+    $('header.d-header')[link == '/' ? 'show' : 'hide']();
+    $('div#main-outlet').css('padding-top', link == '/' ? '75px' : '0');
     this.transitionTo(link);
   }
 });

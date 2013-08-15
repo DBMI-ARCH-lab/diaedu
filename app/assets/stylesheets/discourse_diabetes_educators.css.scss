@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:400,900);
 
-div.banner, nav.kb-main {
+div.banner, nav.kb-main, nav.kb-subnav {
   font-family: 'Lato', sans-serif;
 }
 
@@ -37,4 +37,40 @@ nav.kb-main {
       color: #FC8C30;
     }
   }
+}
+
+nav.kb-subnav {
+  padding: 20px 10px 0 0;
+  background-color: #86A8A5;
+  color: white;
+  font-size: 17px;
+  text-align: right;
+  height: 40px;
+  margin-bottom: 15px;
+
+  a {
+    color: white;
+    text-decoration: underline;
+    display: inline-block;
+    margin: 0 5px;
+  }
+}
+
+header.d-header {
+  display: none;
+  box-shadow: none;
+  border: none;
+  background-color: #86A8A5;
+  
+  img.logo-big {
+    display: none;
+  }
+
+  div.panel ul.icons .icon {
+    background-color: white;
+  }
+}
+
+div#main-outlet {
+  padding-top: 0;
 }
