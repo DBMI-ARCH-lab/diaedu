@@ -19,3 +19,7 @@ tmp
 .bundle/
 log/*.log
 pkg/
+
+TODO
+NOTES
+.DS_Store

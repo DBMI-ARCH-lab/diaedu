@@ -1,0 +1,40 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900);
+
+div.banner, nav.kb-main {
+  font-family: 'Lato', sans-serif;
+}
+
+div.banner {
+  padding: 30px;
+  height: 80px;
+  background: url('/assets/discourse_diabetes_educators/banner-bg.png') repeat-x;
+
+  img {
+    display: inline-block;
+    margin-right: 20px;
+  }  
+
+  h1 {
+    display: inline-block;
+    color: #6D6D6D;
+    vertical-align: middle;
+    font-size: 28pt;
+  }
+}
+
+nav.kb-main {
+  padding: 20px;
+  background-color: #686868;
+  
+  a {
+    text-transform: uppercase;  
+    display: inline-block;
+    margin-right: 50px;
+    font-size: 15px;
+    color: white;
+
+    &.active {
+      color: #FC8C30;
+    }
+  }
+}
