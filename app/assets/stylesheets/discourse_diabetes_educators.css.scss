@@ -16,7 +16,7 @@ div.banner {
   img {
     display: inline-block;
     margin-right: 20px;
-  }  
+  }
 
   h1 {
     display: inline-block;
@@ -29,21 +29,25 @@ div.banner {
 nav.kb-main {
   padding: 20px;
   background-color: #686868;
-  
-  a {
-    text-transform: uppercase;  
+
+  > span {
     display: inline-block;
     margin-right: 50px;
-    font-size: 15px;
-    color: white;
 
-    &.active {
+    &.active a {
       color: #FC8C30;
+    }
+
+    a {
+      text-transform: uppercase;
+      font-size: 15px;
+      color: white;
     }
   }
 }
 
 nav.kb-subnav {
+  display: none;
   padding: 20px 10px 0 0;
   background-color: #86A8A5;
   color: white;
@@ -60,11 +64,12 @@ nav.kb-subnav {
 }
 
 header.d-header {
-  display: none;
   box-shadow: none;
   border: none;
   background-color: #86A8A5;
-  
+  position: relative;
+  margin-bottom: 0;
+
   img.logo-big {
     display: none;
   }
@@ -72,10 +77,14 @@ header.d-header {
   div.panel ul.icons .icon {
     background-color: white;
   }
+
+  span.username a {
+    color: white;
+  }
 }
 
 div#main-outlet {
-  padding-top: 0;
+  padding-top: 15px;
   background-color: white;
 }
 

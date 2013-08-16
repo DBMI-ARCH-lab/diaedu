@@ -1,17 +1,3 @@
-(function() {
-  $("body").prepend(
-    '<div class="banner">' + 
-      '<img src="/assets/discourse_diabetes_educators/top-logo.png" />' +
-      '<h1>Diabetes Educator Community</h1>' +
-    '</div>'+
-    '<nav class="kb-main">' + 
-      '<a href="/kb" class="active">Knowledge Base</a>' +
-      '<a href="/">Community</a>' +
-      '<a href="/kb/about">About</a>' +
-    '</nav>'
-  );
-}).call(this);
-
 Discourse.Route.buildRoutes(function() {
   var router = this;
   this.route('kb_home', {path: '/kb'});
@@ -26,35 +12,13 @@ Discourse.Route.buildRoutes(function() {
   });
 });
 
-$(document).ready(function(){
-  $('nav.kb-main a').click(function(e){
-    $('nav.kb-main a').removeClass('active');
-    $(e.target).addClass('active');
-    Ember.Instrumentation.instrument("kb.bannerLinkClicked", $(e.target).attr('href')); 
-    e.preventDefault();
-  });
-});
-
-Discourse.KbHomeController = Ember.Controller.extend({
-  goToPage: function(link) {
-    $('header.d-header')[link == '/' ? 'show' : 'hide']();
-    $('div#main-outlet').css('padding-top', link == '/' ? '75px' : '0');
-    this.transitionTo(link);
-  }
-});
 
 Discourse.KbHomeRoute = Discourse.Route.extend({
-  setupController: function(controller, model) {
-    Ember.Instrumentation.subscribe("kb.bannerLinkClicked", {
-      before: function(name, timestamp, payload) {
-        controller.send('goToPage', payload);
-      },
-      after: function() {}
-    });
-  },
-
   renderTemplate: function() {
     this.render('discourse_diabetes_educators/templates/home/index');
+  },
+  setupController: function(controller, model) {
+    controller.set('foo', 'bar');
   }
 });
 
@@ -75,4 +39,16 @@ Discourse.KbGoalsRoute = Discourse.Route.extend({
     this.render('discourse_diabetes_educators/templates/goals/index');
   }
 });
+
+Discourse.HeaderController.reopen({
+  needs: "application",
+
+  isKbActive: function() {
+    return !!this.get('controllers.application.currentPath').match(/^kb_/);
+  }.property('controllers.application.currentPath'),
+
+  isCommunityActive: function() {
+    return !this.get('controllers.application.currentPath').match(/^kb_/);
+  }.property('controllers.application.currentPath')
+})
 
