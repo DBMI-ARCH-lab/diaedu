@@ -4,18 +4,18 @@ div.banner, nav.kb-main, nav.kb-subnav, section.kb-content, footer.kb-footer {
   font-family: 'Lato', sans-serif;
 }
 
-body {
+html {
   background-color: #86A8A5;
 }
 
 div.banner {
-  padding: 30px;
-  height: 80px;
+  padding: 20px;
   background: url('/assets/diaedu/banner-bg.png') repeat-x;
 
   img {
     display: inline-block;
     margin-right: 20px;
+    height: 60px;
   }
 
   h1 {
@@ -47,19 +47,16 @@ nav.kb-main {
 }
 
 nav.kb-subnav {
-  display: none;
-  padding: 20px 10px 0 0;
-  background-color: #86A8A5;
+  display: inline-block;
+  font-size: 15px;
   color: white;
-  font-size: 17px;
-  text-align: right;
-  height: 40px;
+  padding: 10px 0;
 
   a {
     color: white;
     text-decoration: underline;
     display: inline-block;
-    margin: 0 5px;
+    margin-right: 5px;
   }
 }
 
@@ -69,6 +66,12 @@ header.d-header {
   background-color: #86A8A5;
   position: relative;
   margin-bottom: 0;
+
+  /* nav bar should be full width */
+  div.container {
+    width: inherit;
+    padding: 0 20px;
+  }
 
   img.logo-big {
     display: none;
