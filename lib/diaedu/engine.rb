@@ -4,6 +4,7 @@ module Diaedu
   class Engine < Rails::Engine
 
     engine_name 'diaedu'
+    isolate_namespace Diaedu
 
     initializer "diaedu.configure_rails_initialization" do |app|
 
