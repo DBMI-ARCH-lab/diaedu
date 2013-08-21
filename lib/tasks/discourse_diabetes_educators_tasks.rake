@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :discourse_diabetes_educators do
+# task :diaedu do
 #   # Task goes here
 # end

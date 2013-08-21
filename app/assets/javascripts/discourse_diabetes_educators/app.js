@@ -15,7 +15,7 @@ Discourse.Route.buildRoutes(function() {
 
 Discourse.KbHomeRoute = Discourse.Route.extend({
   renderTemplate: function() {
-    this.render('discourse_diabetes_educators/templates/home/index');
+    this.render('diaedu/templates/home/index');
   },
   setupController: function(controller, model) {
     controller.set('foo', 'bar');
@@ -24,19 +24,19 @@ Discourse.KbHomeRoute = Discourse.Route.extend({
 
 Discourse.KbGlycprobsRoute = Discourse.Route.extend({
   renderTemplate: function() {
-    this.render('discourse_diabetes_educators/templates/glycprobs/index');
+    this.render('diaedu/templates/glycprobs/index');
   }
 });
 
 Discourse.KbTriggersRoute = Discourse.Route.extend({
   renderTemplate: function() {
-    this.render('discourse_diabetes_educators/templates/triggers/index');
+    this.render('diaedu/templates/triggers/index');
   }
 });
 
 Discourse.KbGoalsRoute = Discourse.Route.extend({
   renderTemplate: function() {
-    this.render('discourse_diabetes_educators/templates/goals/index');
+    this.render('diaedu/templates/goals/index');
   }
 });
 

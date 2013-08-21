@@ -1,3 +1,3 @@
-DiscourseDiabetesEducators::Engine.routes.draw do
+Diaedu::Engine.routes.draw do
   root(:to => 'home#index')
 end

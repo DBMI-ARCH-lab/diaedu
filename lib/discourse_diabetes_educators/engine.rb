@@ -1,14 +1,14 @@
-require 'discourse_diabetes_educators/plugin'
+require 'diaedu/plugin'
 
-module DiscourseDiabetesEducators
+module Diaedu
   class Engine < Rails::Engine
 
-    engine_name 'discourse_diabetes_educators'
+    engine_name 'diaedu'
 
-    initializer "discourse_diabetes_educators.configure_rails_initialization" do |app|
+    initializer "diaedu.configure_rails_initialization" do |app|
 
       app.config.after_initialize do 
-        DiscoursePluginRegistry.setup(DiscourseDiabetesEducators::Plugin)
+        DiscoursePluginRegistry.setup(Diaedu::Plugin)
       end
     end
 

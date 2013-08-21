@@ -1,2 +1,2 @@
-class DiscourseDiabetesEducators::ApplicationController < ActionController::Base
+class Diaedu::ApplicationController < ActionController::Base
 end

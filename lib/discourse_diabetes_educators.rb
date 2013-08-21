@@ -1,7 +1,7 @@
-require "discourse_diabetes_educators/version"
-require "discourse_diabetes_educators/engine"
-require "discourse_diabetes_educators/plugin"
+require "diaedu/version"
+require "diaedu/engine"
+require "diaedu/plugin"
 
-module DiscourseDiabetesEducators
+module Diaedu
   
 end

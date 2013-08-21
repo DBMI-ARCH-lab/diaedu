@@ -1,1 +1,1 @@
-//= require_tree ./discourse_diabetes_educators
+//= require_tree ./diaedu

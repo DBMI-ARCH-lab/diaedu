@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class DiscourseDiabetesEducatorsTest < ActiveSupport::TestCase
+class DiaeduTest < ActiveSupport::TestCase
   test "truth" do
-    assert_kind_of Module, DiscourseDiabetesEducators
+    assert_kind_of Module, Diaedu
   end
 end

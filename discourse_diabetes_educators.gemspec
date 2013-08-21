@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'discourse_diabetes_educators/version'
+require 'diaedu/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "discourse_diabetes_educators"
-  spec.version       = DiscourseDiabetesEducators::VERSION
+  spec.name          = "diaedu"
+  spec.version       = Diaedu::VERSION
   spec.authors       = ["Thomas Smyth"]
   spec.email         = ["tom@sassafrastech.com"]
   spec.description   = %q{Diabetes Educators knowledgebase plugin for Discourse}

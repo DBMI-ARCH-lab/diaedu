@@ -1,4 +1,4 @@
-class DiscourseDiabetesEducators::HomeController < ApplicationController
+class Diaedu::HomeController < ApplicationController
   def index
   end
 end
