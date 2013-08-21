@@ -18,11 +18,17 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_development_dependency "rails", "3.2.14"
+
+  # these two are used by the dummy application
+  spec.add_dependency "jquery-rails"
+  spec.add_development_dependency "sqlite3"
+
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
 
   # building factories for testing -- stupid and offensive name but it's a good gem :(
-  spec.add_development_dependency "factory_girl_rails", "~> 4.0"
+  spec.add_development_dependency "factory_girl_rails"
 
   # foreign key maintenance
   spec.add_development_dependency 'foreigner'
