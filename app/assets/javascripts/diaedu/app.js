@@ -1,7 +1,7 @@
 Discourse.Route.buildRoutes(function() {
   var router = this;
   this.route('kb_home', {path: '/kb'});
-  this.resource('kb_glycprobs', {path: '/kb/gycemic-problems'}, function() {
+  this.resource('kb_glyprobs', {path: '/kb/glycemic-problems'}, function() {
     this.route('new');
   });
   this.resource('kb_triggers', {path: '/kb/triggers'}, function() {
@@ -22,9 +22,9 @@ Discourse.KbHomeRoute = Discourse.Route.extend({
   }
 });
 
-Discourse.KbGlycprobsRoute = Discourse.Route.extend({
+Discourse.KbGlyprobsRoute = Discourse.Route.extend({
   renderTemplate: function() {
-    this.render('diaedu/templates/glycprobs/index');
+    this.render('diaedu/templates/glyprobs/index');
   }
 });
 
