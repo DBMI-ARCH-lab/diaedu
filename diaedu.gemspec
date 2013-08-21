@@ -20,4 +20,10 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+
+  # building factories for testing -- stupid and offensive name but it's a good gem :(
+  spec.add_development_dependency "factory_girl_rails", "~> 4.0"
+
+  # foreign key maintenance
+  spec.add_development_dependency 'foreigner'
 end
