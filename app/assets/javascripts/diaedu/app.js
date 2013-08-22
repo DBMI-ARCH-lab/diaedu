@@ -63,6 +63,9 @@ Discourse.KbGlyprob.reopenClass({
     return Discourse.ajax("/kb/glycemic-problems").then(function (result) {
       var glyprobs = Em.A();
       result.glyprobs.forEach(function (g) {
+        // TODO do this in i18n instead
+        g.evaluation = g.evaluation.capitalize();
+        
         glyprobs.pushObject(Discourse.KbGlyprob.create(g));
       });
       return glyprobs;
