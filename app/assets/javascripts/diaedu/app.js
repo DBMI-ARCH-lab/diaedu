@@ -18,11 +18,13 @@ Discourse.KbHomeRoute = Discourse.Route.extend({
     this.render('diaedu/templates/home/index');
   },
   setupController: function(controller, model) {
-    controller.set('foo', 'bar');
   }
 });
 
 Discourse.KbGlyprobsRoute = Discourse.Route.extend({
+  model: function() {
+    return Discourse.KbGlyprob.findAll();
+  },
   renderTemplate: function() {
     this.render('diaedu/templates/glyprobs/index');
   }
@@ -52,3 +54,18 @@ Discourse.HeaderController.reopen({
   }.property('controllers.application.currentPath')
 })
 
+Discourse.KbGlyprob = Discourse.Model.extend({
+
+});
+
+Discourse.KbGlyprob.reopenClass({
+  findAll: function() {
+    return Discourse.ajax("/kb/glycemic-problems").then(function (result) {
+      var glyprobs = Em.A();
+      result.glyprobs.forEach(function (g) {
+        glyprobs.pushObject(Discourse.KbGlyprob.create(g));
+      });
+      return glyprobs;
+    });
+  }
+});

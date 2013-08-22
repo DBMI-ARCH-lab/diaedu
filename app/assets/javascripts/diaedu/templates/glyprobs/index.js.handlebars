@@ -1,1 +1,13 @@
-<h1>Glycemic Problems</h1>
+<div class="diaedu">
+  <div class="main">
+    <h1>Glycemic Problems</h1>
+
+    <div class="index-list">
+      {{#each controller}}
+        <div class="index-row">
+          {{event.name}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
