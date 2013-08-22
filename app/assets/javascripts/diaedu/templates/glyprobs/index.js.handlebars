@@ -6,21 +6,33 @@
     </h1>
 
     <div class="index-list">
-      {{#each controller}}
+      {{#each glyprob in controller.paginatedContent}}
         <div class="index-row">
           <div class="stat">
-            {{likes}}
+            {{glyprob.likes}}
             <small>Likes</small>
           </div>
           <div class="stat">
-            {{comments}}
+            {{glyprob.comments}}
             <small>Comments</small>
           </div>
           <div class="main-cell">
-            <a href="#">{{evaluation}} {{event.name}}</a>
+            <a href="#">{{glyprob.evaluation}} {{glyprob.event.name}}</a>
           </div>
         </div>
       {{/each}}
+    </div>
+
+    <div class="pagination">
+      <table>
+        <tr>
+          <td class="prev">{{#linkTo 'kb_glyprobs.page' prevPage target="controller"}}&lt; Prev{{/linkTo}}</td>
+          {{#each pages}}
+            {{view Discourse.PaginationView contentBinding="this"}}
+          {{/each}}
+          <td class="next">{{#linkTo 'kb_glyprobs.page' nextPage target="controller"}}Next &gt;{{/linkTo}}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

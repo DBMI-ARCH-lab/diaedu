@@ -5,6 +5,7 @@ div.diaedu-content {
 
   div.main {
     margin-left: 250px;
+    max-width: 800px;
 
     h1 {
       margin-bottom: 20px;
@@ -18,7 +19,8 @@ div.diaedu-content {
 
     div.index-list {
       display: table;
-      width: 700px;
+      width: 100%;
+      margin-bottom: 20px;
 
       div.index-row {
         display: table-row;
@@ -45,6 +47,39 @@ div.diaedu-content {
 
         div.main-cell {
           width: 100%;
+        }
+      }
+    }
+
+    div.pagination {
+      margin-bottom: 40px;
+      table {
+        float: right;
+
+        td {
+          padding: 0;
+          text-align: center;
+          border: 1px solid #aaa;
+
+          &:hover {
+            background-color: #eee;
+          }
+
+          a {
+            display: block;
+            width: 30px;
+            height: 23px;
+            color: #4F7771;
+            padding-top: 5px;
+
+            &.active {
+              background-color: #E4EDEF;
+            }
+          }
+
+          &.prev a, &.next a {
+            width: 60px;
+          }
         }
       }
     }
