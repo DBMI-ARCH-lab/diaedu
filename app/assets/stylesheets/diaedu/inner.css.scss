@@ -1,0 +1,52 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900);
+
+div.diaedu-content {
+  padding: 10px 20px 30px 20px;
+
+  div.main {
+    margin-left: 250px;
+
+    h1 {
+      margin-bottom: 20px;
+
+      img {
+        display: inline-block;
+        height: 27px;
+        margin: 0 10px 3px 0;
+      }
+    }
+
+    div.index-list {
+      display: table;
+      width: 700px;
+
+      div.index-row {
+        display: table-row;
+        
+        &:hover {
+          background-color: #eee;
+        }
+
+        > div {
+          display: table-cell;
+          border-bottom: 1px solid #ccc;
+          padding: 8px;
+        }
+
+        div.stat {
+          text-align: center;
+          line-height: 12px;
+
+          small {
+            display: block;
+
+          }
+        }
+
+        div.main-cell {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

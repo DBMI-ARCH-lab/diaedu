@@ -1,0 +1,174 @@
+/* these are styles for the template, including the custom banner and some overrides for existing discourse styles */
+
+/* use the Lato font for most header and template stuff */
+div.banner, nav.kb-main, nav.kb-subnav, section.kb-content, footer.kb-footer, body h1, body h2, body h3 {
+  font-family: 'Lato', sans-serif;
+}
+
+html {
+  background-color: #86A8A5;
+}
+
+div.banner {
+  padding: 20px;
+  background: url('/assets/diaedu/banner-bg.png') repeat-x;
+
+  img {
+    display: inline-block;
+    margin-right: 20px;
+    height: 60px;
+  }
+
+  h1 {
+    display: inline-block;
+    color: #6D6D6D;
+    vertical-align: middle;
+    font-size: 28pt;
+  }
+}
+
+nav.kb-main {
+  padding: 20px;
+  background-color: #686868;
+
+  > span {
+    display: inline-block;
+    margin-right: 50px;
+
+    &.active a {
+      color: #FC8C30;
+    }
+
+    a {
+      text-transform: uppercase;
+      font-size: 15px;
+      color: white;
+    }
+  }
+}
+
+nav.kb-subnav {
+  display: inline-block;
+  font-size: 15px;
+  color: white;
+  padding: 10px 0;
+
+  a {
+    color: white;
+    text-decoration: underline;
+    display: inline-block;
+    margin-right: 5px;
+  }
+}
+
+header.d-header {
+  box-shadow: none;
+  border: none;
+  background-color: #86A8A5;
+  position: relative;
+  margin-bottom: 0;
+
+  /* nav bar should be full width */
+  div.container {
+    width: inherit;
+    padding: 0 20px;
+  }
+
+  img.logo-big {
+    display: none;
+  }
+
+  div.panel ul.icons .icon {
+    background-color: white;
+  }
+
+  span.username a {
+    color: white;
+  }
+}
+
+div#main-outlet {
+  padding-top: 15px;
+  background-color: white;
+}
+
+section.kb-content {
+  color: #888;
+  background-color: white;
+}
+
+div.slogan {
+  background-color: white;
+
+  > div {
+    width: 750px;
+    margin: 0 auto;
+    padding: 50px 0;
+    line-height: 35px;
+    font-size: 26px;
+
+    em.first {
+      color: black;
+    }
+
+    em.second {
+      color: #FC8C30;
+    }
+  }
+}
+
+div.flow-area {
+  background-color: #eee;
+  padding-bottom: 30px;
+
+  div.chevron-divider {
+    text-align: center;
+    background: url(/assets/diaedu/divider.png) repeat-x;
+  }
+
+  div.start-by {
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  div.flow {
+    text-align: center;
+
+    div.step {
+      display: inline-block;
+      text-align: center;
+
+      img {
+        display: inline-block;
+        margin-bottom: 5px;
+      }
+    }
+
+    /* arrows */
+    > img {
+      display: inline-block;
+      margin: 50px 40px 0 40px;
+      vertical-align: top;
+    }
+  }
+
+  div.start-button {
+    margin: 15px auto 0 auto;
+    width: 540px;
+  }
+}
+
+footer.kb-footer {
+  border-top: 10px solid #ddd;
+  padding-top: 40px;
+  text-align: center;
+  background-color: #86A8A5;
+  color: white;
+
+  p {
+    margin: 0 0 20px 0;
+  }
+}
