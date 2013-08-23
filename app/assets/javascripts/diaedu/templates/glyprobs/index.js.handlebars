@@ -3,10 +3,13 @@
     <h1>
       <img src="/assets/diaedu/glyprobs-active.png" />
       Glycemic Problems
+      {{#if loading}}
+        <img src="/assets/diaedu/loader-lg.gif" />
+      {{/if}}
     </h1>
 
     <div class="index-list">
-      {{#each glyprob in controller.paginatedContent}}
+      {{#each glyprob in objs}}
         <div class="index-row">
           <div class="stat">
             {{glyprob.likes}}
@@ -23,16 +26,22 @@
       {{/each}}
     </div>
 
-    <div class="pagination">
-      <table>
-        <tr>
-          <td class="prev">{{#linkTo 'kb_glyprobs.page' prevPage target="controller"}}&lt; Prev{{/linkTo}}</td>
-          {{#each pages}}
-            {{view Discourse.PaginationView contentBinding="this"}}
+    {{#if multiple_pages}}
+      <div class="pagination">
+        <table><tr>
+          {{#each page in other_pages}}
+            {{#if page.is_gap}}
+              <td class="gap"><div>...</div></td>
+            {{else}}
+              {{#if page.is_active}}
+                <td class="active"><div>{{page.page_id}}</div></td>
+              {{else}}
+                <td>{{#linkTo 'kb_glyprobs.page' page}}{{page.page_id}}{{/linkTo}}</td>
+              {{/if}}
+            {{/if}}
           {{/each}}
-          <td class="next">{{#linkTo 'kb_glyprobs.page' nextPage target="controller"}}Next &gt;{{/linkTo}}</td>
-        </tr>
-      </table>
-    </div>
-  </div>
+        </tr></table>
+      </div>
+    {{/if}}
+
 </div>

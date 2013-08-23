@@ -65,20 +65,24 @@ div.diaedu-content {
             background-color: #eee;
           }
 
-          a {
+          div, a {
             display: block;
             width: 30px;
             height: 23px;
             color: #4F7771;
             padding-top: 5px;
-
-            &.active {
-              background-color: #E4EDEF;
-            }
           }
 
           &.prev a, &.next a {
             width: 60px;
+          }
+
+          &.active div {
+            background-color: #E4EDEF;
+          }
+
+          &.gap:hover {
+            background-color: inherit;
           }
         }
       }
