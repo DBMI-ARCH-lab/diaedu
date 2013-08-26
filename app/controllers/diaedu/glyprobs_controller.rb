@@ -11,7 +11,7 @@ module Diaedu
       sleep(0.25) if Rails.env == 'development'
       
       render(:json => {
-        :objs => Diaedu::Glyprob.by_event_name.offset((page - 1) * PER_PAGE).limit(PER_PAGE).all.as_json(:include => :event),
+        :objs => Diaedu::Glyprob.includes(:tags).by_event_name.offset((page - 1) * PER_PAGE).limit(PER_PAGE).all.as_json(:include => [:event, :tags]),
         :per_page => PER_PAGE,
         :total_count => Diaedu::Glyprob.count
       })

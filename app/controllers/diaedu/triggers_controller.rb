@@ -11,7 +11,7 @@ module Diaedu
       sleep(0.25) if Rails.env == 'development'
       
       render(:json => {
-        :objs => Diaedu::Trigger.offset((page - 1) * PER_PAGE).limit(PER_PAGE).all.as_json(),
+        :objs => Diaedu::Trigger.includes(:tags).offset((page - 1) * PER_PAGE).limit(PER_PAGE).all.as_json(:include => :tags),
         :per_page => PER_PAGE,
         :total_count => Diaedu::Trigger.count
       })

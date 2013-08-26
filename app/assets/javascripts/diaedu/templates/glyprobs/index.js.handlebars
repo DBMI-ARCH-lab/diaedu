@@ -9,18 +9,26 @@
     </h1>
 
     <div class="index-list">
-      {{#each obj in objs}}
+      {{#each objs}}
         <div class="index-row">
-          <div class="stat">
-            {{obj.likes}}
+          <div class="stat likes">
+            {{likes}}
             <small>Likes</small>
           </div>
-          <div class="stat">
-            {{obj.comments}}
+          <div class="stat comments">
+            {{comments}}
             <small>Comments</small>
           </div>
           <div class="main-cell">
-            <a href="#">{{obj.name}}</a>
+            <a href="#">{{name}}</a>
+            <div class="tags">
+              {{#each firstNTags}}
+                <span>{{name}}</span>
+              {{/each}}
+              {{#if hasMoreTags}}
+                <small>+{{moreTagCount}} more</small>
+              {{/if}}
+            </div>
           </div>
         </div>
       {{/each}}
