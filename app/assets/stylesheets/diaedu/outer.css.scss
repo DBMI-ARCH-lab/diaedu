@@ -58,6 +58,10 @@ nav.kb-subnav {
     text-decoration: underline;
     display: inline-block;
     margin-right: 5px;
+
+    &.active {
+      color: #CEEEE8;
+    }
   }
 }
 

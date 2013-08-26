@@ -1,5 +1,5 @@
 <nav class="kb-subnav">
-  {{#each dataType in dataTypes}}
-    <span {{bindAttr class="isGlyprobsActive:active"}}>{{#linkTo 'kb_obj' dataType}}{{dataType.title}}{{/linkTo}}</span>
+  {{#each dataTypes}}
+    {{#linkTo 'kb_obj' this}}{{title}}{{/linkTo}}
   {{/each}}
 </nav>
