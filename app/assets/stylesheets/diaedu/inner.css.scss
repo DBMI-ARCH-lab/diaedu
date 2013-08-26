@@ -9,10 +9,11 @@ div.diaedu-content {
 
     h1 {
       margin-bottom: 20px;
+      height: 50px;
 
-      img {
+      img:first-child {
         display: inline-block;
-        height: 27px;
+        width: 50px;
         margin: 0 10px 3px 0;
       }
     }
