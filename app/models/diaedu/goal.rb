@@ -2,7 +2,8 @@ module Diaedu
   class Goal < ActiveRecord::Base
     has_many(:trigger_goals, :class_name => 'Diaedu::TriggerGoal', :foreign_key => 'goal_id', :dependent => :destroy, :autosave => true)
     has_many(:triggers, :class_name => 'Diaedu::Trigger', :through => :trigger_goals)
-    has_many(:tags, :as => :taggable)
+    has_many(:taggings, :as => :taggable)
+    has_many(:tags, :through => :taggings)
 
     def as_json(options = {})
       # spoof the likes and comments attribs for now

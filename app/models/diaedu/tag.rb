@@ -1,5 +1,6 @@
 module Diaedu
   class Tag < ActiveRecord::Base
-    belongs_to(:taggable, :polymorphic => true)
+    has_many(:taggings, :class_name => 'Diaedu::Tagging')
+    has_many(:taggables, :through => :taggings)
   end
 end

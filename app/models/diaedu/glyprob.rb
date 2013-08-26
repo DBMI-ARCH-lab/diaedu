@@ -3,7 +3,8 @@ module Diaedu
     belongs_to(:event, :class_name => 'Diaedu::Event')
     has_many(:glyprob_triggers, :class_name => 'Diaedu::GlyprobTrigger', :foreign_key => 'glyprob_id', :dependent => :destroy, :autosave => true)
     has_many(:triggers, :class_name => 'Diaedu::Trigger', :through => :glyprob_triggers)
-    has_many(:tags, :as => :taggable)
+    has_many(:taggings, :as => :taggable)
+    has_many(:tags, :through => :taggings)
 
     scope(:by_event_name, includes(:event).order('diaedu_events.name, evaluation'))
 
