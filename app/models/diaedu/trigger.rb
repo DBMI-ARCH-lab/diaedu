@@ -4,6 +4,7 @@ module Diaedu
     has_many(:glyprobs, :class_name => "Diaedu::Glyprob", :through => :glyprob_triggers)
     has_many(:trigger_goals, :class_name => "Diaedu::TriggerGoal", :foreign_key => 'trigger_id', :dependent => :destroy, :autosave => true)
     has_many(:goals, :class_name => "Diaedu::Goal", :through => :trigger_goals)
+    has_many(:tags, :as => :taggable)
 
     def as_json(options = {})
       # spoof the likes and comments attribs for now
