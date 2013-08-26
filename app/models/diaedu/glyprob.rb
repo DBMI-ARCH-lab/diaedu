@@ -6,9 +6,14 @@ module Diaedu
 
     scope(:by_event_name, includes(:event).order('diaedu_events.name, evaluation'))
 
+    def name
+      "#{evaluation.capitalize} #{event.name.downcase}"
+    end
+
     def as_json(options = {})
+      srand(id)
       # spoof the likes and comments attribs for now
-      super(options).merge(:likes => rand(30), :comments => rand(15))
+      super(options).merge(:likes => rand(30), :comments => rand(15), :name => name)
     end
   end
 end

@@ -7,5 +7,9 @@ Discourse.HeaderController.reopen({
 
   isCommunityActive: function() {
     return !this.get('controllers.application.currentPath').match(/^kb_/);
-  }.property('controllers.application.currentPath')
+  }.property('controllers.application.currentPath'),
+
+  dataTypes: function() {
+    return Discourse.KbDataType.all();
+  }.property()
 })

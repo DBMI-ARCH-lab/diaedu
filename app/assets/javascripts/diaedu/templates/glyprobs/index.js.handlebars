@@ -1,26 +1,26 @@
 <div class="diaedu-content">
   <div class="main">
     <h1>
-      <img src="/assets/diaedu/glyprobs-active.png" />
-      Glycemic Problems
+      <img {{bindAttr src="iconPath"}} />
+      {{data_type.title}}
       {{#if loading}}
         <img src="/assets/diaedu/loader-lg.gif" />
       {{/if}}
     </h1>
 
     <div class="index-list">
-      {{#each glyprob in objs}}
+      {{#each obj in objs}}
         <div class="index-row">
           <div class="stat">
-            {{glyprob.likes}}
+            {{obj.likes}}
             <small>Likes</small>
           </div>
           <div class="stat">
-            {{glyprob.comments}}
+            {{obj.comments}}
             <small>Comments</small>
           </div>
           <div class="main-cell">
-            <a href="#">{{glyprob.evaluation}} {{glyprob.event.name}}</a>
+            <a href="#">{{obj.name}}</a>
           </div>
         </div>
       {{/each}}
@@ -36,7 +36,7 @@
               {{#if page.is_active}}
                 <td class="active"><div>{{page.page_id}}</div></td>
               {{else}}
-                <td>{{#linkTo 'kb_glyprobs.page' page}}{{page.page_id}}{{/linkTo}}</td>
+                <td>{{#linkTo 'kb_obj.page' data_type page}}{{page.page_id}}{{/linkTo}}</td>
               {{/if}}
             {{/if}}
           {{/each}}

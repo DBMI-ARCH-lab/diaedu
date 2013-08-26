@@ -1,11 +1,11 @@
-Discourse.KbGlyprobPage = Discourse.Model.extend({
+Discourse.KbObjPage = Discourse.Model.extend({
   page_id: null,
   is_active: false,
   objs: null,
   other_pages: null,
 
   get_stub: function(page_id) {
-    return Discourse.KbGlyprobPage.create({page_id: page_id})
+    return Discourse.KbObjPage.create({page_id: page_id})
   },
 
   multiple_pages: function() {
@@ -13,11 +13,11 @@ Discourse.KbGlyprobPage = Discourse.Model.extend({
   }.property('other_pages')
 });
 
-Discourse.KbGlyprobPage.reopenClass({
-  find: function(page_id) {
+Discourse.KbObjPage.reopenClass({
+  find: function(data_type, page_id) {
     page_id = parseInt(page_id);
 
-    return Discourse.ajax("/kb/glycemic-problems/page/" + page_id).then(function (data) {
+    return Discourse.ajax("/kb/" + data_type.name + "/page/" + page_id).then(function (data) {
 
       // compute how many pages there will be and generate stub Page objects for them
       var page_count = Math.ceil(data.total_count / data.per_page);
@@ -27,20 +27,17 @@ Discourse.KbGlyprobPage.reopenClass({
         page_id = page_count;
 
       // start the obj
-      var this_page = Discourse.KbGlyprobPage.create({
+      var this_page = Discourse.KbObjPage.create({
         page_id: page_id, 
         is_active: true,
         objs: Em.A(),
         other_pages: Em.A()
       });
 
-      // create the glyprobs
+      // create the Objs
       data.objs.forEach(function (g) {
-        // TODO do this in i18n instead
-        g.evaluation = g.evaluation.capitalize();
-
-        // create glyprob object from returned JSON and add to this page
-        this_page.objs.pushObject(Discourse.KbGlyprob.create(g));
+        // create Obj object from returned JSON and add to this page
+        this_page.objs.pushObject(Discourse.KbObj.create(g));
       });
 
       // insert the current page

@@ -1,5 +1,5 @@
 <nav class="kb-subnav">
-	<span {{bindAttr class="isGlyprobsActive:active"}}>{{#linkTo 'kb_glyprobs'}}Glycemic Problems{{/linkTo}}</span> |
-	<span {{bindAttr class="isGlyprobsActive:active"}}>{{#linkTo 'kb_glyprobs'}}Triggers{{/linkTo}}</span> |
-	<span {{bindAttr class="isGlyprobsActive:active"}}>{{#linkTo 'kb_glyprobs'}}Goals{{/linkTo}}</span>
+  {{#each dataType in dataTypes}}
+    <span {{bindAttr class="isGlyprobsActive:active"}}>{{#linkTo 'kb_obj' dataType}}{{dataType.title}}{{/linkTo}}</span>
+  {{/each}}
 </nav>
