@@ -42,7 +42,6 @@ div.diaedu-content {
 
           small {
             display: block;
-
           }
 
           &.likes {
@@ -60,6 +59,7 @@ div.diaedu-content {
           
           div.tags {
             float: right;
+            margin-top: 4px;
 
             span {
               display: inline-block;
