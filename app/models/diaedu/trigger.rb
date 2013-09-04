@@ -16,6 +16,9 @@ module Diaedu
       if filter[:goals]
         rel = rel.includes(:trigger_goals).where('diaedu_trigger_goals.goal_id' => filter[:goals])
       end
+      if filter[:tags]
+        rel = rel.includes(:taggings).where('diaedu_taggings.tag_id' => filter[:tags])
+      end
       return rel
     end
 
