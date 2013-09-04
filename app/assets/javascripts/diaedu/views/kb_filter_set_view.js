@@ -1,3 +1,3 @@
 Discourse.KbFilterSetView = Discourse.View.extend({
-  templateName: 'diaedu/templates/kb_filter_set'
+  templateName: 'diaedu/templates/filter_set'
 });
