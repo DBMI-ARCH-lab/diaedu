@@ -4,6 +4,8 @@ module Diaedu
   class TriggersController < ::ApplicationController
     PER_PAGE = 10
 
+    before_filter(:parse_filter_params, :only => :index)
+
     def index
       page = params[:page].to_i || 1
 
@@ -16,5 +18,10 @@ module Diaedu
         :total_count => Diaedu::Trigger.count
       })
     end
+
+    private
+      def parse_filter_params
+        @filter = Diaedu::Filter.new(params[:filter_params])
+      end
   end
 end
