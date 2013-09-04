@@ -1,7 +1,8 @@
 Discourse.KbObjPageRoute = Discourse.Route.extend({
   model: function(params) {
+    console.log(params.filter_params)
     // on first load, create empty shell that will be updated by setupController
-    return Discourse.KbObjPage.create({page_id: params.page_id});
+    return Discourse.KbObjPage.create({page_id: params.page_id, filter_params: params.filter_params});
   },
 
   setupController: function(controller, model) {
@@ -28,6 +29,6 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
   },
     
   serialize: function(model) {
-    return {data_type: this.modelFor('kb_obj').name, page_id: model.page_id};
+    return {data_type: this.modelFor('kb_obj').name, page_id: model.page_id, filter_params: model.filter_params};
   }
 });
