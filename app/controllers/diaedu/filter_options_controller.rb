@@ -14,8 +14,8 @@ module Diaedu
         block_data << Diaedu::Trigger.related_objects(filter_type, filter)
       end
 
-      # TODO use proper json option to reduce data size
-      render(:json => block_data)
+      # use as_json option to reduce data size
+      render(:json => block_data.as_json(:id_name_only => true))
     end
   end
 end

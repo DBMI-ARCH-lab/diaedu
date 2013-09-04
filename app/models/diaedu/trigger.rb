@@ -25,10 +25,11 @@ module Diaedu
     # gets an array of related objects of the given type, based on the given filter
     def self.related_objects(type, filter)
       # first get all triggers with given filter applied, and including the appropriate association
+      # TODO fix n+1 with events here
       filtered = filter_with(filter).includes(type).all
 
       # now scan through each retrieved object and load the matching related object data into an array
-      objs = filtered.map{|o| o.send(type)}.flatten
+      objs = filtered.map{|o| o.send(type)}.flatten.uniq
 
       {:type => type, :objs => objs}
     end

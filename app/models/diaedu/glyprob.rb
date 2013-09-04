@@ -13,9 +13,13 @@ module Diaedu
     end
 
     def as_json(options = {})
-      srand(id)
-      # spoof the likes and comments attribs for now
-      super(options).merge(:likes => rand(30), :comments => rand(15), :name => name)
+      if options[:id_name_only]
+        {:id => id, :name => name}
+      else
+        srand(id)
+        # spoof the likes and comments attribs for now
+        super(options).merge(:likes => rand(30), :comments => rand(15), :name => name)
+      end
     end
   end
 end
