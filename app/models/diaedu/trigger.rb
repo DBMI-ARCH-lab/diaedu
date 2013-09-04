@@ -13,6 +13,9 @@ module Diaedu
       if filter[:glyprobs]
         rel = rel.includes(:glyprob_triggers).where('diaedu_glyprob_triggers.glyprob_id' => filter[:glyprobs])
       end
+      if filter[:goals]
+        rel = rel.includes(:trigger_goals).where('diaedu_trigger_goals.goal_id' => filter[:goals])
+      end
       return rel
     end
 
