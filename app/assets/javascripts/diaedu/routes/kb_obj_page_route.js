@@ -1,6 +1,5 @@
 Discourse.KbObjPageRoute = Discourse.Route.extend({
   model: function(params) {
-    console.log(params.filter_params)
     // on first load, create empty shell that will be updated by setupController
     return Discourse.KbObjPage.create({page_id: params.page_id, filter_params: params.filter_params});
   },
