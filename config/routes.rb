@@ -9,4 +9,5 @@ Diaedu::Engine.routes.draw do
   resources(:goals, :path => 'goals')
   match('/goals/page/:page' => 'goals#index')
   match('/goals/:filter_params/page/:page' => 'goals#index')
+  match('/filter-options' => 'filter_options#fetch')
 end
