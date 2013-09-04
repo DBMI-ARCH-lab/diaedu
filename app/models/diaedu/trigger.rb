@@ -24,7 +24,13 @@ module Diaedu
 
     # gets an array of related objects of the given type, based on the given filter
     def self.related_objects(type, filter)
-      {:type => type, :objs => []}
+      # first get all triggers with given filter applied, and including the appropriate association
+      filtered = filter_with(filter).includes(type).all
+
+      # now scan through each retrieved object and load the matching related object data into an array
+      objs = filtered.map{|o| o.send(type)}.flatten
+
+      {:type => type, :objs => objs}
     end
 
     def as_json(options = {})
