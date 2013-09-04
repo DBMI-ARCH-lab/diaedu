@@ -22,6 +22,11 @@ module Diaedu
       return rel
     end
 
+    # gets an array of related objects of the given type, based on the given filter
+    def self.related_objects(type, filter)
+      {:type => type, :objs => []}
+    end
+
     def as_json(options = {})
       # spoof the likes and comments attribs for now
       srand(id)
