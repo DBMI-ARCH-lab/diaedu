@@ -1,7 +1,8 @@
 Discourse.KbDataType = Discourse.Model.extend({
   name: null,
   shortName: null,
-  title: null
+  title: null,
+  filterTypes: null
 });
 
 Discourse.KbDataType.reopenClass({
@@ -25,7 +26,8 @@ Discourse.KbDataType.reopenClass({
     'triggers': Discourse.KbDataType.create({
       name: 'triggers',
       shortName: 'triggers',
-      title: 'Triggers'
+      title: 'Triggers',
+      filterTypes: ['glyprobs', 'goals', 'tags']
     }),
     'goals': Discourse.KbDataType.create({
       name: 'goals',

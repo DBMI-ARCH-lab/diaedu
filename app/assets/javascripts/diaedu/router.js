@@ -4,4 +4,6 @@ Discourse.Route.buildRoutes(function() {
   this.resource('kb_obj', {path: '/kb/:data_type'}, function() {
     this.route('page', {path: '/:filter_params/page/:page_id'});
   });
+
+  this.route('kb_filter_set');
 });

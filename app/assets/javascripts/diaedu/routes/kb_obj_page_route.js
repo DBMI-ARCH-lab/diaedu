@@ -11,7 +11,7 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
     // pass the data type to the controller
     var data_type = this.modelFor('kb_obj');
     controller.set('data_type', data_type);
-    
+
     // if the model is just a shell, populate it
     if (!model.objs) {
       Discourse.KbObjPage.find(data_type, model.page_id, model.filter_params).then(function(loaded){
@@ -21,6 +21,9 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
         console.log("FETCH ERROR:", e.message)
       });
     }
+
+    //var filterTypes = data_type.get('filterTypes');
+    //var filterBlocks = Discourse.KbFilterSet.generateBlocks(filterTypes);
   },
 
   renderTemplate: function() {
