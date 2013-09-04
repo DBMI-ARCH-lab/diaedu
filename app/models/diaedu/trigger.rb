@@ -7,6 +7,15 @@ module Diaedu
     has_many(:taggings, :as => :taggable)
     has_many(:tags, :through => :taggings)
 
+    # returns a Relation including where clauses that implement the given filter
+    def self.filter_with(filter)
+      rel = scoped
+      if filter[:glyprobs]
+        rel = rel.includes(:glyprob_triggers).where('diaedu_glyprob_triggers.glyprob_id' => filter[:glyprobs])
+      end
+      return rel
+    end
+
     def as_json(options = {})
       # spoof the likes and comments attribs for now
       srand(id)
