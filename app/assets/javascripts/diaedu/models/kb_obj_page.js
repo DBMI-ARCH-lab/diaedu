@@ -3,9 +3,10 @@ Discourse.KbObjPage = Discourse.Model.extend({
   is_active: false,
   objs: null,
   other_pages: null,
+  filter_params: null,
 
   get_stub: function(page_id) {
-    return Discourse.KbObjPage.create({page_id: page_id})
+    return Discourse.KbObjPage.create({page_id: page_id, filter_params: this.get('filter_params')});
   },
 
   multiple_pages: function() {
@@ -14,10 +15,10 @@ Discourse.KbObjPage = Discourse.Model.extend({
 });
 
 Discourse.KbObjPage.reopenClass({
-  find: function(data_type, page_id) {
+  find: function(data_type, page_id, filter_params) {
     page_id = parseInt(page_id);
 
-    return Discourse.ajax("/kb/" + data_type.name + "/page/" + page_id).then(function (data) {
+    return Discourse.ajax("/kb/" + data_type.name + "/" + filter_params + "/page/" + page_id).then(function (data) {
 
       // compute how many pages there will be and generate stub Page objects for them
       var page_count = Math.ceil(data.total_count / data.per_page);
@@ -29,6 +30,7 @@ Discourse.KbObjPage.reopenClass({
       // start the obj
       var this_page = Discourse.KbObjPage.create({
         page_id: page_id, 
+        filter_params: filter_params,
         is_active: true,
         objs: Em.A(),
         other_pages: Em.A()

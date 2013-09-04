@@ -15,7 +15,7 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
     
     // if the model is just a shell, populate it
     if (!model.objs) {
-      Discourse.KbObjPage.find(data_type, model.page_id).then(function(loaded){
+      Discourse.KbObjPage.find(data_type, model.page_id, model.filter_params).then(function(loaded){
         controller.set('model', loaded);
         controller.set('loading', false);
       }, function(e) {
