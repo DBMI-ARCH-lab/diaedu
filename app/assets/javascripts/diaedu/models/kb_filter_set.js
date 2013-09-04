@@ -10,7 +10,12 @@ Discourse.KbFilterSet.reopenClass({
   generate: function(filterTypes, filterParams) {
     // call the backend asking for filter options matching the given filterTypes and filterParams
     return Discourse.ajax("/kb/filter-options", {data: {filter_types: filterTypes, filter_params: filterParams}}).then(function (data) {
-      return Discourse.KbFilterSet.create({blocks: [], count: filterTypes.length});
+      
+      // build block objects
+      var blocks = data.filter_options.map(function(blockData){ return Discourse.KbFilterBlock.create({data: blockData}); });
+
+      // build and return set object
+      return Discourse.KbFilterSet.create({ blocks: blocks });
     });
   }
 });

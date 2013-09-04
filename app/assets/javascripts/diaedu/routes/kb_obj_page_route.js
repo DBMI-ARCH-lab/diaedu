@@ -29,6 +29,8 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
     var filterTypes = data_type.get('filterTypes');
     Discourse.KbFilterSet.generate(filterTypes, model.filter_params).then(function(filterSet){
       controller.set('filterSet', filterSet);  
+    }, function(e) {
+        console.log("FETCH ERROR:", e.message)
     });
   },
 
