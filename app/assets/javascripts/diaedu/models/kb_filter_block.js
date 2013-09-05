@@ -6,6 +6,11 @@ Discourse.KbFilterBlock = Discourse.Model.extend({
   // false iff any of the isChecked fields inside items is true
   noneChecked: true,
 
+  // returns translated filter block title
+  title: function(){
+    return I18n.t('kb.filter.title.' + this.get('type'));
+  }.property('type'),
+
   init: function() {
     this._super();
 
