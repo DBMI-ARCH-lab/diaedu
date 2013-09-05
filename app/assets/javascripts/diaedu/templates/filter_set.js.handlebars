@@ -1,8 +1,13 @@
 {{#each blocks}}
   <div class="filter">
     {{type}}
-    {{#each objs}}
-      {{name}}
+    {{#each items}}
+      <div>
+        {{input type="checkbox" checked=isChecked}}
+        {{#with obj}}
+          {{name}}
+        {{/with}}
+      </div>
     {{/each}}
   </div>
 {{/each}}
