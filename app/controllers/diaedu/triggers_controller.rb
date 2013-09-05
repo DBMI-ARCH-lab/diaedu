@@ -21,7 +21,7 @@ module Diaedu
 
     private
       def parse_filter_params
-        @filter = Diaedu::Filter.new(params[:filter_params])
+        @filter = Diaedu::Filter.new(:param_str => params[:filter_params])
       end
   end
 end

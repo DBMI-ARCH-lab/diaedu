@@ -5,13 +5,13 @@ module Diaedu
   class FilterOptionsController < ::ApplicationController
     def fetch
       # parse filter params into Filter object
-      filter = Diaedu::Filter.new(params[:filter_params])
+      filter = Diaedu::Filter.new(:param_str => params[:filter_params])
 
       block_data = []
 
       params[:filter_types].each do |filter_type|
         # for each filter type, fetch all possible related objects from appropriate model
-        block_data << Diaedu::Trigger.related_objects(filter_type, filter)
+        block_data << Diaedu::Trigger.related_objects(filter_type.to_sym, filter)
       end
 
       # use as_json option to reduce data size

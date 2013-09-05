@@ -23,16 +23,18 @@ module Diaedu
     end
 
     # gets an array of related objects of the given type, based on the given filter
+    # should return only those related objects that 
     def self.related_objects(type, filter)
-      # first get all triggers with given filter applied, and including the appropriate association
+      # first get all triggers with given filter applied, but WITHOUT the portion of the filter for the given type
+      # including the appropriate associations
       # TODO fix n+1 with events here
-      filtered = filter_with(filter).includes(type).all
+      filtered = filter_with(filter.without(type)).includes(type).all
 
       # now scan through each retrieved object and load the matching related object data into an array
       objs = filtered.map{|o| o.send(type)}.flatten.uniq
 
       # get the ids (strings) of all objects that are selected in the filter
-      checked = filter[type.to_sym] || []
+      checked = filter[type] || []
 
       # go through each item and mark if it should be checked
       items = objs.map{|o| {:isChecked => checked.include?(o.id.to_s), :obj => o}}
