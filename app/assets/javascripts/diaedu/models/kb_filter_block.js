@@ -33,7 +33,7 @@ Discourse.KbFilterBlock.reopen({
   // observe noneChecked to make sure items.isChecked is kept accurate
   noneCheckedChanged: function() {
     // if noneChecked just became checked, set all isChecked for items to false
-    if (this.get('noneChecked'))con
+    if (this.get('noneChecked'))
       this.get('items').forEach(function(i){ i.set('isChecked', false); });
   }.observes('noneChecked')
 });
