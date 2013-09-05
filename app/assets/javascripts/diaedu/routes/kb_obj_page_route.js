@@ -12,9 +12,6 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
     var data_type = this.modelFor('kb_obj');
     controller.set('data_type', data_type);
 
-    // parse the filter params into a filter object
-    var currentFilter = Discourse.KbFilter.create({param_str: model.filter_params});
-
     // if the model is just a shell, populate it
     if (!model.objs) {
       Discourse.KbObjPage.find(data_type, model.page_id, model.filter_params).then(function(loaded){
