@@ -9,12 +9,20 @@ Discourse.KbFilterSet = Discourse.Model.extend({
   serialize: function() {
     var chunks = [];
     this.get('blocks').forEach(function(block){
+      
+      // if the noneChecked flag is set, we stop
+      if (block.noneChecked)
+        return;
+
+      // get the selected ids
       var ids = block.items.filter(function(i){ return i.isChecked; }).map(function(i){ return i.obj.id; });
+
+      // if any are selected, add a chunk
       if (ids.length > 0)
         chunks.push(block.type + '-' + ids.join(','));
     });
 
-    return chunks.join('-');
+    return chunks.length == 0 ? 'all' : chunks.join('-');
   }
 });
 
@@ -23,7 +31,7 @@ Discourse.KbFilterSet.reopenClass({
   
   // generates a FilterSet containing a set of FilterBlock objects based on filterTypes and filterParams
   generate: function(filterTypes, filterParams) {
-    
+
     // call the backend asking for filter options matching the given filterTypes and filterParams
     return Discourse.ajax("/kb/filter-options", {data: {filter_types: filterTypes, filter_params: filterParams}}).then(function (data) {
       
