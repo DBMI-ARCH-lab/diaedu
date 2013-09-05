@@ -2,7 +2,18 @@
 // knows how to fetch data for a set of filter blocks from the backend, given filter types.
 // we do the fetch in one go to save on overhead.
 Discourse.KbFilterSet = Discourse.Model.extend({
-  blocks: null
+  blocks: null,
+
+  serialize: function() {
+    var chunks = [];
+    this.get('blocks').forEach(function(block){
+      var ids = block.items.filter(function(i){ return i.isChecked; }).map(function(i){ return i.obj.id; });
+      if (ids.length > 0)
+        chunks.push(block.type + '-' + ids.join(','));
+    });
+
+    return chunks.join('-');
+  }
 });
 
 Discourse.KbFilterSet.reopenClass({
