@@ -1,14 +1,23 @@
 {{#each blocks}}
   <div class="filter">
-    <h3>{{title}}</h3>
-    {{input type="checkbox" checked=noneChecked}} <em>Any</em>
-    {{#each items}}
-      <div>
-        {{input type="checkbox" checked=isChecked}}
-        {{#with obj}}
-          {{name}}
-        {{/with}}
+    <h3>
+      {{title}}
+    </h3>
+    <div class="items">
+      
+      <div class="item">
+        {{input type="checkbox" checked=noneChecked}} 
+        <div class="name"><em>Any</em></div>
       </div>
-    {{/each}}
+
+      {{#each items}}
+        <div class="item">
+          {{input type="checkbox" checked=isChecked}}
+          {{#with obj}}
+            <div class="name">{{name}}</div>
+          {{/with}}
+        </div>
+      {{/each}}
+    </div>
   </div>
 {{/each}}
