@@ -30,10 +30,13 @@ Discourse.KbFilterSet = Discourse.Model.extend({
 Discourse.KbFilterSet.reopenClass({
   
   // generates a FilterSet containing a set of FilterBlock objects based on filterTypes and filterParams
-  generate: function(filterTypes, filterParams) {
+  generate: function(dataType, filterTypes, filterParams) {
 
     // call the backend asking for filter options matching the given filterTypes and filterParams
-    return Discourse.ajax("/kb/filter-options", {data: {filter_types: filterTypes, filter_params: filterParams}}).then(function (data) {
+    return Discourse.ajax("/kb/filter-options", {
+      data: {data_type: dataType.name, filter_types: filterTypes, filter_params: filterParams}
+
+    }).then(function (data) {
       
       // build block objects
       var blocks = data.filter_options.map(function(blockData){ return Discourse.KbFilterBlock.create(blockData); });

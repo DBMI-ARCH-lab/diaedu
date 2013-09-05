@@ -32,7 +32,8 @@ Discourse.KbDataType.reopenClass({
     'goals': Discourse.KbDataType.create({
       name: 'goals',
       shortName: 'goals',
-      title: 'Goals'
+      title: 'Goals',
+      filterTypes: ['triggers', 'tags']
     })
   }
 });

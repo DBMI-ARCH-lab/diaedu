@@ -9,9 +9,12 @@ module Diaedu
 
       block_data = []
 
+      # get the klass for the given data type
+      klass = "Diaedu::#{params[:data_type].singularize.classify}".constantize
+
       params[:filter_types].each do |filter_type|
         # for each filter type, fetch all possible related objects from appropriate model
-        block_data << Diaedu::Trigger.related_objects(filter_type.to_sym, filter)
+        block_data << klass.filter_options(filter_type.to_sym, filter)
       end
 
       # use as_json option to reduce data size

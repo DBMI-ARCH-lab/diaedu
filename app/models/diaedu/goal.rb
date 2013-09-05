@@ -1,5 +1,7 @@
 module Diaedu
   class Goal < ActiveRecord::Base
+    include Diaedu::Concerns::Filterable
+
     has_many(:trigger_goals, :class_name => 'Diaedu::TriggerGoal', :foreign_key => 'goal_id', :dependent => :destroy, :autosave => true)
     has_many(:triggers, :class_name => 'Diaedu::Trigger', :through => :trigger_goals)
     has_many(:taggings, :as => :taggable)
