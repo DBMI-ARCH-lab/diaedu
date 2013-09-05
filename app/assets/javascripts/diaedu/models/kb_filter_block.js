@@ -29,7 +29,12 @@ Discourse.KbFilterBlock = Discourse.Model.extend({
   itemChanged: function() {
     // set noneChecked appropriately
     this.set('noneChecked', this.get('items').filter(function(i){ return i.isChecked; }).length == 0);
-  }
+  },
+
+  // path to the icon for this block
+  iconPath: function() {
+    return '/assets/diaedu/' + this.get('type') + '-smaller.png';
+  }.property('type')
 });
 
 // class methods
