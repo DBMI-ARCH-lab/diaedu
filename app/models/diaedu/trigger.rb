@@ -31,8 +31,11 @@ module Diaedu
       # now scan through each retrieved object and load the matching related object data into an array
       objs = filtered.map{|o| o.send(type)}.flatten.uniq
 
+      # get the ids (strings) of all objects that are selected in the filter
+      checked = filter[type.to_sym] || []
+
       # go through each item and mark if it should be checked
-      items = objs.map{|o| {:isChecked => o.id % 2 == 0, :obj => o}}
+      items = objs.map{|o| {:isChecked => checked.include?(o.id.to_s), :obj => o}}
 
       {:type => type, :items => items}
     end
