@@ -37,7 +37,7 @@ module Diaedu
       # go through each item and mark if it should be checked
       items = objs.map{|o| {:isChecked => checked.include?(o.id.to_s), :obj => o}}
 
-      {:type => type, :items => items}
+      {:type => type, :items => items, :noneChecked => checked.empty?}
     end
 
     def as_json(options = {})

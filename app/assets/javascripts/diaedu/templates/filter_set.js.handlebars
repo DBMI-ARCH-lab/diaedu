@@ -1,6 +1,7 @@
 {{#each blocks}}
   <div class="filter">
-    {{type}}
+    <h3>{{type}}</h3>
+    {{input type="checkbox" checked=noneChecked}} <em>Any</em>
     {{#each items}}
       <div>
         {{input type="checkbox" checked=isChecked}}
