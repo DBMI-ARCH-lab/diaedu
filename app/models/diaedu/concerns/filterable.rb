@@ -21,6 +21,9 @@ module Diaedu
           if filter[:tags]
             rel = rel.includes(:taggings).where('diaedu_taggings.tag_id' => filter[:tags])
           end
+          if filter[:evals]
+            
+          end
           return rel
         end
 
@@ -28,8 +31,10 @@ module Diaedu
         # return value is a data structure suited to the KbFilterBlock client side model 
         def self.filter_options(type, filter)
           # first get all triggers with given filter applied, but WITHOUT the portion of the filter for the given type
+          filtered = filter_with(filter.without(type))
+
           # include the appropriate associations
-          filtered = filter_with(filter.without(type)).includes(type).all
+          filtered = add_includes_for_filter_options(filtered, type)
 
           # now scan through each retrieved object and load the matching related object data into an array
           objs = filtered.map{|o| o.send(type)}.flatten.uniq
@@ -46,6 +51,11 @@ module Diaedu
           {:type => type, :items => items, :noneChecked => checked.empty?}
         end
 
+        # takes a relation and filter type (e.g. glyprobs) and adds any necessary .includes calls to the relation,
+        # depending on whether the filter type matches an association on the class
+        def self.add_includes_for_filter_options(rel, filter_type)
+          rel = rel.includes(filter_type)
+        end
       end
     end
   end
