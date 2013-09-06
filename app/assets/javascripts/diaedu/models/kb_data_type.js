@@ -21,7 +21,8 @@ Discourse.KbDataType.reopenClass({
     'glycemic-problems': Discourse.KbDataType.create({
       name: 'glycemic-problems',
       shortName: 'glyprobs',
-      title: 'Glycemic Problems'
+      title: 'Glycemic Problems',
+      filterTypes: ['evals', 'tags']
     }),
     'triggers': Discourse.KbDataType.create({
       name: 'triggers',

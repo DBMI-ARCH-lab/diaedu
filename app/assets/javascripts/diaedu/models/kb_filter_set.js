@@ -37,7 +37,7 @@ Discourse.KbFilterSet.reopenClass({
 
     // call the backend asking for filter options matching the given filterTypes and filterParams
     return Discourse.ajax("/kb/filter-options", {
-      data: {data_type: dataType.name, filter_types: filterTypes, filter_params: filterParams}
+      data: {data_type: dataType.shortName, filter_types: filterTypes, filter_params: filterParams}
 
     }).then(function (data) {
       

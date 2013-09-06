@@ -1,5 +1,7 @@
 module Diaedu
   class Glyprob < ActiveRecord::Base
+    include Diaedu::Concerns::Filterable
+
     belongs_to(:event, :class_name => 'Diaedu::Event')
     has_many(:glyprob_triggers, :class_name => 'Diaedu::GlyprobTrigger', :foreign_key => 'glyprob_id', :dependent => :destroy, :autosave => true)
     has_many(:triggers, :class_name => 'Diaedu::Trigger', :through => :glyprob_triggers)
@@ -10,6 +12,10 @@ module Diaedu
 
     def name
       "#{evaluation.capitalize} #{event.name.downcase}"
+    end
+
+    def evals
+      []
     end
 
     def as_json(options = {})

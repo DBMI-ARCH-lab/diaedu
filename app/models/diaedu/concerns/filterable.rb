@@ -54,7 +54,7 @@ module Diaedu
         # takes a relation and filter type (e.g. glyprobs) and adds any necessary .includes calls to the relation,
         # depending on whether the filter type matches an association on the class
         def self.add_includes_for_filter_options(rel, filter_type)
-          rel = rel.includes(filter_type)
+          reflect_on_association(filter_type) ? rel.includes(filter_type) : rel
         end
       end
     end
