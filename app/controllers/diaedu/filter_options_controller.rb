@@ -3,6 +3,8 @@ require_dependency "diaedu/application_controller"
 module Diaedu
   # returns filter options for various filter types given a filter param string
   class FilterOptionsController < ::ApplicationController
+    include Diaedu::Concerns::KbHelpers
+
     def fetch
       # parse filter params into Filter object
       filter = Diaedu::Filter.new(:param_str => params[:filter_params])
@@ -10,7 +12,7 @@ module Diaedu
       block_data = []
 
       # get the klass for the given data type
-      klass = "Diaedu::#{params[:data_type].singularize.classify}".constantize
+      klass = data_type_to_class(params[:data_type])
 
       params[:filter_types].each do |filter_type|
         # for each filter type, fetch all possible related objects from appropriate model
