@@ -14,8 +14,14 @@ module Diaedu
       "#{evaluation.capitalize} #{event.name.downcase}"
     end
 
+    # plural method to satisfy the filtering system
     def evals
-      []
+      [eval]
+    end
+
+    # returns an eval object representing this glyprob's evaluation
+    def eval
+      @eval ||= Diaedu::Eval.new(evaluation)
     end
 
     def as_json(options = {})
