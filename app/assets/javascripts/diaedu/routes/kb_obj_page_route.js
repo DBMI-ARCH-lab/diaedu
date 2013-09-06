@@ -13,10 +13,10 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
     controller.set('data_type', data_type);
 
     // if the model is just a shell, populate it
+    controller.set('model', null);
     if (!model.objs) {
       Discourse.KbObjPage.find(data_type, model.page_id, model.filter_params).then(function(loaded){
         controller.set('model', loaded);
-        controller.set('loading', false);
       }, function(e) {
         console.log("FETCH ERROR:", e.message)
       });
@@ -24,8 +24,10 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
 
     // generate filterSet and set on controller also
     var filterTypes = data_type.get('filterTypes');
+    controller.set('filterSet', null);
     Discourse.KbFilterSet.generate(data_type, filterTypes, model.filter_params).then(function(filterSet){
-      controller.set('filterSet', filterSet);  
+      controller.set('filterSet', filterSet);
+      controller.set('loading', false);
     }, function(e) {
         console.log("FETCH ERROR:", e.message)
     });

@@ -6,53 +6,55 @@
     <h1>
       <img {{bindAttr src="iconPath"}} />
       {{data_type.title}}
-      {{#if loading}}
-        <img src="/assets/diaedu/loader-lg.gif" />
-      {{/if}}
     </h1>
 
-    <div class="index-list">
-      {{#each objs}}
-        <div class="index-row">
-          <div class="stat likes">
-            {{likes}}
-            <small>Likes</small>
-          </div>
-          <div class="stat comments">
-            {{comments}}
-            <small>Comments</small>
-          </div>
-          <div class="main-cell">
-            <a href="#">{{name}}</a>
-            <div class="tags">
-              {{#each firstNTags}}
-                <span>{{name}}</span>
-              {{/each}}
-              {{#if hasMoreTags}}
-                <small>+{{moreTagCount}} more</small>
-              {{/if}}
+    {{#if loading}}
+      <div class="spinner">{{i18n loading}}</div>
+    {{else}}
+
+      <div class="index-list">
+        {{#each objs}}
+          <div class="index-row">
+            <div class="stat likes">
+              {{likes}}
+              <small>Likes</small>
+            </div>
+            <div class="stat comments">
+              {{comments}}
+              <small>Comments</small>
+            </div>
+            <div class="main-cell">
+              <a href="#">{{name}}</a>
+              <div class="tags">
+                {{#each firstNTags}}
+                  <span>{{name}}</span>
+                {{/each}}
+                {{#if hasMoreTags}}
+                  <small>+{{moreTagCount}} more</small>
+                {{/if}}
+              </div>
             </div>
           </div>
-        </div>
-      {{/each}}
-    </div>
-
-    {{#if multiple_pages}}
-      <div class="pagination">
-        <table><tr>
-          {{#each page in other_pages}}
-            {{#if page.is_gap}}
-              <td class="gap"><div>...</div></td>
-            {{else}}
-              {{#if page.is_active}}
-                <td class="active"><div>{{page.page_id}}</div></td>
-              {{else}}
-                <td>{{#linkTo 'kb_obj.page' data_type page}}{{page.page_id}}{{/linkTo}}</td>
-              {{/if}}
-            {{/if}}
-          {{/each}}
-        </tr></table>
+        {{/each}}
       </div>
-    {{/if}}
 
+      {{#if multiple_pages}}
+        <div class="pagination">
+          <table><tr>
+            {{#each page in other_pages}}
+              {{#if page.is_gap}}
+                <td class="gap"><div>...</div></td>
+              {{else}}
+                {{#if page.is_active}}
+                  <td class="active"><div>{{page.page_id}}</div></td>
+                {{else}}
+                  <td>{{#linkTo 'kb_obj.page' data_type page}}{{page.page_id}}{{/linkTo}}</td>
+                {{/if}}
+              {{/if}}
+            {{/each}}
+          </tr></table>
+        </div>
+      {{/if}}
+    {{/if}}
+  </div>
 </div>
