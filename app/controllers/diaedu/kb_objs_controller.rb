@@ -1,9 +1,7 @@
-require_dependency "diaedu/application_controller"
-
 module Diaedu
   class KbObjsController < ::ApplicationController
     include Diaedu::Concerns::KbHelpers
-    
+
     PER_PAGE = 10
 
     before_filter(:parse_filter_params, :only => :index)
