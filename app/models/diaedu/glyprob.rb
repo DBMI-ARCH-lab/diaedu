@@ -21,7 +21,7 @@ module Diaedu
 
     # returns an eval object representing this glyprob's evaluation
     def eval
-      @eval ||= Diaedu::Eval.new(evaluation)
+      Diaedu::Eval.get(evaluation)
     end
 
     def as_json(options = {})
