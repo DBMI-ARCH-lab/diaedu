@@ -1,0 +1,17 @@
+{{#if multiple_pages}}
+  <div class="pagination">
+    <table><tr>
+      {{#each page in other_pages}}
+        {{#if page.is_gap}}
+          <td class="gap"><div>...</div></td>
+        {{else}}
+          {{#if page.is_active}}
+            <td class="active"><div>{{page.page_id}}</div></td>
+          {{else}}
+            <td>{{#linkTo 'kb_obj.page' data_type page}}{{page.page_id}}{{/linkTo}}</td>
+          {{/if}}
+        {{/if}}
+      {{/each}}
+    </tr></table>
+  </div>
+{{/if}}
