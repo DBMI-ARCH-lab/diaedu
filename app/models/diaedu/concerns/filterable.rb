@@ -46,8 +46,14 @@ module Diaedu
           # go through each item and mark if it should be checked
           items = objs.map{|o| {:isChecked => checked.include?(o.id.to_s), :obj => o}}
 
-          # sort items by whether they're checked, and then by name
-          items.sort_by!{|o| (o[:isChecked] ? 'A-' : 'B-') + o[:obj].name}
+          # if there are lots of items sort items by whether they're checked, and then by name
+          if items.size > 10
+            items.sort_by!{|o| (o[:isChecked] ? 'A-' : 'B-') + o[:obj].name}
+
+          # else just sort by name
+          else
+            items.sort_by!{|o| o[:obj].name}
+          end
 
           {:type => type, :items => items, :noneChecked => checked.empty?}
         end
