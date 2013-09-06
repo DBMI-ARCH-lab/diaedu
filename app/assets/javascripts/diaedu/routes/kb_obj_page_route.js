@@ -34,7 +34,7 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
   },
 
   renderTemplate: function() {
-    this.render('diaedu/templates/glyprobs/index');
+    this.render('diaedu/templates/kb_objs/index');
   },
     
   serialize: function(model) {
