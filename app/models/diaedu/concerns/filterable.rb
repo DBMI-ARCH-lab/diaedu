@@ -22,7 +22,8 @@ module Diaedu
             rel = rel.includes(:taggings).where('diaedu_taggings.tag_id' => filter[:tags])
           end
           if filter[:eval]
-            
+            # note that eval is actually an array of possible evals, but this should work anyway
+            rel = rel.where('diaedu_glyprobs.evaluation' => filter[:eval])
           end
           return rel
         end
