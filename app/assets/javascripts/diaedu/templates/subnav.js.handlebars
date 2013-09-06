@@ -1,5 +1,8 @@
+{{! only show subnav links if we're in kb }}
 <nav class="kb-subnav">
-  {{#each dataTypes}}
-    {{#linkTo 'kb_obj' this}}{{title}}{{/linkTo}}
-  {{/each}}
+  {{#if isKbActive}}
+    {{#each dataTypes}}
+      {{#linkTo 'kb_obj' this}}{{title}}{{/linkTo}}
+    {{/each}}
+  {{/if}}
 </nav>
