@@ -8,6 +8,9 @@ Discourse.KbFilterSet = Discourse.Model.extend({
   // the filter params used to construct the set
   filterParams: null,
 
+  // the data type that the set is filtering
+  dataType: null,
+
   // converts the current state of the filter set into a string for the url (e.g. glyprobs-1,2,3-tags-4,5)
   serialize: function() {
     var chunks = [];
@@ -26,7 +29,13 @@ Discourse.KbFilterSet = Discourse.Model.extend({
     });
 
     return chunks.length == 0 ? 'all' : chunks.join('-');
+  },
+
+  // checks if this filter set matches the given data type and filter params
+  matches: function(dataType, filterParams) {
+    return this.get('filterParams') == filterParams && this.get('dataType') == dataType;
   }
+
 });
 
 // class methods
@@ -45,7 +54,7 @@ Discourse.KbFilterSet.reopenClass({
       var blocks = data.filter_options.map(function(blockData){ return Discourse.KbFilterBlock.create(blockData); });
 
       // build and return set object
-      return Discourse.KbFilterSet.create({ filterParams: filterParams, blocks: blocks });
+      return Discourse.KbFilterSet.create({ dataType: dataType, filterParams: filterParams, blocks: blocks });
     });
   }
 });

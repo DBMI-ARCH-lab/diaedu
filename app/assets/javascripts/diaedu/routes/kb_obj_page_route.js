@@ -29,9 +29,11 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
     // get filter types, one for each filter block
     var filterTypes = data_type.get('filterTypes');
 
-    // if filter set matches current filter_params, no need to change it
+    // get current filter set (may be null)
     var currentFilterSet = controller.get('filterSet');
-    if (currentFilterSet && currentFilterSet.get('filterParams') == model.filter_params) {
+
+    // if filter set matches current data type and filter_params, no need to change it
+    if (currentFilterSet && currentFilterSet.matches(data_type, model.filter_params)) {
 
       // in this case, resolve the promise so the loading indicator doesn't hang
       filterLoaded.resolve();
