@@ -21,7 +21,7 @@ module Diaedu
           if filter[:tags]
             rel = rel.includes(:taggings).where('diaedu_taggings.tag_id' => filter[:tags])
           end
-          if filter[:evals]
+          if filter[:eval]
             
           end
           return rel
