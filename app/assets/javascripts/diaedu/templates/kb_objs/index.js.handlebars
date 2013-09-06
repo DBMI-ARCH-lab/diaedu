@@ -8,10 +8,10 @@
       {{data_type.title}}
     </h1>
 
-    <div class="index-list">
-      {{#if loading}}
-        <div class="spinner">{{i18n loading}}</div>
-      {{else}}
+    {{#if loading}}
+      <div class="spinner">{{i18n loading}}</div>
+    {{else}}
+      <div class="index-list">
         {{#each objs}}
           <div class="index-row">
             <div class="stat likes">
@@ -35,10 +35,8 @@
             </div>
           </div>
         {{/each}}
-      {{/if}}
-    </div>
+      </div>
 
-    {{#unless loading}}
       {{#if multiple_pages}}
         <div class="pagination">
           <table><tr>
@@ -56,6 +54,6 @@
           </tr></table>
         </div>
       {{/if}}
-    {{/unless}}
+    {{/if}}
   </div>
 </div>

@@ -6,7 +6,8 @@ div.diaedu-content {
   div.main {
     display: inline-block;
     margin-left: 20px;
-    max-width: 800px;
+    width: 800px;
+    min-height: 500px;
 
     h1 {
       margin-bottom: 20px;
@@ -22,7 +23,6 @@ div.diaedu-content {
     div.index-list {
       display: table;
       width: 800px;
-      min-height: 440px;
       margin-bottom: 20px;
 
       div.index-row {
