@@ -69,8 +69,10 @@ header.d-header {
   box-shadow: none;
   border: none;
   background-color: #86A8A5;
-  position: relative;
   margin-bottom: 0;
+
+  /* don't 'dock' the header */
+  position: relative !important;
 
   /* nav bar should be full width */
   div.container {
