@@ -3,6 +3,10 @@
     {{render "kb_filter_set" filterSet}}
   </div>
   <div class="main">
+    {{#unless loading}}
+      <a href="#" class="btn btn-default btn-add"><i class="icon icon-plus"></i> {{i18n kb.trigger.add_link}}</a>
+    {{/unless}}
+
     <h1>
       <img {{bindAttr src="iconPath"}} />
       {{data_type.title}}

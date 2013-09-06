@@ -9,6 +9,11 @@ div.diaedu-content {
     width: 800px;
     min-height: 500px;
 
+    /* add link at top of a page */
+    a.btn-add {
+      float: right;
+    }
+
     h1 {
       margin-bottom: 20px;
       height: 50px;
