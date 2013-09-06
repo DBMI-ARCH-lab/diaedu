@@ -11,7 +11,12 @@ Discourse.KbObjPage = Discourse.Model.extend({
 
   multiple_pages: function() {
     return this.other_pages.length > 1;
-  }.property('other_pages')
+  }.property('other_pages'),
+
+  // whether there are any objs
+  noObjs: function() {
+    return this.get('objs').length == 0;
+  }.property('objs')
 });
 
 Discourse.KbObjPage.reopenClass({
