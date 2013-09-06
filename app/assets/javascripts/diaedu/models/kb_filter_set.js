@@ -5,6 +5,9 @@ Discourse.KbFilterSet = Discourse.Model.extend({
   // the array of blocks
   blocks: null,
 
+  // the filter params used to construct the set
+  filterParams: null,
+
   // converts the current state of the filter set into a string for the url (e.g. glyprobs-1,2,3-tags-4,5)
   serialize: function() {
     var chunks = [];
@@ -42,7 +45,7 @@ Discourse.KbFilterSet.reopenClass({
       var blocks = data.filter_options.map(function(blockData){ return Discourse.KbFilterBlock.create(blockData); });
 
       // build and return set object
-      return Discourse.KbFilterSet.create({ blocks: blocks });
+      return Discourse.KbFilterSet.create({ filterParams: filterParams, blocks: blocks });
     });
   }
 });
