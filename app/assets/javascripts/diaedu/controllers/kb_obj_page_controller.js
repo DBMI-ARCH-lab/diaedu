@@ -10,5 +10,9 @@ Discourse.KbObjPageController = Ember.ObjectController.extend({
 
   iconPath: function() {
     return '/assets/diaedu/' + this.get('data_type').shortName + '-active.png';
+  }.property('data_type'),
+
+  addLinkText: function() {
+    return I18n.t('kb.' + this.get('data_type.shortName') + '.add_link');
   }.property('data_type')
 });
