@@ -8,7 +8,7 @@
           {{#if page.is_active}}
             <td class="active"><div>{{page.page_id}}</div></td>
           {{else}}
-            <td>{{#linkTo 'kb_obj.page' data_type page}}{{page.page_id}}{{/linkTo}}</td>
+            <td>{{#linkTo 'kb_obj_page.index' data_type page}}{{page.page_id}}{{/linkTo}}</td>
           {{/if}}
         {{/if}}
       {{/each}}
