@@ -8,6 +8,7 @@ Diaedu::Engine.routes.draw do
   match('/triggers' => 'kb_objs#index', :data_type => 'triggers')
   match('/triggers/page/:page' => 'kb_objs#index', :data_type => 'triggers')
   match('/triggers/:filter_params/page/:page' => 'kb_objs#index', :data_type => 'triggers')
+  match('/triggers/:filter_params/page/:page/new' => 'kb_objs#index', :data_type => 'triggers')
   
   match('/goals' => 'kb_objs#index', :data_type => 'goals')
   match('/goals/page/:page' => 'kb_objs#index', :data_type => 'goals')
