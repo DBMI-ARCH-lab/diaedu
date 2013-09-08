@@ -62,5 +62,12 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
     
   serialize: function(model) {
     return {data_type: this.modelFor('kb_obj').name, page_id: model.page_id, filter_params: model.filter_params};
+  },
+
+  events: {
+    newObj: function() {
+      Discourse.Route.showModal(this, 'kbObjNew');
+    }
   }
+
 });

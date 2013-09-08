@@ -4,9 +4,9 @@
   </div>
   <div class="main">
     {{#unless loading}}
-      {{#linkTo 'kb_obj_page.new' class="btn btn-default btn-add"}}
+      <button {{action newObj}} class="btn btn-default btn-add">
         <i class="icon icon-plus"></i> {{i18n kb.trigger.add_link}}
-      {{/linkTo}}
+      </button>
     {{/unless}}
 
     <h1>

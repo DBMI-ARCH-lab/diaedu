@@ -4,7 +4,6 @@ Discourse.Route.buildRoutes(function() {
   this.resource('kb_obj', {path: '/kb/:data_type'}, function() {
     this.resource('kb_obj_page', {path: '/:filter_params/page/:page_id'}, function() {
       this.route('index', {path: '/'});
-      this.route('new');
     });
   });
 

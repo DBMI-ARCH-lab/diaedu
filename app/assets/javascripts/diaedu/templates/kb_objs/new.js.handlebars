@@ -1,1 +1,19 @@
-New!
+<div class="modal-body">
+  <div class="control-group">
+    <label class="control-label" for="post-title">Title</label>
+    <div class="controls">
+      {{!view Em.TextField elementId='post-title' valueBinding='content.title'}}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="post-body">Body</label>
+    <div class="controls">
+      {{!view Em.TextField elementId='post-body' valueBinding='content.body'}}
+    </div>
+  </div>
+</div>
+ 
+<div class="modal-footer">
+  <a class="btn btn-dark" href="javascript;:" {{!action cancel content}}>Cancel</a>
+  <button class="btn btn-success" type="submit" {{!action submit content}}>Save</button>
+</div>
