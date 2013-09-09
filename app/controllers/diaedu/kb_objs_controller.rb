@@ -12,8 +12,6 @@ module Diaedu
       # sleep for a second in dev mode to test loading indicators
       #sleep(0.25) if Rails.env == 'development'
       
-      klass = data_type_to_class(params[:data_type])
-
       render(:json => {
         :objs => klass.filter_with(@filter).includes(:tags).offset((page - 1) * PER_PAGE).limit(PER_PAGE).all.as_json(:include => :tags),
         :per_page => PER_PAGE,
@@ -22,6 +20,7 @@ module Diaedu
     end
 
     def create
+      klass.create(params.require(:obj).permit(:name, :description))
 
       render(:json => {})
     end

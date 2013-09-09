@@ -18,7 +18,7 @@ Discourse.KbObj = Discourse.Model.extend({
   save: function() {
     return Discourse.ajax("/kb/" + this.get('dataType.name'), {
       method: 'POST',
-      data: this.getProperties('name', 'description')
+      data: {obj: this.getProperties('name', 'description')}
     });
   }
 });
