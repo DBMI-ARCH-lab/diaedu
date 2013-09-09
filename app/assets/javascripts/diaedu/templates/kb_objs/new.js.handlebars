@@ -1,19 +1,19 @@
 <div class="modal-body">
   <div class="control-group">
-    <label class="control-label" for="post-title">Title</label>
+    <label class="control-label" for="obj-name">{{i18n kb.name}}</label>
     <div class="controls">
-      {{!view Em.TextField elementId='post-title' valueBinding='content.title'}}
+      {{input id="obj-name" value=name}}
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="post-body">Body</label>
+    <label class="control-label" for="obj-description">{{i18n kb.description}}</label>
     <div class="controls">
-      {{!view Em.TextField elementId='post-body' valueBinding='content.body'}}
+      {{textarea id="obj-description" value=description}}
     </div>
   </div>
 </div>
  
 <div class="modal-footer">
-  <a class="btn btn-dark" href="javascript;:" {{!action cancel content}}>Cancel</a>
-  <button class="btn btn-success" type="submit" {{!action submit content}}>Save</button>
+  <button class="btn" {{action closeModal}}>{{i18n kb.cancel}}</a>
+  <button class="btn btn-primary" {{!action submit content}}>{{i18n kb.save}}</button>
 </div>

@@ -66,7 +66,10 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
 
   events: {
     newObj: function() {
-      Discourse.Route.showModal(this, 'kbObjNew');
+      // create new model for modal
+      var model = Discourse.KbObj.create({dataType: this.modelFor('kb_obj'), name: '', description: ''});
+
+      Discourse.Route.showModal(this, 'kbObjNew', model);
     }
   }
 
