@@ -1,14 +1,19 @@
 <form class="kb-obj-form">
   <div class="modal-body">
     <div class="control-group">
-      <label class="control-label" for="obj-name">{{i18n kb.name}}</label>
+      <label class="control-label" for="obj-name">
+        {{i18n kb.name}}
+        <span class="errors">{{errors.name}}</span>
+      </label>
       <div class="controls">
-        {{errors.name}}
         {{input id="obj-name" value=name}}
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label" for="obj-description">{{i18n kb.description}}</label>
+      <label class="control-label" for="obj-description">
+        {{i18n kb.description}}
+        <span class="errors">{{errors.description}}</span>
+      </label>
       <div class="controls">
         {{errors.name}}
         {{textarea id="obj-description" value=description}}

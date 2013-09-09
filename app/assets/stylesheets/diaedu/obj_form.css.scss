@@ -1,4 +1,11 @@
 form.kb-obj-form {
+  label {
+    span.errors {
+      color: #e45735;
+      font-size: 12px;
+      font-style: italic;
+    }
+  }
   input#obj-name {
     width: 99%;
   }
