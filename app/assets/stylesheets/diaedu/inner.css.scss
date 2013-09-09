@@ -3,6 +3,13 @@
 div.diaedu-content {
   padding: 6px 20px 30px 20px;
 
+  /* loading indicator */
+  img.loader {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+  }
+
   div.main {
     display: inline-block;
     margin-left: 20px;

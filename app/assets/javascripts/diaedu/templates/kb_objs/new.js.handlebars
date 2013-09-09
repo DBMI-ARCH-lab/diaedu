@@ -23,6 +23,6 @@
   <div class="modal-footer">
     <button class="btn" {{action closeModal}}>{{i18n kb.cancel}}</button>
     <button class="btn btn-primary" {{action save}}>{{i18n kb.save}}</button>
-    {{#if saving}}saving{{/if}}
+    {{#if saving}}<img src="/assets/diaedu/loader.gif" class="loader" />{{/if}}
   </div>
 </form>
