@@ -3,12 +3,14 @@
     {{render "kb_filter_set" filterSet}}
   </div>
   <div class="main">
-    {{#unless loading}}
-      <button {{action newObj}} class="btn btn-default btn-add">
-        <i class="icon icon-plus"></i> {{addLinkText}}
-      </button>
-    {{/unless}}
-
+    {{#if showAdd}}
+      {{#unless loading}}
+        <button {{action newObj}} class="btn btn-default btn-add">
+          <i class="icon icon-plus"></i> {{addLinkText}}
+        </button>
+      {{/unless}}
+    {{/if}}
+    
     <h1>
       <img {{bindAttr src="iconPath"}} />
       {{data_type.title}}
