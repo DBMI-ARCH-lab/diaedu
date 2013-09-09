@@ -20,9 +20,13 @@ module Diaedu
     end
 
     def create
-      klass.create(params.require(:obj).permit(:name, :description))
+      obj = klass.new(params.require(:obj).permit(:name, :description))
 
-      render(:json => {})
+      if obj.save
+        render(:json => {})
+      else
+        render(:json => {:errors => obj.errors}, :status => 422)
+      end
     end
 
     private

@@ -12,7 +12,7 @@ module Diaedu
         {:id => id, :name => name}
       else
         # spoof the likes and comments attribs for now
-        srand(id)
+        srand(id) unless new_record?
         super(options).merge(:likes => rand(30), :comments => rand(15))
       end
     end

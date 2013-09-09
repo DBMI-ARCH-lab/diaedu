@@ -9,9 +9,12 @@ module Diaedu
     has_many(:taggings, :as => :taggable)
     has_many(:tags, :through => :taggings)
 
+    validates(:name, :description, :presence => true)
+    validates(:name, :uniqueness => true, :length => {:minimum => 20}, :unless => lambda{|t| t.name.blank?})
+
     def as_json(options = {})
       # spoof the likes and comments attribs for now
-      srand(id)
+      srand(id) unless new_record?
       super(options).merge(:likes => rand(30), :comments => rand(15))
     end
   end

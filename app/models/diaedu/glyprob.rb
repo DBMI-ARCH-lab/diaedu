@@ -23,7 +23,7 @@ module Diaedu
       if options[:id_name_only]
         {:id => id, :name => name}
       else
-        srand(id)
+        srand(id) unless new_record?
         # spoof the likes and comments attribs for now
         super(options).merge(:likes => rand(30), :comments => rand(15), :name => name)
       end

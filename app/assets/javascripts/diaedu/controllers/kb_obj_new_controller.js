@@ -13,6 +13,8 @@ Discourse.KbObjNewController = Ember.ObjectController.extend(Discourse.ModalFunc
     this.set('saving', true);
     this.get('model').save().then(function (data) {
       self.set('saving', false);
+    },function (resp) {
+      self.set('saving', false);
     });
   }
 });
