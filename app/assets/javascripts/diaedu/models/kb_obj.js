@@ -26,7 +26,13 @@ Discourse.KbObj = Discourse.Model.extend({
     // save errors to model on fail
     }, function(resp){
       if (resp.status == 422) {
-        self.set('errors', resp.responseJSON.errors);
+        
+        // join error messages into strings
+        var errors = resp.responseJSON.errors;
+        for (var f in errors) errors[f] = errors[f].join(', ');
+
+        // save on model
+        self.set('errors', errors);
       }
     });
   }
