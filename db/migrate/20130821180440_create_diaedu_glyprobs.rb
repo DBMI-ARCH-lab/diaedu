@@ -9,6 +9,7 @@ class CreateDiaeduGlyprobs < ActiveRecord::Migration
       t.timestamps
     end
     add_index :diaedu_glyprobs, :evaluation
+    add_index :diaedu_glyprobs, [:event_id, :evaluation], :unique => true
     
   end
 end

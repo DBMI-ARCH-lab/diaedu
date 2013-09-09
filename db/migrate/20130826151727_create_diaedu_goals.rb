@@ -6,6 +6,6 @@ class CreateDiaeduGoals < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :diaedu_goals, :name
+    add_index :diaedu_goals, :name, :unique => true
   end
 end

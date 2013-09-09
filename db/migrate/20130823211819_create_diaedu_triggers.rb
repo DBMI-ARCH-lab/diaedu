@@ -6,6 +6,6 @@ class CreateDiaeduTriggers < ActiveRecord::Migration
       
       t.timestamps
     end
-    add_index :diaedu_triggers, :name
+    add_index :diaedu_triggers, :name, :unique => true
   end
 end

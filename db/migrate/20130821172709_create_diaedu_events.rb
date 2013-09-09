@@ -5,5 +5,6 @@ class CreateDiaeduEvents < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :diaedu_events, :name, :unique => true
   end
 end
