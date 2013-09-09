@@ -1,4 +1,6 @@
 Discourse.KbObj = Discourse.Model.extend({
+  dataType: null,
+
   tagsToShow: 4,
 
   firstNTags: function() {
@@ -11,5 +13,12 @@ Discourse.KbObj = Discourse.Model.extend({
 
   moreTagCount: function() {
     return this.get('tags').length - this.get('tagsToShow');
-  }.property('tags')
+  }.property('tags'),
+
+  save: function() {
+    return Discourse.ajax("/kb/" + this.get('dataType.name'), {
+      method: 'POST',
+      data: this.getProperties('name', 'description')
+    });
+  }
 });

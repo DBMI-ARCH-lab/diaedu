@@ -21,6 +21,11 @@ module Diaedu
       })
     end
 
+    def create
+
+      render(:json => {})
+    end
+
     private
       def parse_filter_params
         @filter = Diaedu::Filter.new(:param_str => params[:filter_params])

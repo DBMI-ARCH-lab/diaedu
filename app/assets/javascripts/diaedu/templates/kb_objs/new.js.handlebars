@@ -16,6 +16,7 @@
    
   <div class="modal-footer">
     <button class="btn" {{action closeModal}}>{{i18n kb.cancel}}</button>
-    <button class="btn btn-primary" {{!action submit content}}>{{i18n kb.save}}</button>
+    <button class="btn btn-primary" {{action save}}>{{i18n kb.save}}</button>
+    {{#if saving}}saving{{/if}}
   </div>
 </form>
