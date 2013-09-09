@@ -12,8 +12,10 @@ module Diaedu
       # sleep for a second in dev mode to test loading indicators
       #sleep(0.25) if Rails.env == 'development'
       
+      order_clause = "#{klass.table_name}.name"
+
       render(:json => {
-        :objs => klass.filter_with(@filter).includes(:tags).order('name').offset((page - 1) * PER_PAGE).limit(PER_PAGE).all.as_json(:include => :tags),
+        :objs => klass.filter_with(@filter).includes(:tags).order(order_clause).offset((page - 1) * PER_PAGE).limit(PER_PAGE).all.as_json(:include => :tags),
         :per_page => PER_PAGE,
         :total_count => klass.filter_with(@filter).count
       })
@@ -23,7 +25,7 @@ module Diaedu
       obj = klass.new(params.require(:obj).permit(:name, :description))
 
       if obj.save
-        render(:json => {:page => obj.appears_on_page(:per_page => PER_PAGE, :order => :name)})
+        render(:json => {:page => obj.appears_on_page(:per_page => PER_PAGE, :order => :name), :new_id => obj.id})
       else
         render(:json => {:errors => obj.errors}, :status => 422)
       end
