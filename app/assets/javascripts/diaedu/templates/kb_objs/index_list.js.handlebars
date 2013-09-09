@@ -1,6 +1,6 @@
 <div class="index-list">
   {{#each objs}}
-    <div class="index-row">
+    <div class="index-row" {{bindAttr id="rowId"}}>
       <div class="stat likes">
         {{likes}}
         <small>Likes</small>

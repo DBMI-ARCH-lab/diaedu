@@ -15,6 +15,10 @@ Discourse.KbObj = Discourse.Model.extend({
     return this.get('tags').length - this.get('tagsToShow');
   }.property('tags'),
 
+  rowId: function() {
+    return 'obj-' + this.get('id');
+  }.property('id'),
+
   save: function() { var self = this;
     // setup a jquery deferred b/c it's better than Ember.Deferred
     var def = $.Deferred();

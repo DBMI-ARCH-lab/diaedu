@@ -21,7 +21,7 @@
       {{#if noObjs}}
         {{i18n kb.none_found}}
       {{else}}
-        {{partial 'diaedu/templates/kb_objs/_index_list'}}
+        {{view Discourse.KbObjIndexListView}}
         {{partial 'diaedu/templates/kb_objs/_pagination'}}
       {{/if}}
     {{/if}}

@@ -56,10 +56,6 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
     $.when(modelLoaded, filterLoaded).done(function() { controller.set('loading', false); });
   },
 
-  renderTemplate: function() {
-    this.render('diaedu/templates/kb_objs/index');
-  },
-    
   serialize: function(model) {
     return {data_type: this.modelFor('kb_obj').name, page_id: model.page_id, filter_params: model.filter_params};
   },

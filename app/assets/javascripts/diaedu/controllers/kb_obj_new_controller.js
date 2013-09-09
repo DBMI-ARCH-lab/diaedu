@@ -1,5 +1,5 @@
 Discourse.KbObjNewController = Ember.ObjectController.extend(Discourse.ModalFunctionality, {
-  needs: "kbObjPage",
+  needs: ["kbObjPage", "kbObj"],
 
   flashMessage: null,
 
@@ -14,6 +14,8 @@ Discourse.KbObjNewController = Ember.ObjectController.extend(Discourse.ModalFunc
     this.get('model').save().done(function(data) {
       // hide the modal
       self.send('closeModal');
+
+      self.set('controllers.kbObj.toHighlight', data.new_id);
 
       // transition to the page where the new obj should be living
       var objPage = Discourse.KbObjPage.create({page_id: data.page, filter_params: 'all'});
