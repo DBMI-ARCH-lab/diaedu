@@ -1,19 +1,21 @@
-<div class="modal-body">
-  <div class="control-group">
-    <label class="control-label" for="obj-name">{{i18n kb.name}}</label>
-    <div class="controls">
-      {{input id="obj-name" value=name}}
+<form class="kb-obj-form">
+  <div class="modal-body">
+    <div class="control-group">
+      <label class="control-label" for="obj-name">{{i18n kb.name}}</label>
+      <div class="controls">
+        {{input id="obj-name" value=name}}
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="obj-description">{{i18n kb.description}}</label>
+      <div class="controls">
+        {{textarea id="obj-description" value=description}}
+      </div>
     </div>
   </div>
-  <div class="control-group">
-    <label class="control-label" for="obj-description">{{i18n kb.description}}</label>
-    <div class="controls">
-      {{textarea id="obj-description" value=description}}
-    </div>
+   
+  <div class="modal-footer">
+    <button class="btn" {{action closeModal}}>{{i18n kb.cancel}}</button>
+    <button class="btn btn-primary" {{!action submit content}}>{{i18n kb.save}}</button>
   </div>
-</div>
- 
-<div class="modal-footer">
-  <button class="btn" {{action closeModal}}>{{i18n kb.cancel}}</a>
-  <button class="btn btn-primary" {{!action submit content}}>{{i18n kb.save}}</button>
-</div>
+</form>
