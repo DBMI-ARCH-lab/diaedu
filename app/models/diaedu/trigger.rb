@@ -9,6 +9,8 @@ module Diaedu
     has_many(:taggings, :as => :taggable)
     has_many(:tags, :through => :taggings)
 
+    scope(:default_order, order('name'))
+
     validates(:name, :description, :presence => true)
     validates(:name, :uniqueness => true, :length => {:minimum => 20}, :unless => lambda{|t| t.name.blank?})
 
