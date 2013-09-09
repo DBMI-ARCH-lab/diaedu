@@ -11,10 +11,16 @@ Discourse.KbObjNewController = Ember.ObjectController.extend(Discourse.ModalFunc
 
   save: function() { var self = this;
     this.set('saving', true);
-    this.get('model').save().then(function (data) {
-      self.set('saving', false);
+    this.get('model').save().done(function(data) {
+      // hide the modal
       self.send('closeModal');
-    },function (resp) {
+
+      // transition to the page where the new obj should be living
+      var objPage = Discourse.KbObjPage.create({page_id: data.page, filter_params: 'all'});
+      self.transitionToRoute('kb_obj_page.index', self.get('dataType'), objPage);
+
+    }).always(function() {
+      // always turn off the loading indicator
       self.set('saving', false);
     });
   }

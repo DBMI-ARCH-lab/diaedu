@@ -16,14 +16,19 @@ Discourse.KbObj = Discourse.Model.extend({
   }.property('tags'),
 
   save: function() { var self = this;
-    return Discourse.ajax("/kb/" + this.get('dataType.name'), {
+    // setup a jquery deferred b/c it's better than Ember.Deferred
+    var def = $.Deferred();
+
+    // do ajax request
+    Discourse.ajax("/kb/" + this.get('dataType.name'), {
       method: 'POST',
       data: {obj: this.getProperties('name', 'description')}
     
-    // do nothing on success for now
-    }).then(function() {
+    // on ajax success
+    }).then(function(data) {
+      def.resolve(data);
 
-    // save errors to model on fail
+    // on ajax error
     }, function(resp){
       if (resp.status == 422) {
         
@@ -34,6 +39,10 @@ Discourse.KbObj = Discourse.Model.extend({
         // save on model
         self.set('errors', errors);
       }
+
+      def.reject();
     });
+
+    return def;
   }
 });

@@ -12,6 +12,13 @@ module Diaedu
     validates(:name, :description, :presence => true)
     validates(:name, :uniqueness => true, :length => {:minimum => 20}, :unless => lambda{|t| t.name.blank?})
 
+    # determines which page of objects this object would appear on
+    def appears_on_page(options = {})
+      # get number of objects before this one
+      before = self.class.where("#{options[:order]} < ?", send(options[:order])).count
+      (before / options[:per_page]) + 1
+    end
+
     def as_json(options = {})
       # spoof the likes and comments attribs for now
       srand(id) unless new_record?
