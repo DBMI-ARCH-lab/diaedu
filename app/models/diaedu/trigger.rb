@@ -9,7 +9,7 @@ module Diaedu
     has_many(:taggings, :as => :taggable)
     has_many(:tags, :through => :taggings)
 
-    scope(:default_order, order('name'))
+    scope(:default_order, order('diaedu_triggers.name'))
 
     validates(:name, :description, :presence => true)
     validates(:name, :uniqueness => true, :length => {:minimum => 20}, :unless => lambda{|t| t.name.blank?})

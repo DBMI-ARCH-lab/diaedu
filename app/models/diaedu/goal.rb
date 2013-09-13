@@ -7,7 +7,7 @@ module Diaedu
     has_many(:taggings, :as => :taggable)
     has_many(:tags, :through => :taggings)
 
-    scope(:default_order, order('name'))
+    scope(:default_order, order('diaedu_goals.name'))
 
     def as_json(options = {})
       if options[:id_name_only]

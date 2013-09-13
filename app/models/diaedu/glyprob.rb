@@ -8,7 +8,7 @@ module Diaedu
     has_many(:taggings, :as => :taggable)
     has_many(:tags, :through => :taggings)
 
-    scope(:default_order, includes(:event).order('diaedu_events.name, evaluation'))
+    scope(:default_order, includes(:event).order('diaedu_events.name, diaedu_glyprobs.evaluation'))
 
     def name
       "#{evaluation.capitalize} #{event.name.downcase}"
