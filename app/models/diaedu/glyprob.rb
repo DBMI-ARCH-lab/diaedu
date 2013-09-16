@@ -1,5 +1,6 @@
 module Diaedu
   class Glyprob < ActiveRecord::Base
+    include Diaedu::Concerns::Approvable
     include Diaedu::Concerns::Filterable
 
     belongs_to(:event, :class_name => 'Diaedu::Event')

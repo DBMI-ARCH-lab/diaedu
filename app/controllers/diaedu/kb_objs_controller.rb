@@ -13,7 +13,8 @@ module Diaedu
       #sleep(0.25) if Rails.env == 'development'
       
       render(:json => {
-        :objs => klass.filter_with(@filter).includes(:tags).default_order.offset((page - 1) * PER_PAGE).limit(PER_PAGE).all.as_json(:include => :tags),
+        :objs => klass.approved.filter_with(@filter).includes(:tags).default_order.
+          offset((page - 1) * PER_PAGE).limit(PER_PAGE).as_json(:include => :tags),
         :per_page => PER_PAGE,
         :total_count => klass.filter_with(@filter).count
       })

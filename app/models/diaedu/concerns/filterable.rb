@@ -31,7 +31,7 @@ module Diaedu
         # gets a set of objects of the given type that are related to the objects from current model with the given filter applied
         # return value is a data structure suited to the KbFilterBlock client side model 
         def self.filter_options(type, filter)
-          # first get all triggers with given filter applied, but WITHOUT the portion of the filter for the given type
+          # first get all objs with given filter applied, but WITHOUT the portion of the filter for the given type
           filtered = filter_with(filter.without(type))
 
           # include the appropriate associations
