@@ -61,7 +61,13 @@ module Diaedu
         # takes a relation and filter type (e.g. glyprobs) and adds any necessary .includes calls to the relation,
         # depending on whether the filter type matches an association on the class
         def self.add_includes_for_filter_options(rel, filter_type)
-          reflect_on_association(filter_type) ? rel.includes(filter_type) : rel
+          if reflect_on_association(filter_type) 
+            rel = rel.includes(filter_type)
+
+            # restrict to approved objs if applicable
+            rel = rel.where("diaedu_#{filter_type}.approved" => true) unless filter_type == :tags
+          end
+          rel
         end
       end
     end
