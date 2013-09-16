@@ -63,6 +63,14 @@ module Diaedu::Concerns::Filterable
       # go through each item and mark if it should be checked
       items = objs.map{|o| {:isChecked => checked.include?(o.id.to_s), :obj => o}}
 
+      # if the filterable field spec said to include all objects, add any that are missing
+      # and give them a special 'isGreyed' property
+      if filterable_fields[field] == :all
+        (model_for_field(field).all - objs).each do |o|
+          items << {:isChecked => false, :isGreyed => true, :obj => o}
+        end
+      end
+
       # if there are lots of items sort items by whether they're checked, and then by name
       if items.size > 10
         items.sort_by!{|o| (o[:isChecked] ? 'A-' : 'B-') + o[:obj].name}
@@ -89,7 +97,8 @@ module Diaedu::Concerns::Filterable
 
     # gets the model class for the given filter field
     def self.model_for_field(field)
-      "Diaedu::#{field.classify}".constantize
+      "Diaedu::#{field.to_s.classify}".constantize
     end
+
   end
 end

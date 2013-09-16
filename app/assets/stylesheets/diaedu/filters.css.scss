@@ -30,6 +30,10 @@ div.diaedu-content div.filters {
           margin-left: 18px;
           font-size: 11px;
         }
+
+        &.disabled div.name {
+          color: #aaa;
+        }
       }
     }
   }

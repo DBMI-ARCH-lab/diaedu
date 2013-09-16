@@ -12,8 +12,8 @@
       </div>
 
       {{#each items}}
-        <div class="item">
-          {{input type="checkbox" checked=isChecked}}
+        <div {{bindAttr class=":item isGreyed:disabled"}}>
+          {{input type="checkbox" checked=isChecked disabled=isGreyed}}
           {{#with obj}}
             <div class="name">{{name}}</div>
           {{/with}}

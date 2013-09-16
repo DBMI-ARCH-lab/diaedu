@@ -13,6 +13,11 @@ module Diaedu
 
     filterable(:eval => :all, :tags => :related)
 
+    # returns all possible evals
+    def self.all_evals
+      %w(high low)
+    end
+
     def name
       "#{evaluation.capitalize} #{event.name.downcase}"
     end
