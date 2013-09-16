@@ -16,5 +16,9 @@ Discourse.KbObjPageController = Discourse.ObjectController.extend({
 
   addLinkText: function() {
     return I18n.t('kb.' + this.get('data_type.shortName') + '.add_link');
-  }.property('data_type')
+  }.property('data_type'),
+
+  updateTitle: function() {
+    Discourse.set('title', I18n.t('kb.' + this.get('data_type.shortName') + '.title'));
+  }.observes('data_type')
 });
