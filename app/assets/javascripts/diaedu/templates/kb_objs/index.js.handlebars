@@ -3,7 +3,7 @@
     {{render "kb_filter_set" filterSet}}
   </div>
   <div class="main">
-    {{#if showAdd}}
+    {{#if currentUser}}
       {{#unless loading}}
         <button {{action newObj}} class="btn btn-default btn-add">
           <i class="icon icon-plus"></i> {{addLinkText}}

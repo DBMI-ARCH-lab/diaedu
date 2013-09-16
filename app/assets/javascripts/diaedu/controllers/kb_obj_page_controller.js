@@ -1,4 +1,4 @@
-Discourse.KbObjPageController = Ember.ObjectController.extend({
+Discourse.KbObjPageController = Discourse.ObjectController.extend({
   needs: 'kbObj',
   
   // loading is initially true
@@ -12,11 +12,6 @@ Discourse.KbObjPageController = Ember.ObjectController.extend({
 
   iconPath: function() {
     return '/assets/diaedu/' + this.get('data_type').shortName + '-active.png';
-  }.property('data_type'),
-
-  // temporary
-  showAdd: function() {
-    return this.get('data_type.shortName') == 'triggers';
   }.property('data_type'),
 
   addLinkText: function() {
