@@ -11,6 +11,8 @@ module Diaedu
 
     scope(:default_order, includes(:event).order('diaedu_events.name, diaedu_glyprobs.evaluation'))
 
+    filterable(:eval => :all, :tags => :related)
+
     def name
       "#{evaluation.capitalize} #{event.name.downcase}"
     end

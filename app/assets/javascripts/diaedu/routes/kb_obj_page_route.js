@@ -26,9 +26,6 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
       console.log("FETCH ERROR:", e.message)
     });
 
-    // get filter types, one for each filter block
-    var filterTypes = data_type.get('filterTypes');
-
     // get current filter set (may be null)
     var currentFilterSet = controller.get('filterSet');
 
@@ -44,7 +41,7 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
       controller.set('filterSet', null);
       
       // start fetch and get promise
-      Discourse.KbFilterSet.generate(data_type, filterTypes, model.filter_params).then(function(filterSet){
+      Discourse.KbFilterSet.generate(data_type, model.filter_params).then(function(filterSet){
         controller.set('filterSet', filterSet);
         filterLoaded.resolve();
       }, function(e) {

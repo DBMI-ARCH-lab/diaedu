@@ -10,6 +10,8 @@ module Diaedu
 
     scope(:default_order, order('diaedu_goals.name'))
 
+    filterable(:triggers => :related, :tags => :related)
+
     def as_json(options = {})
       if options[:id_name_only]
         {:id => id, :name => name}
