@@ -11,6 +11,14 @@ Discourse.KbTagEditView = Discourse.View.extend({
       zindex: 9999,
       onAdd: function(t) {
         self.get('controller.model.tags').push(t);
+      },
+      onDelete: function(t) {
+        var tags = self.get('controller.model.tags');
+        for (var i = 0; i < tags.length; i++)
+          if (tags[i].name == t.name) {
+            tags.splice(i,1);
+            return;
+          }
       }
     });
   }
