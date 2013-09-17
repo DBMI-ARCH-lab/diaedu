@@ -1,6 +1,7 @@
 <div class="control-group">
-  <label class="radio inline">
+  <label class="control-label" for="obj-evaluation">
     {{i18n kb.glyprobs.evaluation}}
+    <span class="errors">{{errors.evaluation}}</span>
   </label>
   <label class="radio inline">
     {{view Ember.RadioButton name="evaluation" selectionBinding="evaluation" value="high"}}
@@ -12,6 +13,17 @@
     {{i18n kb.evals.low}}
   </label>
 </div>
+
+<div class="control-group">
+  <label class="control-label" for="obj-event">
+    {{i18n kb.glyprobs.event}}
+    <span class="errors">{{errors.event}}</span>
+  </label>
+  <div class="controls">
+    {{input id="obj-event" value=event}}
+  </div>
+</div>
+
 <div class="control-group">
   <label class="control-label" for="obj-description">
     {{i18n kb.description}}
@@ -21,6 +33,7 @@
     {{textarea id="obj-description" value=description}}
   </div>
 </div>
+
 <div class="control-group">
   <label class="control-label" for="obj-tags">
     {{i18n kb.tags.tags}}

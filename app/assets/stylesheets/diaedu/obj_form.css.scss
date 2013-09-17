@@ -1,6 +1,6 @@
 form.kb-obj-form {
   margin-bottom: 0;
-  
+    
   label {
     span.errors {
       color: #e45735;
@@ -8,7 +8,12 @@ form.kb-obj-form {
       font-style: italic;
     }
   }
+  
   input#obj-name {
     width: 99%;
+  }
+
+  input#obj-event {
+    width: 300px;
   }
 }
