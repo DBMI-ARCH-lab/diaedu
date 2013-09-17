@@ -21,7 +21,7 @@ module Diaedu
     end
 
     def create
-      obj = klass.new(params.require(:obj).permit(:name, :description))
+      obj = klass.new(params.require(:obj).permit(:name, :description, :taggings_attributes => [:tag_id, :_destroy, :tag_attributes => [:name]]))
 
       if obj.save
         render(:json => {:page => obj.appears_on_page(:per_page => PER_PAGE, :order => :name), :new_id => obj.id})

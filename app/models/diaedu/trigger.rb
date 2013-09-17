@@ -17,6 +17,8 @@ module Diaedu
 
     filterable(:glyprobs => :related, :goals => :related, :tags => :related)
 
+    accepts_nested_attributes_for(:taggings, :allow_destroy => true)
+
     # determines which page of objects this object would appear on
     def appears_on_page(options = {})
       # get number of objects before this one

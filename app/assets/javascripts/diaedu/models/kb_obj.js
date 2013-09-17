@@ -1,6 +1,8 @@
 Discourse.KbObj = Discourse.Model.extend({
   dataType: null,
 
+  tags: [],
+
   tagsToShow: 4,
 
   firstNTags: function() {
@@ -23,10 +25,23 @@ Discourse.KbObj = Discourse.Model.extend({
     // setup a jquery deferred b/c it's better than Ember.Deferred
     var def = $.Deferred();
 
+    // build data obj to submit
+    var data = this.getProperties('name', 'description');
+
+    // add tags
+    data.taggings_attributes = this.get('tags').map(function(t){
+      var tagging = {id: t.id};
+      // if the tag has no id (it's new), we need to add the tag attributes
+      if (t.id == null)
+        return {tag_attributes: {name: t.name}}
+      else
+        return {tag_id: t.id, _destroy: t._destroy};
+    });
+
     // do ajax request
     Discourse.ajax("/kb/" + this.get('dataType.name'), {
       method: 'POST',
-      data: {obj: this.getProperties('name', 'description')}
+      data: {obj: data},
     
     // on ajax success
     }).then(function(data) {
