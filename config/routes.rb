@@ -15,4 +15,6 @@ Diaedu::Engine.routes.draw do
   get('/goals/:filter_params/page/:page' => 'kb_objs#index', :data_type => 'goals')
 
   get('/filter-options' => 'filter_options#fetch')
+
+  get('/tags/suggest' => 'tags#suggest')
 end
