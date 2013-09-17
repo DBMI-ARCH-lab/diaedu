@@ -4,36 +4,9 @@
     {{#if done}}
       {{! message if the save was successful}}
       {{i18n kb.objs.sent_for_approval}}
-
     {{else}}
-      {{! new object form}}
-      <div class="control-group">
-        <label class="control-label" for="obj-name">
-          {{i18n kb.name}}
-          <span class="errors">{{errors.name}}</span>
-        </label>
-        <div class="controls">
-          {{input id="obj-name" value=name}}
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="obj-description">
-          {{i18n kb.description}}
-          <span class="errors">{{errors.description}}</span>
-        </label>
-        <div class="controls">
-          {{textarea id="obj-description" value=description}}
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="obj-tags">
-          {{i18n kb.tags.tags}}
-          <span class="errors">{{errors.tags}}</span>
-        </label>
-        <div class="controls">
-          {{view Discourse.KbTagEditView}}
-        </div>
-      </div>
+      {{! show object form}}
+      {{dynPartial view.formTemplate}}
     {{/if}}
   </div>
    

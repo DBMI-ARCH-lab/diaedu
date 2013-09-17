@@ -20,16 +20,19 @@ Discourse.KbDataType.reopenClass({
     'glycemic-problems': Discourse.KbDataType.create({
       name: 'glycemic-problems',
       shortName: 'glyprobs',
+      singular: 'glyprob',
       title: 'Glycemic Problems',
     }),
     'triggers': Discourse.KbDataType.create({
       name: 'triggers',
       shortName: 'triggers',
+      singular: 'trigger',
       title: 'Triggers',
     }),
     'goals': Discourse.KbDataType.create({
       name: 'goals',
       shortName: 'goals',
+      singular: 'goal',
       title: 'Goals',
     })
   }

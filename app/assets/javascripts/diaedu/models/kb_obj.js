@@ -74,6 +74,6 @@ Discourse.KbObj = Discourse.Model.extend({
 Discourse.KbObj.reopenClass({
   // factory method to create a subclass object of the appropriate type
   generateForDataType: function(dataType) {
-    return Discourse['Kb' + dataType.get('shortName').slice(0,-1).capitalize()].create({dataType: dataType});
+    return Discourse['Kb' + dataType.get('singular').capitalize()].create({dataType: dataType});
   }
 });
