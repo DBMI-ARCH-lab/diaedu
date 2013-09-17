@@ -39,10 +39,10 @@
    
   <div class="modal-footer">
     {{#if done}}
-      <button class="btn" {{action closeModal}}>{{i18n kb.ok}}</button>
+      <a class="btn" {{action closeModal}}>{{i18n kb.ok}}</a>
     {{else}}
-      <button class="btn" {{action closeModal}}>{{i18n kb.cancel}}</button>
-      <button class="btn btn-primary" {{action save}}>{{i18n kb.save}}</button>
+      <a class="btn" {{action closeModal}}>{{i18n kb.cancel}}</a>
+      <a class="btn btn-primary" {{action save}}>{{i18n kb.save}}</a>
       {{#if saving}}<img src="/assets/diaedu/loader.gif" class="loader" />{{/if}}
     {{/if}}
   </div>
