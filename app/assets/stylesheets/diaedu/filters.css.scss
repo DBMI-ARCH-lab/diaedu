@@ -22,6 +22,8 @@ div.diaedu-content div.filters {
       overflow: auto;
 
       div.item {
+        clear: both;
+        
         input[type=checkbox] {
           float: left;
         }
