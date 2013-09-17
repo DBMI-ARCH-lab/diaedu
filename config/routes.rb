@@ -17,4 +17,5 @@ Diaedu::Engine.routes.draw do
   get('/filter-options' => 'filter_options#fetch')
 
   get('/tags/suggest' => 'tags#suggest')
+  get('/events/suggest' => 'events#suggest')
 end
