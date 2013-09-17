@@ -1,6 +1,8 @@
 Discourse.KbObj = Discourse.Model.extend({
   dataType: null,
 
+  description: '',
+
   tags: [],
 
   tagsToShow: 4,
@@ -63,5 +65,12 @@ Discourse.KbObj = Discourse.Model.extend({
     });
 
     return def;
+  }
+});
+
+Discourse.KbObj.reopenClass({
+  // factory method to create a subclass object of the appropriate type
+  generateForDataType: function(dataType) {
+    Discourse['Kb' + dataType.get('shortName').slice(0,-1).capitalize()].create();
   }
 });
