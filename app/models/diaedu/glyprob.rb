@@ -13,6 +13,8 @@ module Diaedu
 
     filterable(:eval => :all, :tags => :related)
 
+    accepts_nested_attributes_for(:taggings, :allow_destroy => true)
+
     # returns all possible evals
     def self.all_evals
       %w(high low)
