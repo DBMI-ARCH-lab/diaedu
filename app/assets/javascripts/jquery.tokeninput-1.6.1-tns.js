@@ -359,7 +359,7 @@ $.TokenList = function (input, url_or_data, settings) {
                     
                     // EDIT BY TOMSMYTH: TRIGGER NEW ONENTER CALLBACK IF ENTER PRESSED
                     if (event.keyCode == KEY.ENTER || event.keyCode == KEY.NUMPAD_ENTER)
-                      $(input).data("settings").onEnter();
+                      if ($(input).data("settings").onEnter) $(input).data("settings").onEnter();
                     
                     event.stopPropagation();
                     event.preventDefault();
