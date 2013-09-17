@@ -19,31 +19,20 @@ Discourse.KbObj = Discourse.Model.extend({
     return this.get('tags').length - this.get('tagsToShow');
   }.property('tags'),
 
+  // gets a string to use as a row ID in an index list
   rowId: function() {
     return 'obj-' + this.get('id');
   }.property('id'),
 
+  // saves this object to the db
   save: function() { var self = this;
     // setup a jquery deferred b/c it's better than Ember.Deferred
     var def = $.Deferred();
 
-    // build data obj to submit
-    var data = this.getProperties('name', 'description');
-
-    // add tags
-    data.taggings_attributes = this.get('tags').map(function(t){
-      var tagging = {id: t.id};
-      // if the tag has no id (it's new), we need to add the tag attributes
-      if (t.id == null)
-        return {tag_attributes: {name: t.name}}
-      else
-        return {tag_id: t.id, _destroy: t._destroy};
-    });
-
     // do ajax request
     Discourse.ajax("/kb/" + this.get('dataType.name'), {
       method: 'POST',
-      data: {obj: data},
+      data: {obj: this.serialize()},
     
     // on ajax success
     }).then(function(data) {
@@ -65,12 +54,26 @@ Discourse.KbObj = Discourse.Model.extend({
     });
 
     return def;
+  },
+
+  // serializes the tags array to a Rails compatible format
+  // stores in the passed data object
+  serializeTags: function(data) {
+    // add tags
+    data.taggings_attributes = this.get('tags').map(function(t){
+      var tagging = {id: t.id};
+      // if the tag has no id (it's new), we need to add the tag attributes
+      if (t.id == null)
+        return {tag_attributes: {name: t.name}}
+      else
+        return {tag_id: t.id, _destroy: t._destroy};
+    });
   }
 });
 
 Discourse.KbObj.reopenClass({
   // factory method to create a subclass object of the appropriate type
   generateForDataType: function(dataType) {
-    Discourse['Kb' + dataType.get('shortName').slice(0,-1).capitalize()].create();
+    return Discourse['Kb' + dataType.get('shortName').slice(0,-1).capitalize()].create({dataType: dataType});
   }
 });
