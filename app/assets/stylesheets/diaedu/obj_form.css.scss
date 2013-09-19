@@ -1,14 +1,25 @@
 form.kb-obj-form {
   margin-bottom: 0;
-    
-  label {
-    .errors {
-      color: #e45735;
-      font-size: 12px;
-      font-style: italic;
-    }
+
+  .errors {
+    color: #e45735;
+    font-size: 12px;
+    font-style: italic;
   }
-  
+
+  div.errors {
+    margin-bottom: 5px;
+  }
+
+  label.control-label {
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  label.radio.inline {
+    padding-top: 0 !important;
+  }
+    
   input#obj-name {
     width: 99%;
   }
