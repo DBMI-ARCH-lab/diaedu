@@ -24,6 +24,11 @@ module Diaedu
       "#{evaluation.capitalize} #{event.name.downcase}"
     end
 
+    # finds or creates an event to match the given name
+    def event_name=(name)
+      self.event = Event.find_or_create_by_name(name.strip)
+    end
+
     # returns an eval object representing this glyprob's evaluation
     def eval
       Diaedu::Eval.get(evaluation)

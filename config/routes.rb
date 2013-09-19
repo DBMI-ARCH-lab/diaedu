@@ -2,6 +2,7 @@ Diaedu::Engine.routes.draw do
   root(:to => 'home#index')
   
   get('/glycemic-problems' => 'kb_objs#index', :data_type => 'glyprobs')
+  post('/glycemic-problems' => 'kb_objs#create', :data_type => 'glyprobs')
   get('/glycemic-problems/page/:page' => 'kb_objs#index', :data_type => 'glyprobs')
   get('/glycemic-problems/:filter_params/page/:page' => 'kb_objs#index', :data_type => 'glyprobs')
 
