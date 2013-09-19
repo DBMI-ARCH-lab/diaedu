@@ -10,7 +10,14 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
       self.$().append(sel);
 
       // setup multiselect control
-      self.$('select').multiselect();
+      sel.multiselect();
+
+      // setup event to copy changes to model
+      sel.on('change', function() {
+        self.set('controller.glyprob_ids', sel.val());
+      });
     });
-  }.observes('controller.glyprobChoices')
+  },
+
+
 });
