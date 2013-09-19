@@ -1,11 +1,10 @@
 Discourse.KbObj = Discourse.Model.extend({
-  dataType: null,
-
-  description: '',
-
-  tags: [],
-
   tagsToShow: 4,
+
+  init: function() {
+    this.set('tags', []);
+    this._super();
+  },
 
   firstNTags: function() {
     return this.get('tags').slice(0, this.get('tagsToShow'));
