@@ -4,6 +4,8 @@ module Diaedu
 
     before_validation(:normalize_fields)
 
+    validates(:name, :presence => true, :uniqueness => true)
+
     def self.suggestions(query)
       where("name ILIKE ?", "%#{query}%").all
     end

@@ -41,12 +41,14 @@ Discourse.KbObj = Discourse.Model.extend({
     }, function(resp){
       if (resp.status == 422) {
         
-        // join error messages into strings
-        var errors = resp.responseJSON.errors;
-        for (var f in errors) errors[f] = errors[f].join(', ');
+        // join error messages into strings, and change any .'s in keys to _'s, for cases like event.name
+        var errors = {};
+        for (var f in resp.responseJSON.errors) 
+          errors[f.replace(/\./g, '_')] = resp.responseJSON.errors[f].join(', ');
 
         // save on model
         self.set('errors', errors);
+        console.log(errors)
       }
 
       def.reject();

@@ -48,6 +48,7 @@ module Diaedu::Concerns::Filterable
     # restricts to objects that are related to the objects from current model with the given filter applied, if appropriate
     # return value is a data structure suited to the KbFilterBlock client side model 
     def self.filter_options_for_field(field, filter)
+      Rails.logger.debug("***************#{field}")
       # first get all objs with given filter applied, but WITHOUT the portion of the filter for the given field
       filtered = filter_with(filter.without(field))
 

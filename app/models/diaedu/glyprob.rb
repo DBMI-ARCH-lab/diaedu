@@ -3,7 +3,9 @@ module Diaedu
     include Diaedu::Concerns::Approvable
     include Diaedu::Concerns::Filterable
 
-    belongs_to(:event, :class_name => 'Diaedu::Event')
+    EVALS = %w(high low)
+
+    belongs_to(:event, :class_name => 'Diaedu::Event', :autosave => true)
     has_many(:glyprob_triggers, :class_name => 'Diaedu::GlyprobTrigger', :foreign_key => 'glyprob_id', :dependent => :destroy, :autosave => true)
     has_many(:triggers, :class_name => 'Diaedu::Trigger', :through => :glyprob_triggers)
     has_many(:taggings, :as => :taggable)
@@ -17,9 +19,14 @@ module Diaedu
 
     before_validation(:normalize_fields)
 
+    validates(:evaluation, :presence => true)
+    validates(:evaluation, :inclusion => {:in => EVALS}, :unless => lambda{|o| o.evaluation.blank?})
+    validates(:description, :presence => true)
+    validates(:event, :presence => true)
+
     # returns all possible evals
     def self.all_evals
-      %w(high low)
+      EVALS
     end
 
     def name
@@ -28,7 +35,7 @@ module Diaedu
 
     # finds or creates an event to match the given name
     def event_name=(name)
-      self.event = Event.find_or_create_by_name(name.strip)
+      self.event = Event.find_or_initialize_by_name(name.strip)
     end
 
     # returns an eval object representing this glyprob's evaluation
