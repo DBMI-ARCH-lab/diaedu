@@ -9,7 +9,8 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
       choices.forEach(function(c){ $('<option>').attr('value', c.id).text(c.name).appendTo(sel); });
       self.$().append(sel);
 
-      //self.$('select').multiselect();
+      // setup multiselect control
+      self.$('select').multiselect();
     });
   }.observes('controller.glyprobChoices')
 });
