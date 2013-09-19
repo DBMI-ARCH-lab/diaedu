@@ -14,7 +14,7 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
 
       // setup event to copy changes to model
       sel.on('change', function() {
-        self.set('controller.glyprob_ids', sel.val());
+        self.set('controller.parent_ids', sel.val());
       });
     });
   },

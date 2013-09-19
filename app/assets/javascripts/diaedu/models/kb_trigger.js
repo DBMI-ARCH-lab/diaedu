@@ -2,11 +2,11 @@ Discourse.KbTrigger = Discourse.KbObj.extend({
   name: '',
 
   // IDs of related glyprobs
-  glyprob_ids: null,
+  parent_ids: null,
 
   // builds a data object to submit to server
   serialize: function() {
-    var data = this.getProperties('name', 'description', 'glyprob_ids');
+    var data = this.getProperties('name', 'description', 'parent_ids');
     this.serializeTags(data);
     return data;
   },

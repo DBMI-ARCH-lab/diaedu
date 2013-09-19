@@ -26,6 +26,11 @@ module Diaedu
       (before / options[:per_page]) + 1
     end
 
+    # associates with glyprobs with the given IDs
+    def parent_ids=(ids)
+      ids.each{|id| glyprob_triggers.build(:glyprob_id => id)}
+    end
+
     def as_json(options = {})
       # spoof the likes and comments attribs for now
       srand(id) unless new_record?
