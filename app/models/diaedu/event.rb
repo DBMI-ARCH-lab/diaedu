@@ -3,7 +3,7 @@ module Diaedu
     has_many(:glyprobs, :class_name => 'Diaedu::Glyprob')
 
     def self.suggestions(query)
-      where("name ILIKE ?", "#{query}%").all
+      where("name ILIKE ?", "%#{query}%").all
     end
   end
 end
