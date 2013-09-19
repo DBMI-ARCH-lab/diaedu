@@ -10,7 +10,7 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
       self.$().append(sel);
 
       // setup multiselect control
-      sel.multiselect();
+      sel.multiselect().multiselectfilter();
 
       // setup event to copy changes to model
       sel.on('change', function() {
