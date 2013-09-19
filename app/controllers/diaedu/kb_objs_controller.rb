@@ -7,17 +7,23 @@ module Diaedu
     before_filter(:parse_filter_params, :only => :index)
 
     def index
-      page = params[:page].to_i || 1
 
-      # sleep for a second in dev mode to test loading indicators
-      #sleep(0.25) if Rails.env == 'development'
-      
-      render(:json => {
-        :objs => klass.approved.filter_with(@filter).includes(:tags).default_order.
-          offset((page - 1) * PER_PAGE).limit(PER_PAGE).as_json(:include => :tags),
-        :per_page => PER_PAGE,
-        :total_count => klass.filter_with(@filter).count
-      })
+      if params[:for_select]
+        render(:json => klass.default_order.all.as_json(:id_name_only => true), :root => false)
+
+      else
+        page = params[:page].to_i || 1
+
+        # sleep for a second in dev mode to test loading indicators
+        #sleep(0.25) if Rails.env == 'development'
+        
+        render(:json => {
+          :objs => klass.approved.filter_with(@filter).includes(:tags).default_order.
+            offset((page - 1) * PER_PAGE).limit(PER_PAGE).as_json(:include => :tags),
+          :per_page => PER_PAGE,
+          :total_count => klass.filter_with(@filter).count
+        })
+      end
     end
 
     def create

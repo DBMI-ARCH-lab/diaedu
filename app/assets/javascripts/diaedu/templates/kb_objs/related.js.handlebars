@@ -1,4 +1,6 @@
-<select>
-  <option value="1">Foo</option>
-  <option value="2">Bar</option>
-</select>
+{{view Ember.Select
+  multiple="true"
+  selectionBinding="glyprobs"
+  contentBinding="glyprobChoices"
+  optionValuePath="content.id"
+  optionLabelPath="content.name"}}
