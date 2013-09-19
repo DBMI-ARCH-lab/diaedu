@@ -23,6 +23,7 @@ module Diaedu
     validates(:evaluation, :inclusion => {:in => EVALS}, :unless => lambda{|o| o.evaluation.blank?})
     validates(:description, :presence => true)
     validates(:event, :presence => true)
+    validate(:eval_event_unique)
 
     # returns all possible evals
     def self.all_evals
@@ -58,6 +59,17 @@ module Diaedu
       # trims whitespace, etc.
       def normalize_fields
         self.description = description.strip unless description.blank?
+      end
+
+      # ensures combination of evaluation and event has not been taken
+      def eval_event_unique
+        # no need to check if event is new_record
+        return if event.nil? || event.new_record?
+
+        rel = self.class.where(:evaluation => evaluation).where(:event_id => event.id)
+        rel = rel.where('id != ?', id) unless new_record?
+
+        errors.add(:base, :eval_event_taken) unless rel.empty?
       end
   end
 end

@@ -48,7 +48,6 @@ Discourse.KbObj = Discourse.Model.extend({
 
         // save on model
         self.set('errors', errors);
-        console.log(errors)
       }
 
       def.reject();

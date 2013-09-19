@@ -1,4 +1,9 @@
 en:
-  js:
-    diaedu:
-      foo: "barn"
+  activerecord:
+    errors:
+      models:
+        diaedu/glyprob:
+          eval_event_taken: "A Glycemic Problem with similar properties already exists."
+
+  # js:
+  #   diaedu:
