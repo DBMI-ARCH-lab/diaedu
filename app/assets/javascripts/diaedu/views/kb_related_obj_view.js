@@ -1,7 +1,15 @@
 Discourse.KbRelatedObjView = Discourse.View.extend({
-  templateName: 'diaedu/templates/kb_objs/related',
+  template: '',
 
+  // observe when options get added to the select. wait for then to setup the multiselect
   didInsertElement: function() { var self = this;
-    this.$('select').multiselect();
-  }
+    this.get('controller.glyprobChoices')().then(function(choices){
+      // build and insert the select tag and option tags
+      var sel = $('<select>').attr('multiple', 'multiple');
+      choices.forEach(function(c){ $('<option>').attr('value', c.id).text(c.name).appendTo(sel); });
+      self.$().append(sel);
+
+      //self.$('select').multiselect();
+    });
+  }.observes('controller.glyprobChoices')
 });
