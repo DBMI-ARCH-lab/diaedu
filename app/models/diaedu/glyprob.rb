@@ -15,6 +15,8 @@ module Diaedu
 
     accepts_nested_attributes_for(:taggings, :allow_destroy => true)
 
+    before_validation(:normalize_fields)
+
     # returns all possible evals
     def self.all_evals
       %w(high low)
@@ -31,7 +33,7 @@ module Diaedu
 
     # returns an eval object representing this glyprob's evaluation
     def eval
-      Diaedu::Eval.get(evaluation)
+      Eval.get(evaluation)
     end
 
     def as_json(options = {})
@@ -43,5 +45,12 @@ module Diaedu
         super(options).merge(:likes => rand(30), :comments => rand(15), :name => name)
       end
     end
+
+    private
+
+      # trims whitespace, etc.
+      def normalize_fields
+        self.description = description.strip unless description.blank?
+      end
   end
 end
