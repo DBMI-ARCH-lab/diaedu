@@ -1,4 +1,6 @@
 Discourse.KbRelatedObjView = Discourse.View.extend({
+  classNames: ['related-obj-view'],
+  
   template: '',
 
   // observe when options get added to the select. wait for then to setup the multiselect
@@ -20,6 +22,5 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
       });
     });
   },
-
 
 });
