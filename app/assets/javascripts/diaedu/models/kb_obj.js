@@ -112,7 +112,8 @@ Discourse.KbObj.reopenClass({
     // on ajax error
     }, function(resp){
 
-      def.reject();
+      // reject the deferred and pass a dummy object
+      def.reject(resp, Discourse.KbObj.create(options));
     });
 
     return def;  

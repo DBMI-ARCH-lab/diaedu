@@ -10,7 +10,14 @@
 
     {{#if loading}}
       <div class="spinner">{{i18n loading}}</div>
-    {{else}}
+    {{/if}}
+
+    {{#if loadFailed}}
+      <i class="icon-frown"></i>
+      {{i18n kb.server_error}}.
+    {{/if}}
+
+    {{#if loaded}}
       <div class="attribs-comments">
         <div class="stats">
           <i class="icon-caret-up"></i>

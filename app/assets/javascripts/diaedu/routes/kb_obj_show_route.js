@@ -12,9 +12,15 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
     Discourse.KbObj.find({dataType: this.modelFor('kbObj'), id: model.id})
       .done(function(obj){
         controller.set('model', obj);
+        controller.set('loaded', true);
 
-      }).fail(function(e){
-        console.log("FETCH ERROR:", e.message)
+      }).fail(function(resp, dummyObj){
+        controller.set('loadFailed', true);
+
+        // set a dummy model so that a try again link can be generated
+        controller.set('model', dummyObj);
+        
+        console.log('LOAD FAILED', resp);
 
       }).always(function(){
         controller.set('loading', false);
