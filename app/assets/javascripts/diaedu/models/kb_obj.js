@@ -92,5 +92,10 @@ Discourse.KbObj.reopenClass({
   // factory method to create a subclass object of the appropriate type
   generateForDataType: function(dataType) {
     return Discourse['Kb' + dataType.get('singular').capitalize()].create({dataType: dataType});
+  },
+
+  find: function(options) {
+    console.log(options);
+    return {};
   }
 });

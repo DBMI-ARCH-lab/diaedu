@@ -3,11 +3,13 @@ Diaedu::Engine.routes.draw do
   
   get('/glycemic-problems' => 'kb_objs#index', :data_type => 'glyprobs')
   post('/glycemic-problems' => 'kb_objs#create', :data_type => 'glyprobs')
+  get('/glycemic-problems/:id' => 'kb_objs#show', :data_type => 'glyprobs')
   get('/glycemic-problems/page/:page' => 'kb_objs#index', :data_type => 'glyprobs')
   get('/glycemic-problems/:filter_params/page/:page' => 'kb_objs#index', :data_type => 'glyprobs')
 
   get('/triggers' => 'kb_objs#index', :data_type => 'triggers')
   post('/triggers' => 'kb_objs#create', :data_type => 'triggers')
+  get('/triggers/:id' => 'kb_objs#show', :data_type => 'triggers')
   get('/triggers/page/:page' => 'kb_objs#index', :data_type => 'triggers')
   get('/triggers/:filter_params/page/:page' => 'kb_objs#index', :data_type => 'triggers')
   

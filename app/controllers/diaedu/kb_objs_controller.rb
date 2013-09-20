@@ -26,6 +26,10 @@ module Diaedu
       end
     end
 
+    def show
+
+    end
+
     def create
       obj = klass.new(params.require(:obj).permit(:name, :description, :event_name, :evaluation, :parent_ids => [], 
         :taggings_attributes => [:tag_id, :_destroy, :tag_attributes => [:name]]))
