@@ -3,7 +3,7 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
 
   // observe when options get added to the select. wait for then to setup the multiselect
   didInsertElement: function() { var self = this;
-    this.get('controller.glyprobChoices')().then(function(choices){
+    this.get('controller.relatedObjChoices').then(function(choices){
       // build and insert the select tag and option tags
       var sel = $('<select>').attr('multiple', 'multiple');
       choices.forEach(function(c){ $('<option>').attr('value', c.id).text(c.name).appendTo(sel); });

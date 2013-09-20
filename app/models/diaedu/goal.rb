@@ -10,7 +10,17 @@ module Diaedu
 
     scope(:default_order, order('diaedu_goals.name'))
 
+    validates(:name, :description, :presence => true)
+    validates(:name, :uniqueness => true, :length => {:minimum => 20}, :unless => lambda{|o| o.name.blank?})
+
     filterable(:triggers => :related, :tags => :related)
+
+    accepts_nested_attributes_for(:taggings, :allow_destroy => true)
+
+    # associates with triggers with the given IDs
+    def parent_ids=(ids)
+      ids.each{|id| trigger_goals.build(:trigger_id => id)}
+    end
 
     def as_json(options = {})
       if options[:id_name_only]

@@ -1,14 +1,14 @@
-Discourse.KbTrigger = Discourse.KbObj.extend({
+Discourse.KbGoal = Discourse.KbObj.extend({
   name: '',
 
-  // IDs of related glyprobs
+  // IDs of related triggers
   parent_ids: null,
 
   relatedObjDataType: null,
 
   init: function() {
     this._super();
-    this.set('relatedObjDataType', Discourse.KbDataType.find('glycemic-problems'));
+    this.set('relatedObjDataType', Discourse.KbDataType.find('triggers'));
   },
 
   // builds a data object to submit to server

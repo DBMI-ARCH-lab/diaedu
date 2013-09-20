@@ -12,6 +12,7 @@ Diaedu::Engine.routes.draw do
   get('/triggers/:filter_params/page/:page' => 'kb_objs#index', :data_type => 'triggers')
   
   get('/goals' => 'kb_objs#index', :data_type => 'goals')
+  post('/goals' => 'kb_objs#create', :data_type => 'goals')
   get('/goals/page/:page' => 'kb_objs#index', :data_type => 'goals')
   get('/goals/:filter_params/page/:page' => 'kb_objs#index', :data_type => 'goals')
 

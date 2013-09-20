@@ -23,6 +23,23 @@ Discourse.KbObj = Discourse.Model.extend({
     return 'obj-' + this.get('id');
   }.property('id'),
 
+  // gets the choices for related objects
+  relatedObjChoices: function() { var self = this;
+    console.log(this);
+    return Discourse.ajax("/kb/" + this.get('relatedObjDataType.name'), {
+      method: 'GET',
+      data: {for_select: true},
+    
+    // on ajax success
+    }).then(function(data) {
+      return data;
+
+    // on ajax error
+    }, function(){
+
+    });
+  }.property('relatedObjDataType.name'),
+
   // saves this object to the db
   save: function() { var self = this;
     // setup a jquery deferred b/c it's better than Ember.Deferred
