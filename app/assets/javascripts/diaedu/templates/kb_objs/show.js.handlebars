@@ -12,7 +12,14 @@
       <div class="spinner">{{i18n loading}}</div>
     {{else}}
       <div class="attribs-comments">
-        {{description}}
+        <div class="stats">
+          <i class="icon-caret-up"></i>
+          <div class="likes">{{likes}} {{i18n likes}}</div>
+          <div class="views">{{views}} {{i18n views}}</div>
+        </div>
+        <div class="description">
+          {{description}}
+        </div>
       </div>
     {{/if}}
   </div>

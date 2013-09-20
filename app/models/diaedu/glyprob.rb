@@ -50,7 +50,7 @@ module Diaedu
       else
         srand(id) unless new_record?
         # spoof the likes and comments attribs for now
-        super(options).merge(:likes => rand(30), :comments => rand(15), :name => name)
+        super(options).merge(:likes => rand(30), :comments => rand(15), :views => rand(200), :name => name)
       end
     end
 
