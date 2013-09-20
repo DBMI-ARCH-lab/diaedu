@@ -31,7 +31,7 @@ module Diaedu
     end
 
     def name
-      "#{evaluation.capitalize} #{event.name.downcase}"
+      "#{evaluation.capitalize} #{event.name}"
     end
 
     # finds or creates an event to match the given name

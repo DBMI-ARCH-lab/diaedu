@@ -5,7 +5,7 @@
     
     <h1>
       <img {{bindAttr src="controllers.kbObj.iconPath"}} />
-      Title
+      {{controllers.kbObj.model.title}}: <span class="weaker">{{name}}</span>
     </h1>
 
     {{#if loading}}
