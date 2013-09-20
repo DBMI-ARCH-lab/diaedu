@@ -13,7 +13,8 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
 
       // setup multiselect control
       sel.multiselect({
-        noneSelectedText: ''
+        noneSelectedText: '',
+        height: 250
       }).multiselectfilter();
 
       // setup event to copy changes to model
