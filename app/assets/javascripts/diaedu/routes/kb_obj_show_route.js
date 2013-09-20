@@ -8,10 +8,17 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
     // let the view know we are loading
     controller.set('loading', true);
 
+    var dataType = this.modelFor('kbObj');
+
     // fetch object
-    Discourse.KbObj.find({dataType: this.modelFor('kbObj'), id: model.id})
+    Discourse.KbObj.find({id: model.id, dataType: dataType})
       .done(function(obj){
         controller.set('model', obj);
+
+        // for glyprobs, start the breadcrumb trail off with self
+        if (dataType.get('shortName') == 'glyprobs')
+          controller.set('model.breadcrumb', Ember.A([obj]));
+
         controller.set('loaded', true);
 
       }).fail(function(resp, dummyObj){
