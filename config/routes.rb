@@ -1,25 +1,18 @@
 Diaedu::Engine.routes.draw do
   root(:to => 'home#index')
   
-  get('/glycemic-problems' => 'kb_objs#index', :data_type => 'glyprobs')
-  post('/glycemic-problems' => 'kb_objs#create', :data_type => 'glyprobs')
-  get('/glycemic-problems/:id' => 'kb_objs#show', :data_type => 'glyprobs')
-  get('/glycemic-problems/page/:page' => 'kb_objs#index', :data_type => 'glyprobs')
-  get('/glycemic-problems/:filter_params/page/:page' => 'kb_objs#index', :data_type => 'glyprobs')
+  PATH_PREFIXES = {'glyprobs' => 'glycemic-problems', 'triggers' => 'triggers', 'goals' => 'goals'}
 
-  get('/triggers' => 'kb_objs#index', :data_type => 'triggers')
-  post('/triggers' => 'kb_objs#create', :data_type => 'triggers')
-  get('/triggers/:id' => 'kb_objs#show', :data_type => 'triggers')
-  get('/triggers/page/:page' => 'kb_objs#index', :data_type => 'triggers')
-  get('/triggers/:filter_params/page/:page' => 'kb_objs#index', :data_type => 'triggers')
-  
-  get('/goals' => 'kb_objs#index', :data_type => 'goals')
-  post('/goals' => 'kb_objs#create', :data_type => 'goals')
-  get('/goals/page/:page' => 'kb_objs#index', :data_type => 'goals')
-  get('/goals/:filter_params/page/:page' => 'kb_objs#index', :data_type => 'goals')
+  %w(glyprobs triggers goals).each do |dt|
+    prefix = PATH_PREFIXES[dt]
+    get("/#{prefix}" => 'kb_objs#index', :data_type => dt)
+    post("/#{prefix}" => 'kb_objs#create', :data_type => dt)
+    get("/#{prefix}/:id" => 'kb_objs#show', :data_type => dt)
+    get("/#{prefix}/page/:page" => 'kb_objs#index', :data_type => dt)
+    get("/#{prefix}/:filter_params/page/:page" => 'kb_objs#index', :data_type => dt)
+  end
 
   get('/filter-options' => 'filter_options#fetch')
-
   get('/tags/suggest' => 'tags#suggest')
   get('/events/suggest' => 'events#suggest')
 end
