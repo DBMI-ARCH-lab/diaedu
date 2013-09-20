@@ -95,7 +95,26 @@ Discourse.KbObj.reopenClass({
   },
 
   find: function(options) {
-    console.log(options);
-    return {};
+    // setup a jquery deferred b/c it's better than Ember.Deferred
+    var def = $.Deferred();
+
+    Discourse.ajax("/kb/" + options.dataType.get('name') + '/' + options.id, {
+      method: 'GET'
+    
+    // on ajax success
+    }).then(function(data) {
+      // store the dataType in the object also
+      data.dataType = options.dataType;
+
+      // create the object and send it to deferred resolve
+      def.resolve(Discourse.KbObj.create(data));
+
+    // on ajax error
+    }, function(resp){
+
+      def.reject();
+    });
+
+    return def;  
   }
 });

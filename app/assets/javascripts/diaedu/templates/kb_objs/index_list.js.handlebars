@@ -18,7 +18,7 @@
             <small>+{{moreTagCount}} more</small>
           {{/if}}
         </div>
-        <a href="#">{{name}}</a>
+        {{#linkTo 'kb_obj.show' this}}{{name}}{{/linkTo}}
       </div>
     </div>
   {{/each}}

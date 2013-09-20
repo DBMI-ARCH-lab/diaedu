@@ -27,7 +27,7 @@ module Diaedu
     end
 
     def show
-
+      render(:json => {}, :root => false)
     end
 
     def create
