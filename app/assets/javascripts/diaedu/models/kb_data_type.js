@@ -1,7 +1,18 @@
 Discourse.KbDataType = Discourse.Model.extend({
   name: null,
   shortName: null,
-  title: null,
+  
+  title: function() {
+    return I18n.t('kb.' + this.get('shortName') + '.title.other');
+  }.property('shortName'),
+
+  singularTitle: function() {
+    return I18n.t('kb.' + this.get('shortName') + '.title.one');
+  }.property('shortName'),
+
+  className: function() {
+    return this.get('shortName').slice(0,-1);
+  }.property('shortName')
 });
 
 Discourse.KbDataType.reopenClass({
@@ -19,21 +30,15 @@ Discourse.KbDataType.reopenClass({
   instances: {
     'glycemic-problems': Discourse.KbDataType.create({
       name: 'glycemic-problems',
-      shortName: 'glyprobs',
-      singular: 'glyprob',
-      title: 'Glycemic Problems',
+      shortName: 'glyprobs'
     }),
     'triggers': Discourse.KbDataType.create({
       name: 'triggers',
-      shortName: 'triggers',
-      singular: 'trigger',
-      title: 'Triggers',
+      shortName: 'triggers'
     }),
     'goals': Discourse.KbDataType.create({
       name: 'goals',
-      shortName: 'goals',
-      singular: 'goal',
-      title: 'Goals',
+      shortName: 'goals'
     })
   }
 });
