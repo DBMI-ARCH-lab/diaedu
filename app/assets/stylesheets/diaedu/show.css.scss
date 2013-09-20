@@ -2,5 +2,28 @@ div.diaedu-content {
   div.attribs-comments {
     background-color: #f4f4f4;
     padding: 15px;
+
+    div.stats {
+      float: left;
+      text-align: center;
+      width: 75px;
+
+      i {
+        font-size: 30px;
+      }
+
+      div.likes {
+        font-size: 15px;
+      }
+
+      div.views {
+        font-size: 11px;
+        color: #888;
+      }
+    }
+
+    div.description {
+      margin-left: 85px;
+    }
   }
 }
