@@ -20,11 +20,26 @@ form.kb-obj-form {
     padding-top: 0 !important;
   }
     
-  input#obj-name {
-    width: 99%;
+  input[type=text], textarea {
+    width: 670px !important;
   }
 
-  input#obj-event {
-    width: 300px;
+  ul.token-input-list {
+    width: 678px !important;
   }
+
+  div.obj-glyprobs .controls {
+    select {
+      width: 673px !important;
+    }
+
+    button {
+      border-radius: 3px;
+      height: 28px;
+    }
+  }
+}
+
+ul.ui-helper-reset li {
+  font-size: 13px;
 }
