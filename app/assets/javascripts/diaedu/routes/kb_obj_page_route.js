@@ -16,6 +16,8 @@ Discourse.KbObjPageRoute = Discourse.Route.extend({
     var data_type = this.modelFor('kb_obj');
     controller.set('data_type', data_type);
 
+    Discourse.set('title', data_type.get('title'));
+
     // if the model is just a shell, populate it
     controller.set('model', null);
     // start fetch and get promise

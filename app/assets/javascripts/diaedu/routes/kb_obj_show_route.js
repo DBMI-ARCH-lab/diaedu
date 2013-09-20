@@ -10,10 +10,14 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
 
     var dataType = this.modelFor('kbObj');
 
+    Discourse.set('title', this.modelFor('kbObj').get('title'));
+
     // fetch object
     Discourse.KbObj.find({id: model.id, dataType: dataType})
       .done(function(obj){
         controller.set('model', obj);
+
+        Discourse.set('title', obj.get('name'));
 
         // for glyprobs, start the breadcrumb trail off with self
         if (dataType.get('shortName') == 'glyprobs')
