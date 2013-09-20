@@ -1,0 +1,17 @@
+<div class="diaedu-content">
+  <div class="breadcrumb">
+  </div>
+  <div class="main">
+    
+    <h1>
+      <img {{bindAttr src="controllers.kbObj.iconPath"}} />
+      Title
+    </h1>
+
+    {{#if loading}}
+      <div class="spinner">{{i18n loading}}</div>
+    {{else}}
+      Content
+    {{/if}}
+  </div>
+</div>
