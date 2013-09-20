@@ -1,13 +1,19 @@
 <div class="diaedu-content">
-  <div class="breadcrumb">
-    <ol>
-      {{#each breadcrumb}}
-        <li>
-          <div>{{type.singularTitle}}</div>
-          <strong>{{obj.name}}</strong>
-        </li>
-      {{/each}}
-    </ol>
+  <div class="left-pane">
+    <div class="block breadcrumb">
+      <h3>
+        <i class="icon-random"></i>
+        {{i18n kb.how_got_here}}
+      </h3>
+      <ol>
+        {{#each breadcrumb}}
+          <li {{bindAttr class="obj:isActive"}}>
+            <div>{{type.singularTitle}}</div>
+            <strong>{{obj.name}}</strong>
+          </li>
+        {{/each}}
+      </ol>
+    </div>
   </div>
 
   <div class="main">

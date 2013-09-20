@@ -1,22 +1,5 @@
-div.diaedu-content div.filters {
-  width: 230px;
-  display: inline-block;
-  vertical-align: top;
-
+div.diaedu-content {
   div.filter {
-    background-color: #f4f4f4;
-    padding: 5px 10px 10px 10px;
-    margin-bottom: 20px;
-
-    /* title */
-    h3 {
-      font-size: 13px;
-
-      img {
-        height: 15px;
-      }
-    }
-
     div.items {
       max-height: 150px;
       overflow: auto;
