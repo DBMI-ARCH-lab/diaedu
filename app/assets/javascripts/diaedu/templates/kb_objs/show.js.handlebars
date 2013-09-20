@@ -1,9 +1,13 @@
 <div class="diaedu-content">
   <div class="breadcrumb">
-    {{#each breadcrumb}}
-      {{dataType.singularTitle}}
-      {{name}}
-    {{/each}}
+    <ol>
+      {{#each breadcrumb}}
+        <li>
+          <div>{{type.singularTitle}}</div>
+          <strong>{{obj.name}}</strong>
+        </li>
+      {{/each}}
+    </ol>
   </div>
 
   <div class="main">
