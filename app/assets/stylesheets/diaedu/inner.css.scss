@@ -1,7 +1,9 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:400,900);
 
 div.diaedu-content {
-  padding: 6px 20px 30px 20px;
+  padding: 6px 0 30px 0;
+  width: 1020px;
+  margin: 0 auto;
 
   /* loading indicator */
   img.loader {
@@ -13,7 +15,7 @@ div.diaedu-content {
   div.main {
     display: inline-block;
     margin-left: 20px;
-    width: 800px;
+    width: 750px;
     min-height: 500px;
 
     /* add link at top of a page */
