@@ -27,7 +27,7 @@ module Diaedu
     end
 
     def show
-      render(:json => {}, :root => false)
+      render(:json => klass.find(params[:id]), :root => false)
     end
 
     def create
