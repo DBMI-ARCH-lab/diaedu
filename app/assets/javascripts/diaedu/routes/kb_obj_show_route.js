@@ -20,8 +20,11 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
     var objReq = Discourse.KbObj.find({id: model.id, dataType: dataType});
 
     // initiate request for associated objects (if applicable -- not applicable for goals (rank 3))
-    if (dataType.rank < 3)
-      var relatedReq = Discourse.KbObjPage.find(dataType.get('next'), 1, 'all');
+    if (dataType.rank < 3) {
+      // build a filter string to get objs related to this obj
+      var filterParams = dataType.shortName + '-' + model.id;
+      var relatedReq = Discourse.KbObjPage.find(dataType.get('next'), 1, filterParams);
+    }
     else {
       var relatedReq = $.Deferred();
       relatedReq.resolve();
