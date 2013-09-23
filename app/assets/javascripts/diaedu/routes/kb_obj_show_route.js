@@ -7,6 +7,8 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
   setupController: function(controller, model) {
     // let the view know we are loading
     controller.set('loading', true);
+    controller.set('loaded', false);
+    controller.set('loadFailed', false);
 
     var dataType = this.modelFor('kbObj');
 
