@@ -1,3 +1,4 @@
+// models a page of objects
 Discourse.KbObjPage = Discourse.Model.extend({
   page_id: null,
   is_active: false,

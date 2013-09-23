@@ -1,5 +1,5 @@
 Discourse.KbObjNewController = Ember.ObjectController.extend(Discourse.ModalFunctionality, {
-  needs: ["kbObjPage", "kbObj"],
+  needs: ["kbObj"],
 
   // whether the submission process is complete
   done: false,
@@ -9,8 +9,8 @@ Discourse.KbObjNewController = Ember.ObjectController.extend(Discourse.ModalFunc
   saving: false,
 
   dataType: function() {
-    return this.get('controllers.kbObjPage.data_type');
-  }.property('controllers.kbObjPage.data_type'),
+    return this.get('controllers.kbObj.model');
+  }.property('controllers.kbObj'),
 
   onShow: function() {
     this.set('done', false);
