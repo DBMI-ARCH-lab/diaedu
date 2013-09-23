@@ -6,5 +6,7 @@ Discourse.KbObjShowController = Ember.ObjectController.extend({
 
   loaded: false,
 
-  loadFailed: false
+  loadFailed: false,
+
+  relatedObjPage: null
 });

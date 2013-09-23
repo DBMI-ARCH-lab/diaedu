@@ -8,7 +8,7 @@ Discourse.KbGoal = Discourse.KbObj.extend({
 
   init: function() {
     this._super();
-    this.set('relatedObjDataType', Discourse.KbDataType.find('triggers'));
+    this.set('relatedObjDataType', Discourse.KbDataType.get('triggers'));
   },
 
   // builds a data object to submit to server

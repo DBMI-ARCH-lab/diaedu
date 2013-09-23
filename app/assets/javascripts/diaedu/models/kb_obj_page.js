@@ -24,7 +24,10 @@ Discourse.KbObjPage.reopenClass({
   find: function(data_type, page_id, filter_params) {
     page_id = parseInt(page_id);
 
-    return Discourse.ajax("/kb/" + data_type.name + "/" + filter_params + "/page/" + page_id).then(function (data) {
+    // setup a jquery deferred b/c it's better than Ember.Deferred
+    var def = $.Deferred();
+
+    Discourse.ajax("/kb/" + data_type.name + "/" + filter_params + "/page/" + page_id).then(function (data) {
 
       // compute how many pages there will be and generate stub Page objects for them
       var page_count = Math.ceil(data.total_count / data.per_page);
@@ -77,7 +80,15 @@ Discourse.KbObjPage.reopenClass({
       if (page_id != 1)
         this_page.other_pages.insertAt(0, this_page.get_stub(1));
 
-      return this_page;
+      def.resolve(this_page);
+    
+    // on ajax error
+    }, function(resp){
+
+      // reject the deferred
+      def.reject(resp);
     });
+
+    return def;
   }
 });

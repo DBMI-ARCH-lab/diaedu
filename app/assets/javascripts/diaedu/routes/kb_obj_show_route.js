@@ -5,6 +5,7 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
   },
   
   setupController: function(controller, model) {
+    
     // let the view know we are loading
     controller.set('loading', true);
     controller.set('loaded', false);
@@ -12,36 +13,54 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
 
     var dataType = this.modelFor('kbObj');
 
+    // set title to something basic while loading
     Discourse.set('title', this.modelFor('kbObj').get('title'));
 
-    // fetch object
-    Discourse.KbObj.find({id: model.id, dataType: dataType})
-      .done(function(obj){
-        controller.set('model', obj);
+    // initiate ajax request for object
+    var objReq = Discourse.KbObj.find({id: model.id, dataType: dataType});
 
-        Discourse.set('title', obj.get('name'));
+    // initiate request for associated objects (if applicable -- not applicable for goals (rank 3))
+    if (dataType.rank < 3)
+      var relatedReq = Discourse.KbObjPage.find(dataType.get('next'), 1, 'all');
+    else {
+      var relatedReq = $.Deferred();
+      relatedReq.resolve();
+    }
 
-        // for glyprobs, start the breadcrumb trail off with self
-        if (dataType.get('shortName') == 'glyprobs')
-          controller.set('model.breadcrumb', Ember.A([
-            {type: Discourse.KbDataType.instances['glycemic-problems'], obj: obj},
-            {type: Discourse.KbDataType.instances['triggers'], obj: null},
-            {type: Discourse.KbDataType.instances['goals'], obj: null}
-          ]));
+    $.when(objReq, relatedReq)
 
-        controller.set('loaded', true);
+    // if both requests are done, we can proceed
+    .done(function(obj, related){
+      // setup the models
+      controller.set('model', obj);
+      controller.set('relatedObjPage', related);
 
-      }).fail(function(resp, dummyObj){
-        controller.set('loadFailed', true);
+      // refine title now that we've loaded
+      Discourse.set('title', obj.get('name'));
 
-        // set a dummy model so that a try again link can be generated
-        controller.set('model', dummyObj);
-        
-        console.log('LOAD FAILED', resp);
+      // for glyprobs, start the breadcrumb trail off with self
+      if (dataType.get('shortName') == 'glyprobs')
+        controller.set('model.breadcrumb', Ember.A([
+          {type: Discourse.KbDataType.get('glycemic-problems'), obj: obj},
+          {type: Discourse.KbDataType.get('triggers'), obj: null},
+          {type: Discourse.KbDataType.get('goals'), obj: null}
+        ]));
 
-      }).always(function(){
-        controller.set('loading', false);
-      });
+      controller.set('loaded', true);
+
+    // if either request fails, we say load failed
+    }).fail(function(resp, dummyObj){
+      controller.set('loadFailed', true);
+
+      // set a dummy model so that a try again link can be generated
+      controller.set('model', dummyObj);
+      
+      console.log('LOAD FAILED', resp);
+
+    // in either case, we can turn off the loading indicator
+    }).always(function(){
+      controller.set('loading', false);
+    });
   },
 
   renderTemplate: function() {

@@ -10,6 +10,6 @@ Discourse.HeaderController.reopen({
   }.property('controllers.application.currentPath'),
 
   dataTypes: function() {
-    return Discourse.KbDataType.all();
+    return Discourse.KbDataType.instances;
   }.property()
 })

@@ -1,7 +1,8 @@
 Discourse.KbDataType = Discourse.Model.extend({
   name: null,
   shortName: null,
-  
+  rank: null,
+
   title: function() {
     return I18n.t('kb.' + this.get('shortName') + '.title.other');
   }.property('shortName'),
@@ -12,34 +13,48 @@ Discourse.KbDataType = Discourse.Model.extend({
 
   className: function() {
     return this.get('shortName').slice(0,-1);
-  }.property('shortName')
+  }.property('shortName'),
+
+  // returns the next data type in the hierarchy
+  next: function() {
+    return Discourse.KbDataType.instances[this.get('rank')];
+  }.property('rank')
+  
 });
 
 Discourse.KbDataType.reopenClass({
-  find: function(name) {
-    return Discourse.KbDataType.instances[name];
+  byName: null,
+
+  get: function(which) { var self = this;
+    // if which is an integer, just return that one
+    if (typeof(which) == 'number')
+      return this.instances[which];
+    else {
+      // build the hash if not built already
+      if (!this.byName) {
+        this.byName = {};
+        this.instances.forEach(function(dt){ self.byName[dt.name] = dt; });
+      }
+      return this.byName[which];
+    }
   },
 
-  all: function() {
-    var a = [];
-    for (var key in Discourse.KbDataType.instances)
-      a.push(Discourse.KbDataType.instances[key]);
-    return a;
-  },
-
-  instances: {
-    'glycemic-problems': Discourse.KbDataType.create({
+  instances: [
+    Discourse.KbDataType.create({
       name: 'glycemic-problems',
-      shortName: 'glyprobs'
+      shortName: 'glyprobs',
+      rank: 1
     }),
-    'triggers': Discourse.KbDataType.create({
+    Discourse.KbDataType.create({
       name: 'triggers',
-      shortName: 'triggers'
+      shortName: 'triggers',
+      rank: 2
     }),
-    'goals': Discourse.KbDataType.create({
+    Discourse.KbDataType.create({
       name: 'goals',
-      shortName: 'goals'
+      shortName: 'goals',
+      rank: 3
     })
-  }
+  ]
 });
 
