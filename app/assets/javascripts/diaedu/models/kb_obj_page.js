@@ -5,6 +5,7 @@ Discourse.KbObjPage = Discourse.Model.extend({
   objs: null,
   other_pages: null,
   filter_params: null,
+  data_type: null,
 
   get_stub: function(page_id) {
     return Discourse.KbObjPage.create({page_id: page_id, filter_params: this.get('filter_params')});
@@ -42,7 +43,8 @@ Discourse.KbObjPage.reopenClass({
         filter_params: filter_params,
         is_active: true,
         objs: Em.A(),
-        other_pages: Em.A()
+        other_pages: Em.A(),
+        data_type: data_type
       });
 
       // create the Objs

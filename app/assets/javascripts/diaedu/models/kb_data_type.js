@@ -22,7 +22,15 @@ Discourse.KbDataType = Discourse.Model.extend({
 
   hasNext: function() {
     return !!this.get('next');
-  }.property('next')
+  }.property('next'),
+
+  iconPath: function() {
+    return '/assets/diaedu/' + this.get('shortName') + '-active.png';
+  }.property('shortName'),
+
+  smallerIconPath: function() {
+    return '/assets/diaedu/' + this.get('shortName') + '-smaller.png';
+  }.property('shortName'),    
 });
 
 Discourse.KbDataType.reopenClass({

@@ -17,7 +17,7 @@
 
 <div class="main">
   <h1>
-    <img {{bindAttr src="controllers.kbObj.iconPath"}} />
+    <img {{bindAttr src="controllers.kbObj.model.iconPath"}} />
     {{controllers.kbObj.model.title}}: <span class="weaker">{{name}}</span>
   </h1>
 
@@ -42,7 +42,10 @@
       </div>
     </div>
 
-    <h2>{{relatedObjHeading}}</h2>
+    <h2>
+      <img {{bindAttr src="relatedObjPage.data_type.iconPath"}} />
+      {{relatedObjHeading}}
+    </h2>
 
     {{render 'kb_obj_page' relatedObjPage}}
   {{/if}}
