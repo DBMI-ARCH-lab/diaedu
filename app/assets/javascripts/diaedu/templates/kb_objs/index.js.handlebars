@@ -1,33 +1,30 @@
-<div class="diaedu-content">
-  <div class="left-pane">
-    {{render "kb_filter_set" filterSet}}
-  </div>
-  <div class="main">
-    {{#if currentUser}}
-      {{#unless loading}}
-        <button {{action newObj}} class="btn btn-default btn-add">
-          <i class="icon icon-plus"></i> {{addLinkText}}
-        </button>
-      {{/unless}}
-    {{/if}}
+<div class="left-pane">
+  {{render "kb_filter_set" filterSet}}
+</div>
+
+<div class="main">
+  {{#if currentUser}}
+    {{#unless loading}}
+      <button {{action newObj}} class="btn btn-default btn-add">
+        <i class="icon icon-plus"></i> {{addLinkText}}
+      </button>
+    {{/unless}}
+  {{/if}}
+  
+  <h1>
+    <img {{bindAttr src="controllers.kbObj.iconPath"}} />
+    {{data_type.title}}
+  </h1>
+
+  {{#if loading}}
+    <div class="spinner">{{i18n loading}}</div>
+  {{else}}
     
-    <h1>
-      <img {{bindAttr src="controllers.kbObj.iconPath"}} />
-      {{data_type.title}}
-    </h1>
-
-    {{#if loading}}
-      <div class="spinner">{{i18n loading}}</div>
+    {{#if noObjs}}
+      {{i18n kb.none_found}}
     {{else}}
-      
-      {{#if noObjs}}
-        {{i18n kb.none_found}}
-      {{else}}
-        {{view Discourse.KbObjIndexListView}}
-        {{partial 'diaedu/templates/kb_objs/_pagination'}}
-      {{/if}}
+      {{view Discourse.KbObjIndexListView}}
+      {{partial 'diaedu/templates/kb_objs/_pagination'}}
     {{/if}}
-  </div>
-
-  {{outlet}}
+  {{/if}}
 </div>

@@ -1,48 +1,45 @@
-<div class="diaedu-content">
-  <div class="left-pane">
-    <div class="block breadcrumb">
-      <h3>
-        <i class="icon-random"></i>
-        {{i18n kb.how_got_here}}
-      </h3>
-      <ol>
-        {{#each breadcrumb}}
-          <li {{bindAttr class="obj:isActive"}}>
-            <div>{{type.singularTitle}}</div>
-            {{#linkTo 'kb_obj.show' obj}}<strong>{{obj.name}}</strong>{{/linkTo}}
-          </li>
-        {{/each}}
-      </ol>
-    </div>
+<div class="left-pane">
+  <div class="block breadcrumb">
+    <h3>
+      <i class="icon-random"></i>
+      {{i18n kb.how_got_here}}
+    </h3>
+    <ol>
+      {{#each breadcrumb}}
+        <li {{bindAttr class="obj:isActive"}}>
+          <div>{{type.singularTitle}}</div>
+          {{#linkTo 'kb_obj.show' obj}}<strong>{{obj.name}}</strong>{{/linkTo}}
+        </li>
+      {{/each}}
+    </ol>
   </div>
+</div>
 
-  <div class="main">
-    
-    <h1>
-      <img {{bindAttr src="controllers.kbObj.iconPath"}} />
-      {{controllers.kbObj.model.title}}: <span class="weaker">{{name}}</span>
-    </h1>
+<div class="main">
+  <h1>
+    <img {{bindAttr src="controllers.kbObj.iconPath"}} />
+    {{controllers.kbObj.model.title}}: <span class="weaker">{{name}}</span>
+  </h1>
 
-    {{#if loading}}
-      <div class="spinner">{{i18n loading}}</div>
-    {{/if}}
+  {{#if loading}}
+    <div class="spinner">{{i18n loading}}</div>
+  {{/if}}
 
-    {{#if loadFailed}}
-      <i class="icon-frown"></i>
-      {{i18n kb.server_error}}.
-    {{/if}}
+  {{#if loadFailed}}
+    <i class="icon-frown"></i>
+    {{i18n kb.server_error}}.
+  {{/if}}
 
-    {{#if loaded}}
-      <div class="attribs-comments">
-        <div class="stats">
-          <i class="icon-caret-up"></i>
-          <div class="likes">{{likes}} {{i18n likes}}</div>
-          <div class="views">{{views}} {{i18n views}}</div>
-        </div>
-        <div class="description">
-          {{description}}
-        </div>
+  {{#if loaded}}
+    <div class="attribs-comments">
+      <div class="stats">
+        <i class="icon-caret-up"></i>
+        <div class="likes">{{likes}} {{i18n likes}}</div>
+        <div class="views">{{views}} {{i18n views}}</div>
       </div>
-    {{/if}}
-  </div>
+      <div class="description">
+        {{description}}
+      </div>
+    </div>
+  {{/if}}
 </div>
