@@ -8,5 +8,9 @@ Discourse.KbObjShowController = Ember.ObjectController.extend({
 
   loadFailed: false,
 
-  relatedObjPage: null
+  relatedObjPage: null,
+
+  relatedObjHeading: function() {
+    return I18n.t('kb.' + this.get('controllers.kbObj.model.next.shortName') + '.related_heading');
+  }.property('controllers.kbObj')
 });

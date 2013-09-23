@@ -18,8 +18,11 @@ Discourse.KbDataType = Discourse.Model.extend({
   // returns the next data type in the hierarchy
   next: function() {
     return Discourse.KbDataType.instances[this.get('rank')];
-  }.property('rank')
-  
+  }.property('rank'),
+
+  hasNext: function() {
+    return !!this.get('next');
+  }.property('next')
 });
 
 Discourse.KbDataType.reopenClass({
