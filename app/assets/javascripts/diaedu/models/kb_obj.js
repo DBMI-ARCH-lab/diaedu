@@ -91,7 +91,7 @@ Discourse.KbObj = Discourse.Model.extend({
 Discourse.KbObj.reopenClass({
   // factory method to create a subclass object of the appropriate type
   generateForDataType: function(dataType) {
-    return Discourse['Kb' + dataType.get('className')].create({dataType: dataType});
+    return dataType.get('modelClass').create({dataType: dataType});
   },
 
   find: function(options) {
