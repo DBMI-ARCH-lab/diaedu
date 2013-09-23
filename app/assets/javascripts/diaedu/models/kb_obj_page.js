@@ -49,6 +49,7 @@ Discourse.KbObjPage.reopenClass({
 
       // create the Objs
       data.objs.forEach(function (g) {
+        g.dataType = data_type;
         // create Obj object from returned JSON and add to this page
         this_page.objs.pushObject(Discourse.KbObj.create(g));
       });

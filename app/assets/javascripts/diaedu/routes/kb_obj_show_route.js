@@ -1,7 +1,7 @@
 Discourse.KbObjShowRoute = Discourse.Route.extend({
   model: function(params, transition) {
     // since this method won't always be called, just return a placeholder indicating the ID
-    return {id: params.id};
+    return Discourse.KbObj.create({id: params.id, dataType: this.modelFor('kbObj')});
   },
   
   setupController: function(controller, model) {
@@ -71,6 +71,6 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
   },
 
   serialize: function(model) {
-    return {id: model.id};
+    return {id: model.id, data_type: model.get('dataType.name')};
   }
 });
