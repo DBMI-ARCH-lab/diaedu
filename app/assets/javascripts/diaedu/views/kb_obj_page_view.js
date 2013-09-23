@@ -1,5 +1,5 @@
-Discourse.KbObjIndexListView = Discourse.View.extend({
-  templateName: 'diaedu/templates/kb_objs/index_list',
+Discourse.KbObjPageView = Discourse.View.extend({
+  templateName: 'diaedu/templates/kb_objs/page',
 
   didInsertElement: function() {
     // if there is a toHighlight set, honor it

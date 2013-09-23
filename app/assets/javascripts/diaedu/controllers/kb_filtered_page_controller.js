@@ -10,6 +10,8 @@ Discourse.KbFilteredPageController = Discourse.ObjectController.extend({
   // filter set is the set of filter blocks on the left
   filterSet: null,
 
+  objPage: null,
+
   addLinkText: function() {
     return I18n.t('kb.' + this.get('data_type.shortName') + '.add_link');
   }.property('data_type')

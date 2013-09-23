@@ -1,0 +1,32 @@
+{{! presents a list of objs and pagination. not standalone. designed to be rendered inside show or filtered_page}}
+{{#if noObjs}}
+  {{i18n kb.none_found}}
+{{else}}
+  <div class="index-list">
+    {{#each objs}}
+      <div class="index-row" {{bindAttr id="rowId"}}>
+        <div class="stat likes">
+          {{likes}}
+          <small>Likes</small>
+        </div>
+        <div class="stat comments">
+          {{comments}}
+          <small>Comments</small>
+        </div>
+        <div class="main-cell">
+          <div class="tags">
+            {{#each firstNTags}}
+              <span>{{name}}</span>
+            {{/each}}
+            {{#if hasMoreTags}}
+              <small>+{{moreTagCount}} more</small>
+            {{/if}}
+          </div>
+          {{#linkTo 'kb_obj.show' this}}{{name}}{{/linkTo}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  {{partial 'diaedu/templates/kb_objs/_pagination'}}
+{{/if}}

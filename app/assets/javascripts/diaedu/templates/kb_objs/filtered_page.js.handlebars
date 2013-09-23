@@ -19,12 +19,6 @@
   {{#if loading}}
     <div class="spinner">{{i18n loading}}</div>
   {{else}}
-    
-    {{#if noObjs}}
-      {{i18n kb.none_found}}
-    {{else}}
-      {{view Discourse.KbObjIndexListView}}
-      {{partial 'diaedu/templates/kb_objs/_pagination'}}
-    {{/if}}
+    {{render 'kb_obj_page' objPage}}
   {{/if}}
 </div>

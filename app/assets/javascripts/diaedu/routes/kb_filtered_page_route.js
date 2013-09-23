@@ -19,10 +19,10 @@ Discourse.KbFilteredPageRoute = Discourse.Route.extend({
     Discourse.set('title', data_type.get('title'));
 
     // if the model is just a shell, populate it
-    controller.set('model', null);
+    controller.set('objPage', null);
     // start fetch and get promise
     Discourse.KbObjPage.find(data_type, model.page_id, model.filter_params).then(function(loaded){
-      controller.set('model', loaded);
+      controller.set('objPage', loaded);
       modelLoaded.resolve();
     }, function(e) {
       console.log("FETCH ERROR:", e.message)
