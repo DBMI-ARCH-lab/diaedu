@@ -12,10 +12,10 @@ Discourse.KbFilteredPageRoute = Discourse.Route.extend({
     // let the view know we are loading
     controller.set('loading', true);
 
-    // pass the data type to the controller
+    // get the data type
     var data_type = this.modelFor('kb_obj');
-    controller.set('data_type', data_type);
 
+    // set the page title
     Discourse.set('title', data_type.get('title'));
 
     // if the model is just a shell, populate it
