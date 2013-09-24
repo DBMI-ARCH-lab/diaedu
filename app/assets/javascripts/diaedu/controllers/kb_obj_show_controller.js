@@ -18,10 +18,6 @@ Discourse.KbObjShowController = Discourse.ObjectController.extend({
     return I18n.t('kb.' + this.get('relatedObjDataType.shortName') + '.related_heading');
   }.property('relatedObjDataType'),
 
-  addRelatedObj: function() {
-
-  },
-
   addRelatedObjLinkText: function() {
     return I18n.t('kb.' + this.get('relatedObjDataType.shortName') + '.add_related_link');
   }.property('relatedObjDataType')

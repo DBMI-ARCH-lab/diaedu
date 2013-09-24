@@ -72,5 +72,16 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
 
   serialize: function(model) {
     return {id: model.id, data_type: model.get('dataType.name')};
+  },
+
+  events: {
+    // loads the modal dialog to create a related object
+    addRelatedObj: function() {
+      // create new model for modal
+      var model = Discourse.KbObj.generateForDataType(this.get('controller.relatedObjDataType'));
+
+      // show the modal
+      Discourse.Route.showModal(this, 'kbObjNew', model);
+    }
   }
 });

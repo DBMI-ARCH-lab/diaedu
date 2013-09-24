@@ -63,7 +63,7 @@ Discourse.KbFilteredPageRoute = Discourse.Route.extend({
   },
 
   events: {
-    newObj: function() {
+    addObj: function() {
       var dataType = this.modelFor('kb_obj');
 
       // create new model for modal
