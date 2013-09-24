@@ -42,6 +42,13 @@
       </div>
     </div>
 
+    {{#if currentUser}}
+      <a {{action addRelatedObj}} class="new-related-obj">
+        &plus;
+        {{addRelatedObjLinkText}}
+      </a>
+    {{/if}}
+
     <h2>
       <img {{bindAttr src="relatedObjPage.data_type.iconPath"}} />
       {{relatedObjHeading}}

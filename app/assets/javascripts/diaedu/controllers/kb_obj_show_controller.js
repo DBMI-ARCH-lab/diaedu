@@ -1,4 +1,4 @@
-Discourse.KbObjShowController = Ember.ObjectController.extend({
+Discourse.KbObjShowController = Discourse.ObjectController.extend({
   needs: ["kbObj"],
 
   // loading is initially true
@@ -10,7 +10,19 @@ Discourse.KbObjShowController = Ember.ObjectController.extend({
 
   relatedObjPage: null,
 
+  relatedObjDataType: function() {
+    return this.get('controllers.kbObj.model.next');
+  }.property('controllers.kbObj'),
+
   relatedObjHeading: function() {
-    return I18n.t('kb.' + this.get('controllers.kbObj.model.next.shortName') + '.related_heading');
-  }.property('controllers.kbObj')
+    return I18n.t('kb.' + this.get('relatedObjDataType.shortName') + '.related_heading');
+  }.property('relatedObjDataType'),
+
+  addRelatedObj: function() {
+
+  },
+
+  addRelatedObjLinkText: function() {
+    return I18n.t('kb.' + this.get('relatedObjDataType.shortName') + '.add_related_link');
+  }.property('relatedObjDataType')
 });
