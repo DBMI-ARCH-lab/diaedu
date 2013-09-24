@@ -46,11 +46,13 @@ Discourse.KbFilteredPageRoute = Discourse.Route.extend({
       controller.set('filterSet', null);
       
       // start fetch and get promise
-      Discourse.KbFilterSet.generate(data_type, model.filter_params).then(function(filterSet){
+      Discourse.KbFilterSet.generate(data_type, model.filter_params)
+      .done(function(filterSet){
         controller.set('filterSet', filterSet);
         filterLoaded.resolve();
-      }, function(e) {
-        console.log("FETCH ERROR:", e.message)
+      
+      }).fail(function(resp) {
+        console.log("FETCH ERROR:", resp);
       });
     }
 

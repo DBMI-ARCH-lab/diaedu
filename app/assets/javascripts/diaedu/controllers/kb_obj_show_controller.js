@@ -10,6 +10,9 @@ Discourse.KbObjShowController = Discourse.ObjectController.extend({
 
   relatedObjPage: null,
 
+  // stores the KbFilterBlock object for tags, to be used in the minifilter
+  tagFilterBlock: null,
+
   relatedObjDataType: function() {
     return this.get('controllers.kbObj.model.next');
   }.property('controllers.kbObj'),

@@ -19,24 +19,32 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
     // initiate ajax request for object
     var objReq = Discourse.KbObj.find({id: model.id, dataType: dataType});
 
+    // build a filter string to get objs related to this obj
+    var relatedFilterParams = dataType.shortName + '-' + model.id;
+
     // initiate request for associated objects (if applicable -- not applicable for goals (rank 3))
     if (dataType.rank < 3) {
-      // build a filter string to get objs related to this obj
-      var filterParams = dataType.shortName + '-' + model.id;
-      var relatedReq = Discourse.KbObjPage.find(dataType.get('next'), 1, filterParams);
+      var relatedReq = Discourse.KbObjPage.find(dataType.get('next'), 1, relatedFilterParams);
     }
     else {
       var relatedReq = $.Deferred();
       relatedReq.resolve();
     }
 
-    $.when(objReq, relatedReq)
+    // initiate request for filter params
+    var filterReq = Discourse.KbFilterSet.generate(dataType.get('next'), relatedFilterParams);
 
-    // if both requests are done, we can proceed
-    .done(function(obj, related){
+    $.when(objReq, relatedReq, filterReq)
+
+    // if all requests are done, we can proceed
+    .done(function(obj, related, filterSet){
       // setup the models
       controller.set('model', obj);
       controller.set('relatedObjPage', related);
+
+      // find the filter block for tags
+      var tagBlock = filterSet.get('blocks').filter(function(b){ return b.get('type') == 'tags'; })[0];
+      controller.set('tagFilterBlock', tagBlock);
 
       // refine title now that we've loaded
       Discourse.set('title', obj.get('name'));
@@ -51,7 +59,7 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
 
       controller.set('loaded', true);
 
-    // if either request fails, we say load failed
+    // if any request fails, we say load failed
     }).fail(function(resp, dummyObj){
       controller.set('loadFailed', true);
 
@@ -60,7 +68,7 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
       
       console.log('LOAD FAILED', resp);
 
-    // in either case, we can turn off the loading indicator
+    // in any case, we can turn off the loading indicator
     }).always(function(){
       controller.set('loading', false);
     });
