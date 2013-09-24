@@ -80,6 +80,9 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
       // create new model for modal
       var model = Discourse.KbObj.generateForDataType(this.get('controller.relatedObjDataType'));
 
+      // the model should have the proper obj preselected
+      model.set('preselectedParentId', this.get('controller.model.id'));
+
       // show the modal
       Discourse.Route.showModal(this, 'kbObjNew', model);
     }

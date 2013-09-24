@@ -1,6 +1,9 @@
 Discourse.KbObj = Discourse.Model.extend({
   tagsToShow: 4,
 
+  // used for showing the new dialog and indicating which (if any) parent object should be preselected
+  preselectedParentId: null,
+
   init: function() {
     this.set('tags', []);
     this._super();

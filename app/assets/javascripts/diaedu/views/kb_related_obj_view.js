@@ -8,7 +8,15 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
     this.get('controller.relatedObjChoices').then(function(choices){
       // build and insert the select tag and option tags
       var sel = $('<select>').attr('multiple', 'multiple');
-      choices.forEach(function(c){ $('<option>').attr('value', c.id).text(c.name).appendTo(sel); });
+      choices.forEach(function(c){ 
+        var opt = $('<option>').attr('value', c.id).text(c.name)
+
+        // make the option selected if it matches the preselected parent
+        if (self.get('controller.preselectedParentId') == c.id)
+          opt.attr('selected', 'selected');
+
+        opt.appendTo(sel); 
+      });
       self.$().append(sel);
 
       // setup multiselect control
