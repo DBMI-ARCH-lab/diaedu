@@ -13,21 +13,13 @@ Discourse.KbFilterSet = Discourse.Model.extend({
 
   // converts the current state of the filter set into a string for the url (e.g. glyprobs-1,2,3-tags-4,5)
   serialize: function() {
-    var chunks = [];
-    this.get('blocks').forEach(function(block){
-      
-      // if the noneChecked flag is set, we stop
-      if (block.noneChecked)
-        return;
+    // get chunks of string from blocks
+    var chunks = this.get('blocks').map(function(block){ return block.serialize(); });
 
-      // get the selected ids
-      var ids = block.items.filter(function(i){ return i.isChecked; }).map(function(i){ return i.obj.id; });
+    // filter out nulls
+    chunks = chunks.filter(function(c){ return c != null; });
 
-      // if any are selected, add a chunk
-      if (ids.length > 0)
-        chunks.push(block.type + '-' + ids.join(','));
-    });
-
+    // if there are no selections return 'all', else join chunks
     return chunks.length == 0 ? 'all' : chunks.join('-');
   },
 

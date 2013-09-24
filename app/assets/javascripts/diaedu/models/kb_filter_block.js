@@ -44,6 +44,23 @@ Discourse.KbFilterBlock = Discourse.Model.extend({
 
     // fire the item changed event so that noneChecked stays accurate
     this.itemChanged();
+  },
+
+  // converts this block into a filter parameter chunk
+  // returns null if nothing selected
+  serialize: function() {
+    // if the noneChecked flag is set, we stop
+    if (this.get('noneChecked'))
+      return null;
+
+    // get the selected ids
+    var ids = this.get('items').filter(function(i){ return i.get('isChecked'); }).map(function(i){ return i.get('obj.id'); });
+
+    // if any are selected, build and return the text
+    if (ids.length > 0)
+      return this.get('type') + '-' + ids.join(',');
+    else
+      return null;
   }
 });
 
