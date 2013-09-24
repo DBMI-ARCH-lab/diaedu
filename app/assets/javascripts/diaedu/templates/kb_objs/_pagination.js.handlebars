@@ -8,7 +8,14 @@
           {{#if page.is_active}}
             <td class="active"><div>{{page.page_id}}</div></td>
           {{else}}
-            <td>{{#linkTo 'kb_filtered_page.index' dataType page}}{{page.page_id}}{{/linkTo}}</td>
+            <td>
+              {{! if in show mode, make the link trigger an action instead of a straight up transition}}
+              {{#if showMode}}
+                {{#view Discourse.KbPaginationLink pageIdBinding="page.page_id"}}{{page.page_id}}{{/view}}
+              {{else}}
+                {{#linkTo 'kb_filtered_page.index' dataType page}}{{page.page_id}}{{/linkTo}}
+              {{/if}}
+            </td>
           {{/if}}
         {{/if}}
       {{/each}}
