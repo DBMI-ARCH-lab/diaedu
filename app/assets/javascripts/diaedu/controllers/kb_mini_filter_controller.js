@@ -2,9 +2,11 @@
 // as opposed to a full filter set with blocks and checkboxes
 // associated with a single filter block model
 Discourse.KbMiniFilterController = Discourse.ObjectController.extend({
+  needs: 'kbObjShow',
 
-  // handles changes to the filter set
-  filterChanged: function() {
-
+  // handles changes to the filter block
+  filterChanged: function(tagId) {
+    var block = this.get('model');
+    this.get('controllers.kbObjShow').send('relatedMiniFilterChanged', block);
   }
 });

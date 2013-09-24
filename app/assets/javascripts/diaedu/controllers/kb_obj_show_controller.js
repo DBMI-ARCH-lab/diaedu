@@ -23,5 +23,11 @@ Discourse.KbObjShowController = Discourse.ObjectController.extend({
 
   addRelatedObjLinkText: function() {
     return I18n.t('kb.' + this.get('relatedObjDataType.shortName') + '.add_related_link');
-  }.property('relatedObjDataType')
+  }.property('relatedObjDataType'),
+
+  // handles a change in the related obj minifilter
+  // accepts the filter block object and gets the new filter params from it
+  relatedMiniFilterChanged: function(block) {
+    console.log(block);
+  }
 });

@@ -1,1 +1,5 @@
-{{#each items}}{{obj.name}}{{/each}}
+<span>{{i18n kb.tags.tags}}:</span>
+<a href="#" class="any-link">{{i18n kb.any}}</a>
+{{#each items}}
+  <a href="#" {{bindAttr data-id="obj.id"}}>{{obj.name}}</a>
+{{/each}}
