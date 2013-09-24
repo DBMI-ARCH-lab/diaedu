@@ -11,7 +11,7 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
     controller.set('loaded', false);
     controller.set('loadFailed', false);
 
-    var dataType = this.modelFor('kbObj');
+    var dataType = model.get('dataType');
 
     // set title to something basic while loading
     Discourse.set('title', this.modelFor('kbObj').get('title'));
