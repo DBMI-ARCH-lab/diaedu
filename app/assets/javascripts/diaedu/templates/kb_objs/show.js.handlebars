@@ -42,22 +42,22 @@
       </div>
     </div>
 
-    {{render 'kb_related_obj_list'}}
+    <div class="related-objs">
+      {{#if currentUser}}
+        <a {{action addRelatedObj}} class="new-related-obj">
+          &plus;
+          {{addRelatedObjLinkText}}
+        </a>
+      {{/if}}
 
-    {{#if currentUser}}
-      <a {{action addRelatedObj}} class="new-related-obj">
-        &plus;
-        {{addRelatedObjLinkText}}
-      </a>
-    {{/if}}
+      <h2>
+        <img {{bindAttr src="relatedObjPage.data_type.iconPath"}} />
+        {{relatedObjHeading}}
+      </h2>
 
-    <h2>
-      <img {{bindAttr src="relatedObjPage.data_type.iconPath"}} />
-      {{relatedObjHeading}}
-    </h2>
+      {{render 'kb_mini_filter' tagFilterBlock}}
 
-    {{render 'kb_mini_filter' tagFilterBlock}}
-
-    {{render 'kb_obj_page' relatedObjPage}}
+      {{render 'kb_obj_page' relatedObjPage}}
+    </div>
   {{/if}}
 </div>
