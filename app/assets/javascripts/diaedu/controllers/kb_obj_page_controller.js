@@ -5,10 +5,22 @@ Discourse.KbObjPageController = Discourse.ObjectController.extend({
     return this.get('controllers.application.currentPath') == 'kb_obj.show';
   }.property('controllers.application.currentPath'),
 
+  // if model is null, we should show the loading indicator
+  loading: function() {
+    return !this.get('model');
+  }.property('model'),
+
   // loads the specified page into the model
   changePage: function(newPage) { var self = this;
+    // use the same data type and filter params
+    var dataType = this.get('model.data_type');
+    var filterParams = this.get('model.filter_params');
+
+    // set the model to null so the loading indicator shows up
+    this.set('model', null);
+
     // start fetch and get promise
-    Discourse.KbObjPage.find(this.get('model.data_type'), newPage, this.get('model.filter_params'))
+    Discourse.KbObjPage.find(dataType, newPage, filterParams)
     .done(function(loaded){
       self.set('model', loaded);
     

@@ -42,6 +42,8 @@
       </div>
     </div>
 
+    {{render 'kb_related_obj_list'}}
+
     {{#if currentUser}}
       <a {{action addRelatedObj}} class="new-related-obj">
         &plus;
@@ -54,7 +56,7 @@
       {{relatedObjHeading}}
     </h2>
 
-    {{render "kb_mini_filter" tagFilterBlock}}
+    {{render 'kb_mini_filter' tagFilterBlock}}
 
     {{render 'kb_obj_page' relatedObjPage}}
   {{/if}}

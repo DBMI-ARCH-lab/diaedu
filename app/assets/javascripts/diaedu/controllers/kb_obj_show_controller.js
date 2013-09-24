@@ -30,9 +30,12 @@ Discourse.KbObjShowController = Discourse.ObjectController.extend({
   relatedMiniFilterChanged: function(block) { var self = this;
     // build the new filter param string
     var newFilterParams = this.get('model.dataType.shortName') + '-' + this.get('model.id') + '-' + block.serialize();
+    var dataType = this.get('relatedObjPage.data_type');
+
+    self.set('relatedObjPage', null);
 
     // load the new kbobjpage
-    Discourse.KbObjPage.find(this.get('relatedObjPage.data_type'), 1, newFilterParams)
+    Discourse.KbObjPage.find(dataType, 1, newFilterParams)
     .done(function(objPage){
       self.set('relatedObjPage', objPage);
     });
