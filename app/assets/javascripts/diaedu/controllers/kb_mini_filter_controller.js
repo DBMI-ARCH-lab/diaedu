@@ -7,6 +7,10 @@ Discourse.KbMiniFilterController = Discourse.ObjectController.extend({
   // handles changes to the filter block
   filterChanged: function(tagId) {
     var block = this.get('model');
+
+    // tell the block to mark the tag with the given ID as selected
+    block.setSelectionById(tagId);
+
     this.get('controllers.kbObjShow').send('relatedMiniFilterChanged', block);
   }
 });

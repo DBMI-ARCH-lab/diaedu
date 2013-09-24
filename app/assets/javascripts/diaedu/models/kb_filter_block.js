@@ -34,7 +34,17 @@ Discourse.KbFilterBlock = Discourse.Model.extend({
   // path to the icon for this block
   iconPath: function() {
     return '/assets/diaedu/' + this.get('type') + '-smaller.png';
-  }.property('type')
+  }.property('type'),
+
+  // sets the item with the given id to checked, and all others to unchecked
+  setSelectionById: function(id) {
+    this.get('items').forEach(function(item){
+      item.set('isChecked', item.get('obj.id') == id);
+    });
+
+    // fire the item changed event so that noneChecked stays accurate
+    this.itemChanged();
+  }
 });
 
 // class methods
