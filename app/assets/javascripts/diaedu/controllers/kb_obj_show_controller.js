@@ -14,8 +14,8 @@ Discourse.KbObjShowController = Discourse.ObjectController.extend({
   tagFilterBlock: null,
 
   relatedObjDataType: function() {
-    return this.get('controllers.kbObj.model.next');
-  }.property('controllers.kbObj'),
+    return this.get('model.dataType.next');
+  }.property('model.dataType.next'),
 
   relatedObjHeading: function() {
     return I18n.t('kb.' + this.get('relatedObjDataType.shortName') + '.related_heading');
