@@ -14,7 +14,7 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
     var dataType = model.get('dataType');
 
     // set title to something basic while loading
-    Discourse.set('title', this.modelFor('kbObj').get('title'));
+    Discourse.set('title', model.get('dataType').get('title'));
 
     // initiate ajax request for object
     var objReq = Discourse.KbObj.find({id: model.id, dataType: dataType, navParent: model.navParent});
