@@ -20,6 +20,7 @@
     {{#if hasRelatedParents}}
       <div class="block related-parents">
         <h3>
+          <img {{bindAttr src="relatedParentsIconPath"}} />
           {{relatedParentsHeading}}
         </h3>
         {{#unless loading}}
