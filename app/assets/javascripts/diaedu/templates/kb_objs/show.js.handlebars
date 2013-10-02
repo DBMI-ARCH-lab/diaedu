@@ -16,10 +16,12 @@
 </div>
 
 <div class="main">
-  <h1>
-    <img {{bindAttr src="dataType.iconPath"}} />
-    {{dataType.title}}: <span class="weaker">{{name}}</span>
-  </h1>
+  {{#unless loading}}
+    <h1>
+      <img {{bindAttr src="dataType.iconPath"}} />
+      {{dataType.title}}: <span class="weaker">{{name}}</span>
+    </h1>
+  {{/unless}}
 
   {{#if loading}}
     <div class="spinner">{{i18n loading}}</div>
