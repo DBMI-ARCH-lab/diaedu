@@ -13,10 +13,6 @@ Discourse.KbObjShowController = Discourse.ObjectController.extend({
   // stores the KbFilterBlock object for tags, to be used in the minifilter
   tagFilterBlock: null,
 
-  relatedObjDataType: function() {
-    return this.get('model.dataType.next');
-  }.property('model.dataType.next'),
-
   relatedChildrenHeading: function() {
     return I18n.t('kb.' + this.get('model.dataType.next.shortName') + '.related_heading');
   }.property('model.dataType.next'),
@@ -26,8 +22,8 @@ Discourse.KbObjShowController = Discourse.ObjectController.extend({
   }.property('model.dataType.prev'),
 
   addRelatedObjLinkText: function() {
-    return I18n.t('kb.' + this.get('relatedObjDataType.shortName') + '.add_related_link');
-  }.property('relatedObjDataType'),
+    return I18n.t('kb.' + this.get('model.dataType.next.shortName') + '.add_related_link');
+  }.property('model.dataType.next'),
 
   // handles a change in the related obj minifilter
   // accepts the filter block object and gets the new filter params from it
