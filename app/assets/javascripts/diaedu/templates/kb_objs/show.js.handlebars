@@ -20,6 +20,7 @@
     {{#if hasRelatedParents}}
       <div class="block related-parents">
         <h3>
+          {{relatedParentsHeading}}
         </h3>
         {{#unless loading}}
           <ul>
@@ -74,7 +75,7 @@
 
       <h2>
         <img {{bindAttr src="relatedObjPage.data_type.iconPath"}} />
-        {{relatedObjHeading}}
+        {{relatedChildrenHeading}}
       </h2>
 
       {{render 'kb_mini_filter' tagFilterBlock}}

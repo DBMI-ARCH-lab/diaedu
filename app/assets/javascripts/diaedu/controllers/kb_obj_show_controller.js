@@ -17,9 +17,13 @@ Discourse.KbObjShowController = Discourse.ObjectController.extend({
     return this.get('model.dataType.next');
   }.property('model.dataType.next'),
 
-  relatedObjHeading: function() {
-    return I18n.t('kb.' + this.get('relatedObjDataType.shortName') + '.related_heading');
-  }.property('relatedObjDataType'),
+  relatedChildrenHeading: function() {
+    return I18n.t('kb.' + this.get('model.dataType.next.shortName') + '.related_heading');
+  }.property('model.dataType.next'),
+
+  relatedParentsHeading: function() {
+    return I18n.t('kb.' + this.get('model.dataType.prev.shortName') + '.related_heading');
+  }.property('model.dataType.prev'),
 
   addRelatedObjLinkText: function() {
     return I18n.t('kb.' + this.get('relatedObjDataType.shortName') + '.add_related_link');
