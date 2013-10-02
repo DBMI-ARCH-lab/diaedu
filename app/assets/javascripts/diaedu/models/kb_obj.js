@@ -114,6 +114,10 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 Discourse.KbObj.reopenClass({
   dataTypeName: null,
 
+  dataType: function() {
+    return Discourse.KbDataType.get(this.dataTypeName);
+  },
+
   find: function(options) {
     // setup a jquery deferred b/c it's better than Ember.Deferred
     var def = $.Deferred();
@@ -141,16 +145,18 @@ Discourse.KbObj.reopenClass({
   },
 
   // gets minimally populated versions of all objects
-  findAll: function(options) {
+  findAll: function(options) { var self = this;
     var def = $.Deferred();
 
-    Discourse.ajax(Discourse.KbDataType.get(this.dataTypeName).get('backendPath') + '/' + options.filter, {
+    Discourse.ajax(this.dataType().get('backendPath') + '/' + options.filter, {
       method: 'GET',
       data: {for_select: true}
 
     // on ajax success
     }).then(function(data) {
-      def.resolve(data);
+      // create objs from the returned array of attribs and resolve
+      var k = self.dataType().get('modelClass');
+      def.resolve(data.map(function(attribs){ return k.create(attribs); }));
       
     // on ajax error
     }, function(resp){

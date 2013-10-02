@@ -24,13 +24,9 @@
           {{relatedParentsHeading}}
         </h3>
         {{#unless loading}}
-          <ul>
-            {{#each relatedParents}}
-              <li>
-                {{name}}
-              </li>
-            {{/each}}
-          </ul>
+          {{#each relatedParents}}
+            {{#linkTo 'kb_obj.show' this}}{{name}}{{/linkTo}}
+          {{/each}}
         {{/unless}}
       </div>
     {{/if}}
