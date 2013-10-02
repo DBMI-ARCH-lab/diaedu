@@ -15,6 +15,24 @@
       </ol>
     {{/unless}}
   </div>
+
+  {{#unless loading}}
+    {{#if hasRelatedParents}}
+      <div class="block related-parents">
+        <h3>
+        </h3>
+        {{#unless loading}}
+          <ul>
+            {{#each relatedParents}}
+              <li>
+                {{name}}
+              </li>
+            {{/each}}
+          </ul>
+        {{/unless}}
+      </div>
+    {{/if}}
+  {{/unless}}
 </div>
 
 <div class="main">

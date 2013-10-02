@@ -4,8 +4,6 @@ Discourse.KbGoal = Discourse.KbObj.extend({
   // IDs of related triggers
   parent_ids: null,
 
-  relatedObjDataType: null,
-
   init: function() {
     this.set('dataType', Discourse.KbDataType.get('goals'));
     this.set('relatedObjDataType', Discourse.KbDataType.get('triggers'));

@@ -2,6 +2,9 @@ Discourse.KbObj = Discourse.Model.extend({
   // the data type of this object
   dataType: null,
 
+  // the data type of the parent related objects
+  relatedObjDataType: null,
+
   tagsToShow: 4,
 
   tags: null,
@@ -108,7 +111,21 @@ Discourse.KbObj = Discourse.Model.extend({
 
     // add self and return the new Breadcrumb
     return c.addCrumb(this);
-  }.property('navParent')
+  }.property('navParent'),
+
+  hasRelatedParents: function() {
+    return !!this.get('relatedObjDataType');
+  }.property('relatedObjDataType'),
+
+  relatedParents: function() { var self = this;
+    if (this.get('_relatedParents'))
+      return this.get('_relatedParents');
+    else {
+      var k = this.get('relatedObjDataType.modelClass');
+      if (k) k.findAll().done(function(a){ self.set('_relatedParents', a); });
+      return [];
+    }
+  }.property('relatedObjDataType', '_relatedParents')
 });
 
 Discourse.KbObj.reopenClass({
@@ -141,5 +158,12 @@ Discourse.KbObj.reopenClass({
     });
 
     return def;  
+  },
+
+  // gets minimally populated versions of all objects
+  findAll: function() {
+    var def = $.Deferred();
+    def.resolve(Em.A([]));
+    return def;
   }
 });
