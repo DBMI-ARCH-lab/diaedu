@@ -19,9 +19,5 @@ Discourse.KbGoal = Discourse.KbObj.extend({
 });
 
 Discourse.KbGoal.reopenClass({
-  shortName: 'goals',
-  longName: 'goals'
+  dataTypeName: 'goals'
 });
-
-// this is a hack b/c doesn't seem to be a way to acces class from instance (?!)
-Discourse.KbGoal.reopen({klass: Discourse.KbGoal});

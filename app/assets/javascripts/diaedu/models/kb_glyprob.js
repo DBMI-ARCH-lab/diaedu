@@ -24,9 +24,5 @@ Discourse.KbGlyprob = Discourse.KbObj.extend({
 });
 
 Discourse.KbGlyprob.reopenClass({
-  shortName: 'glyprobs',
-  longName: 'glycemic-problems'
+  dataTypeName: 'glycemic-problems'
 })
-
-// this is a hack b/c doesn't seem to be a way to acces class from instance (?!)
-Discourse.KbGlyprob.reopen({klass: Discourse.KbGlyprob});

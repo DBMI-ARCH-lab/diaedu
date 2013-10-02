@@ -19,6 +19,10 @@ Discourse.KbDataType = Discourse.Model.extend({
     return Discourse['Kb' + this.get('singularShortName').capitalize()];
   }.property('shortName'),
 
+  backendPath: function() {
+    return '/kb/' + this.get('name');
+  }.property('name'),
+
   // returns the previous data type in the hierarchy
   prev: function() {
     return Discourse.KbDataType.instances[this.get('rank') - 2];

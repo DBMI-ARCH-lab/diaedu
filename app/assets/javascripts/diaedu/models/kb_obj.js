@@ -103,7 +103,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
       var k = self.get('dataType.prev.modelClass');
       if (k) {
         // if this object has an id, then we should filter on it
-        var filter = self.get('id') ? self.get('klass.shortName') + '-' + self.get('id') : 'all';
+        var filter = self.get('id') ? self.get('dataType.shortName') + '-' + self.get('id') : 'all';
         return k.findAll({filter: filter});
       } else
         return null;
@@ -112,13 +112,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 });
 
 Discourse.KbObj.reopenClass({
-  // these will be defined by subclasses
-  shortName: null,
-  longName: null,
-
-  backendPath: function() {
-    return '/kb/' + this.longName;
-  },
+  dataTypeName: null,
 
   find: function(options) {
     // setup a jquery deferred b/c it's better than Ember.Deferred
@@ -150,7 +144,7 @@ Discourse.KbObj.reopenClass({
   findAll: function(options) {
     var def = $.Deferred();
 
-    Discourse.ajax(this.backendPath() + '/' + options.filter, {
+    Discourse.ajax(Discourse.KbDataType.get(this.dataTypeName).get('backendPath') + '/' + options.filter, {
       method: 'GET',
       data: {for_select: true}
 
