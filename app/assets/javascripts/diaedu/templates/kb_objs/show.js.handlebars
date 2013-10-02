@@ -5,7 +5,7 @@
       {{i18n kb.how_got_here}}
     </h3>
     <ol>
-      {{#each breadcrumb}}
+      {{#each breadcrumb.crumbs}}
         <li {{bindAttr class="obj:isActive"}}>
           <div>{{type.singularTitle}}</div>
           {{#linkTo 'kb_obj.show' obj}}<strong>{{obj.name}}</strong>{{/linkTo}}

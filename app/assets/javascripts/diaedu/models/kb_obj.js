@@ -6,10 +6,15 @@ Discourse.KbObj = Discourse.Model.extend({
   // used for showing the new dialog and indicating which (if any) parent object should be preselected
   preselectedParentId: null,
 
+  // the KbBreadcrumb for this obj
+  breadcrumb: null,
+
   init: function() {
+    this._super();
+
+    // init tags to empty array if not already set
     if (!this.get('tags'))
       this.set('tags', []);
-    this._super();
   },
 
   firstNTags: function() {
@@ -113,8 +118,8 @@ Discourse.KbObj.reopenClass({
       data.dataType = options.dataType;
 
       // create the object and send it to deferred resolve
-      def.resolve(Discourse.KbObj.create(data));
-
+      def.resolve(options.dataType.get('modelClass').create(data));
+      
     // on ajax error
     }, function(resp){
 

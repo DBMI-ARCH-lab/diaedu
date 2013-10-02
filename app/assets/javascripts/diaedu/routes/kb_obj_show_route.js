@@ -49,14 +49,6 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
       // refine title now that we've loaded
       Discourse.set('title', obj.get('name'));
 
-      // for glyprobs, start the breadcrumb trail off with self
-      if (dataType.get('shortName') == 'glyprobs')
-        controller.set('model.breadcrumb', Ember.A([
-          {type: Discourse.KbDataType.get('glycemic-problems'), obj: obj},
-          {type: Discourse.KbDataType.get('triggers'), obj: null},
-          {type: Discourse.KbDataType.get('goals'), obj: null}
-        ]));
-
       controller.set('loaded', true);
 
     // if any request fails, we say load failed

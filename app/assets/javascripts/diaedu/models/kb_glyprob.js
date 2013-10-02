@@ -8,6 +8,13 @@ Discourse.KbGlyprob = Discourse.KbObj.extend({
   // high/low
   evaluation: null,
 
+  init: function() {
+    this._super();
+
+    // initialize the breadcrumb since this is a glyprob
+    this.set('breadcrumb', Discourse.KbBreadcrumb.create({glyprob: this}));
+  },
+
   // builds a data object to submit to server
   serialize: function() {
     var data = this.getProperties('evaluation', 'event_name', 'description');
