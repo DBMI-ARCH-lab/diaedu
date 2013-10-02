@@ -7,8 +7,9 @@ Discourse.KbTrigger = Discourse.KbObj.extend({
   relatedObjDataType: null,
 
   init: function() {
-    this._super();
+    this.set('dataType', Discourse.KbDataType.get('triggers'));
     this.set('relatedObjDataType', Discourse.KbDataType.get('glycemic-problems'));
+    this._super();
   },
 
   // builds a data object to submit to server

@@ -1,4 +1,5 @@
 Discourse.KbGlyprob = Discourse.KbObj.extend({
+
   // the event object as received from the store
   event: '',
 
@@ -7,6 +8,11 @@ Discourse.KbGlyprob = Discourse.KbObj.extend({
 
   // high/low
   evaluation: null,
+
+  init: function() {
+    this.set('dataType', Discourse.KbDataType.get('glycemic-problems'));
+    this._super();
+  },
 
   // builds a data object to submit to server
   serialize: function() {
