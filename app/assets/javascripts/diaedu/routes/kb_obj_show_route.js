@@ -19,35 +19,37 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
     // initiate ajax request for object
     var objReq = Discourse.KbObj.find({id: model.id, dataType: dataType, navParent: model.navParent});
 
-    // build a filter string to get objs related to this obj
-    var relatedFilterParams = dataType.shortName + '-' + model.id;
-
     // initiate request for associated objects (if applicable -- not applicable for goals (rank 3))
-    if (dataType.rank < 3) {
+    if (dataType.get('hasNext')) {
+      // build a filter string to get objs related to this obj
+      var relatedFilterParams = dataType.get('shortName') + '-' + model.get('id');
       var relatedReq = Discourse.KbObjPage.find(dataType.get('next'), 1, relatedFilterParams);
-    }
-    else {
+      var filterReq = Discourse.KbFilterSet.generate(dataType.get('next'), relatedFilterParams);
+    } else {
       var relatedReq = $.Deferred();
-      relatedReq.resolve();
+      relatedReq.resolve(null);
+      var filterReq = $.Deferred();
+      filterReq.resolve(null);
     }
-
-    // initiate request for filter params
-    var filterReq = Discourse.KbFilterSet.generate(dataType.get('next'), relatedFilterParams);
-
+  
     $.when(objReq, relatedReq, filterReq)
 
     // if all requests are done, we can proceed
     .done(function(obj, related, filterSet){
-      // setup the models
+      // setup the model
       controller.set('model', obj);
-      controller.set('relatedObjPage', related);
-
-      // set the nav parent on all the related objs
-      related.setNavParent(obj);
+      
+      if (related) {
+        controller.set('relatedObjPage', related);
+        // set the nav parent on all the related objs
+        related.setNavParent(obj);
+      }
 
       // find the filter block for tags
-      var tagBlock = filterSet.get('blocks').filter(function(b){ return b.get('type') == 'tags'; })[0];
-      controller.set('tagFilterBlock', tagBlock);
+      if (filterSet) {
+        var tagBlock = filterSet.get('blocks').filter(function(b){ return b.get('type') == 'tags'; })[0];
+        controller.set('tagFilterBlock', tagBlock);
+      }
 
       // refine title now that we've loaded
       Discourse.set('title', obj.get('name'));

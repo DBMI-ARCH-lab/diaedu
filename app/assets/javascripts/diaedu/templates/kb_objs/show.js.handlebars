@@ -66,22 +66,26 @@
       </div>
     </div>
 
-    <div class="related-objs">
-      {{#if currentUser}}
-        <a {{action addRelatedObj}} class="new-related-obj">
-          &plus;
-          {{addRelatedObjLinkText}}
-        </a>
-      {{/if}}
+    {{#if dataType.hasNext}}
 
-      <h2>
-        <img {{bindAttr src="relatedObjPage.data_type.iconPath"}} />
-        {{relatedChildrenHeading}}
-      </h2>
+      <div class="related-objs">
+        {{#if currentUser}}
+          <a {{action addRelatedObj}} class="new-related-obj">
+            &plus;
+            {{addRelatedObjLinkText}}
+          </a>
+        {{/if}}
 
-      {{render 'kb_mini_filter' tagFilterBlock}}
+        <h2>
+          <img {{bindAttr src="relatedObjPage.data_type.iconPath"}} />
+          {{relatedChildrenHeading}}
+        </h2>
 
-      {{render 'kb_obj_page' relatedObjPage}}
-    </div>
+        {{render 'kb_mini_filter' tagFilterBlock}}
+
+        {{render 'kb_obj_page' relatedObjPage}}
+      </div>
+      
+    {{/if}}
   {{/if}}
 </div>

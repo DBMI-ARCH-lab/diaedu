@@ -34,8 +34,8 @@ Discourse.KbDataType = Discourse.Model.extend({
   }.property('rank'),
 
   hasNext: function() {
-    return !!this.get('next');
-  }.property('next'),
+    return this.get('rank') < 3;
+  }.property('rank'),
 
   iconPath: function() {
     return '/assets/diaedu/' + this.get('shortName') + '-active.png';
