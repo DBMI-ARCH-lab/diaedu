@@ -12,28 +12,6 @@ div.diaedu-content {
     vertical-align: middle;
   }
 
-  div.left-pane {
-    width: 230px;
-    display: inline-block;
-    vertical-align: top;
-
-    div.block {
-      background-color: #f4f4f4;
-      margin-bottom: 20px;
-      padding: 5px 10px 10px 10px;
-
-      /* title */
-      h3 {
-        margin-top: 0;
-        font-size: 13px;
-
-        img {
-          height: 15px;
-        }
-      }
-    }
-  }
-
   div.main {
     display: inline-block;
     margin-left: 20px;

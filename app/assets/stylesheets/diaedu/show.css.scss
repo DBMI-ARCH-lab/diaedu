@@ -1,30 +1,4 @@
 div.diaedu-content {
-  div.breadcrumb {
-    h3 i {
-      color: #6D1586;
-      font-size: 16px;
-      vertical-align: middle;
-    }
-
-    ol {
-      margin-left: 16px;
-    }
-
-    li {
-      color: #aaa;
-      font-size: 11px;
-      min-height: 40px;
-
-      &.isActive {
-        color: black;
-      }
-
-      strong {
-        font-size: 13px;
-      }
-    }
-  }
-
   div.attribs-comments {
     background-color: #f4f4f4;
     padding: 15px;

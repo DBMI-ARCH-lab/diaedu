@@ -1,0 +1,87 @@
+div.diaedu-content {
+  /* general styles for all left pane blocks */
+  div.left-pane {
+    width: 230px;
+    display: inline-block;
+    vertical-align: top;
+
+    div.block {
+      background-color: #f4f4f4;
+      margin-bottom: 20px;
+      padding: 5px 10px 10px 10px;
+
+      /* title */
+      h3 {
+        margin-top: 0;
+        font-size: 13px;
+
+        img {
+          height: 15px;
+        }
+      }
+    }
+  }
+
+  div.filter {
+    div.items {
+      max-height: 150px;
+      overflow: auto;
+
+      div.item {
+        clear: both;
+        
+        input[type=checkbox] {
+          float: left;
+        }
+
+        div.name {
+          margin-left: 18px;
+          font-size: 11px;
+        }
+
+        &.disabled div.name {
+          color: #aaa;
+        }
+      }
+    }
+  }
+
+  div.breadcrumb {
+    h3 i {
+      color: #6D1586;
+      font-size: 16px;
+      vertical-align: middle;
+    }
+
+    ol {
+      margin-left: 16px;
+    }
+
+    li {
+      color: #aaa;
+      font-size: 11px;
+      min-height: 40px;
+
+      &.isActive {
+        color: black;
+      }
+
+      strong {
+        font-size: 13px;
+      }
+    }
+  }
+
+  div.related-parents {
+    /* make bullets gray */
+    color: #888;
+
+    ul {
+      margin: 5px 0 0 20px;
+    }
+    
+    a {
+      font-size: 12px;
+    }
+  }
+}
