@@ -2,9 +2,6 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   // the data type of this object
   dataType: null,
 
-  // the data type of the parent related objects
-  relatedObjDataType: null,
-
   tagsToShow: 4,
 
   tags: null,
@@ -40,10 +37,10 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     return 'obj-' + this.get('id');
   }.property('id'),
 
-  // gets the choices for related objects
-  relatedObjChoices: function() { var self = this;
+  // gets the choices for related parent objects
+  relatedParentsChoices: function() { var self = this;
     console.log(this);
-    return Discourse.ajax("/kb/" + this.get('relatedObjDataType.name'), {
+    return Discourse.ajax("/kb/" + this.get('dataType.prev.name'), {
       method: 'GET',
       data: {for_select: true},
     
@@ -55,7 +52,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     }, function(){
 
     });
-  }.property('relatedObjDataType.name'),
+  }.property('dataType.next.name'),
 
   // saves this object to the db
   save: function() { var self = this;
@@ -114,19 +111,19 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   }.property('navParent'),
 
   hasRelatedParents: function() {
-    return !!this.get('relatedObjDataType');
-  }.property('relatedObjDataType'),
+    return this.get('dataType.rank') > 1;
+  }.property('dataType.rank'),
 
   relatedParents: function() { var self = this;
     return this.lazyLoad('_relatedParents', Em.A(), function() {
-      var k = self.get('relatedObjDataType.modelClass');
+      var k = self.get('dataType.prev.modelClass');
       if (k) {
         var filter = self.get('klass.shortName') + '-' + self.get('id');
         return k.findAll({filter: filter});
       } else
         return null;
     });
-  }.property('relatedObjDataType', '_relatedParents')
+  }.property('dataType.prev', '_relatedParents')
 });
 
 Discourse.KbObj.reopenClass({
