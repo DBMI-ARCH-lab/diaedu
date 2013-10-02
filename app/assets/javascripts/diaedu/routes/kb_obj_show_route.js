@@ -81,7 +81,7 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
     // loads the modal dialog to create a related object
     addRelatedObj: function() {
       // create new model for modal
-      var model = Discourse.KbObj.generateForDataType(this.get('controller.model.dataType.next'));
+      var model = this.get('controller.model.dataType.next.modelClass').create();
 
       // the model should have the proper obj preselected
       model.set('preselectedParentId', this.get('controller.model.id'));

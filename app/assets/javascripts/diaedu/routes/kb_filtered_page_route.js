@@ -69,7 +69,7 @@ Discourse.KbFilteredPageRoute = Discourse.Route.extend({
       var dataType = this.modelFor('kb_obj');
 
       // create new model for modal
-      var model = Discourse.KbObj.generateForDataType(dataType);
+      var model = dataType.get('modelClass').create();
 
       // show the modal
       Discourse.Route.showModal(this, 'kbObjNew', model);

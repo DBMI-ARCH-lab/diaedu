@@ -37,23 +37,6 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     return 'obj-' + this.get('id');
   }.property('id'),
 
-  // gets the choices for related parent objects
-  relatedParentsChoices: function() { var self = this;
-    console.log(this);
-    return Discourse.ajax("/kb/" + this.get('dataType.prev.name'), {
-      method: 'GET',
-      data: {for_select: true},
-    
-    // on ajax success
-    }).then(function(data) {
-      return data;
-
-    // on ajax error
-    }, function(){
-
-    });
-  }.property('dataType.next.name'),
-
   // saves this object to the db
   save: function() { var self = this;
     // setup a jquery deferred b/c it's better than Ember.Deferred
@@ -114,11 +97,13 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     return this.get('dataType.rank') > 1;
   }.property('dataType.rank'),
 
+  // gets full list of related parent objs
   relatedParents: function() { var self = this;
     return this.lazyLoad('_relatedParents', Em.A(), function() {
       var k = self.get('dataType.prev.modelClass');
       if (k) {
-        var filter = self.get('klass.shortName') + '-' + self.get('id');
+        // if this object has an id, then we should filter on it
+        var filter = self.get('id') ? self.get('klass.shortName') + '-' + self.get('id') : 'all';
         return k.findAll({filter: filter});
       } else
         return null;
@@ -133,11 +118,6 @@ Discourse.KbObj.reopenClass({
 
   backendPath: function() {
     return '/kb/' + this.longName;
-  },
-
-  // factory method to create a subclass object of the appropriate type
-  generateForDataType: function(dataType) {
-    return dataType.get('modelClass').create({dataType: dataType});
   },
 
   find: function(options) {
