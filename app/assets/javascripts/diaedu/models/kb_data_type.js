@@ -11,8 +11,12 @@ Discourse.KbDataType = Discourse.Model.extend({
     return I18n.t('kb.' + this.get('shortName') + '.title.one');
   }.property('shortName'),
 
+  singularShortName: function() {
+    return this.get('shortName').slice(0,-1);
+  }.property('shortName'),
+
   modelClass: function() {
-    return Discourse['Kb' + this.get('shortName').slice(0,1).toUpperCase() + this.get('shortName').slice(1,-1)];
+    return Discourse['Kb' + this.get('singularShortName').capitalize()];
   }.property('shortName'),
 
   // returns the next data type in the hierarchy

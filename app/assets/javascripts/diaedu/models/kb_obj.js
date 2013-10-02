@@ -1,4 +1,7 @@
 Discourse.KbObj = Discourse.Model.extend({
+  // the data type of this object
+  dataType: null,
+
   tagsToShow: 4,
 
   tags: null,
@@ -6,8 +9,8 @@ Discourse.KbObj = Discourse.Model.extend({
   // used for showing the new dialog and indicating which (if any) parent object should be preselected
   preselectedParentId: null,
 
-  // the KbBreadcrumb for this obj
-  breadcrumb: null,
+  // the parent of this object in the present navigation path
+  navParent: null,
 
   init: function() {
     this._super();
@@ -96,7 +99,16 @@ Discourse.KbObj = Discourse.Model.extend({
       else
         return {tag_id: t.id, _destroy: t._destroy};
     });
-  }
+  },
+
+  // gets the breadcrumb trail for this object based on its navParent
+  breadcrumb: function() {
+    // get breadcrumb from parent if available or create new otherwise
+    var c = this.get('navParent') ? this.get('navParent.breadcrumb') : Discourse.KbBreadcrumb.create();
+
+    // add self and return the new Breadcrumb
+    return c.addCrumb(this);
+  }.property('navParent')
 });
 
 Discourse.KbObj.reopenClass({
@@ -114,8 +126,9 @@ Discourse.KbObj.reopenClass({
     
     // on ajax success
     }).then(function(data) {
-      // store the dataType in the object also
+      // store the dataType and navParent in the object also
       data.dataType = options.dataType;
+      data.navParent = options.navParent;
 
       // create the object and send it to deferred resolve
       def.resolve(options.dataType.get('modelClass').create(data));

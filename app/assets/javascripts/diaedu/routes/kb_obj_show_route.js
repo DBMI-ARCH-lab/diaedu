@@ -17,7 +17,7 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
     Discourse.set('title', this.modelFor('kbObj').get('title'));
 
     // initiate ajax request for object
-    var objReq = Discourse.KbObj.find({id: model.id, dataType: dataType});
+    var objReq = Discourse.KbObj.find({id: model.id, dataType: dataType, navParent: model.navParent});
 
     // build a filter string to get objs related to this obj
     var relatedFilterParams = dataType.shortName + '-' + model.id;
@@ -41,6 +41,9 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
       // setup the models
       controller.set('model', obj);
       controller.set('relatedObjPage', related);
+
+      // set the nav parent on all the related objs
+      related.setNavParent(obj);
 
       // find the filter block for tags
       var tagBlock = filterSet.get('blocks').filter(function(b){ return b.get('type') == 'tags'; })[0];

@@ -18,7 +18,13 @@ Discourse.KbObjPage = Discourse.Model.extend({
   // whether there are any objs
   noObjs: function() {
     return this.get('objs').length == 0;
-  }.property('objs')
+  }.property('objs'),
+
+  setNavParent: function(navParent) {
+    this.get('objs').forEach(function(obj){
+      obj.set('navParent', navParent);
+    });
+  }
 });
 
 Discourse.KbObjPage.reopenClass({
