@@ -1,4 +1,4 @@
-Discourse.KbObj = Discourse.Model.extend({
+Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   // the data type of this object
   dataType: null,
 
@@ -118,13 +118,9 @@ Discourse.KbObj = Discourse.Model.extend({
   }.property('relatedObjDataType'),
 
   relatedParents: function() { var self = this;
-    if (this.get('_relatedParents'))
-      return this.get('_relatedParents');
-    else {
-      var k = this.get('relatedObjDataType.modelClass');
-      if (k) k.findAll().done(function(a){ self.set('_relatedParents', a); });
-      return [];
-    }
+    var k = self.get('relatedObjDataType.modelClass');
+    if (k) this.lazyLoad('_relatedParents', k.findAll());
+    return Em.A();
   }.property('relatedObjDataType', '_relatedParents')
 });
 
