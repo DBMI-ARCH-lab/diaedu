@@ -9,7 +9,7 @@ module Diaedu
     def index
 
       if params[:for_select]
-        render(:json => klass.approved.default_order.all.as_json(:id_name_only => true), :root => false)
+        render(:json => klass.approved.default_order.filter_with(@filter).all.as_json(:id_name_only => true), :root => false)
 
       else
         page = params[:page] ? params[:page].to_i : 1

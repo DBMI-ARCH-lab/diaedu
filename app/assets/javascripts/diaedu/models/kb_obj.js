@@ -171,11 +171,12 @@ Discourse.KbObj.reopenClass({
     var def = $.Deferred();
 
     Discourse.ajax(this.backendPath() + '/' + options.filter, {
-      method: 'GET'
+      method: 'GET',
+      data: {for_select: true}
 
     // on ajax success
     }).then(function(data) {
-      def.resolve(data.objs);
+      def.resolve(data);
       
     // on ajax error
     }, function(resp){

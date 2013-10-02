@@ -22,8 +22,10 @@ module Diaedu
             @items[cur_key] = chunk.split(',')
           end
         end
-      else
+      elsif params[:items]
         @items = params[:items]
+      else
+        @items = {}
       end
     end
 
