@@ -119,12 +119,18 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
   relatedParents: function() { var self = this;
     var k = self.get('relatedObjDataType.modelClass');
-    if (k) this.lazyLoad('_relatedParents', k.findAll());
+    if (k) {
+      var filter = this.get('klass.shortName') + '-' + this.get('id');
+      this.lazyLoad('_relatedParents', k.findAll({filter: filter}));
+    }
     return Em.A();
   }.property('relatedObjDataType', '_relatedParents')
 });
 
 Discourse.KbObj.reopenClass({
+  // these will be defined by subclasses
+  shortName: null,
+
   // factory method to create a subclass object of the appropriate type
   generateForDataType: function(dataType) {
     return dataType.get('modelClass').create({dataType: dataType});
@@ -157,9 +163,10 @@ Discourse.KbObj.reopenClass({
   },
 
   // gets minimally populated versions of all objects
-  findAll: function() {
+  findAll: function(options) {
     var def = $.Deferred();
-    def.resolve(Em.A([]));
+    //Discourse.ajax(this.get('backendPath') + '/' + )
+    def.resolve(Em.A());
     return def;
   }
 });
