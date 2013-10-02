@@ -130,6 +130,11 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 Discourse.KbObj.reopenClass({
   // these will be defined by subclasses
   shortName: null,
+  longName: null,
+
+  backendPath: function() {
+    return '/kb/' + this.longName;
+  },
 
   // factory method to create a subclass object of the appropriate type
   generateForDataType: function(dataType) {
@@ -165,7 +170,6 @@ Discourse.KbObj.reopenClass({
   // gets minimally populated versions of all objects
   findAll: function(options) {
     var def = $.Deferred();
-    //Discourse.ajax(this.get('backendPath') + '/' + )
     def.resolve(Em.A());
     return def;
   }

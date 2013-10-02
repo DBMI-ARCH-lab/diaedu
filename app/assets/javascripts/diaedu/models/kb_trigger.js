@@ -20,7 +20,8 @@ Discourse.KbTrigger = Discourse.KbObj.extend({
 });
 
 Discourse.KbTrigger.reopenClass({
-  shortName: 'triggers'
+  shortName: 'triggers',
+  longName: 'triggers'
 });
 
 // this is a hack b/c doesn't seem to be a way to acces class from instance (?!)
