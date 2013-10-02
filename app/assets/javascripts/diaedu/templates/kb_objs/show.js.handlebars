@@ -23,13 +23,15 @@
           <img {{bindAttr src="relatedParentsIconPath"}} />
           {{relatedParentsHeading}}
         </h3>
-        {{#unless loading}}
-          <ul>
-            {{#each relatedParents}}
-              <li>{{#linkTo 'kb_obj.show' this}}{{name}}{{/linkTo}}</li>
-            {{/each}}
-          </ul>
-        {{/unless}}
+        <div class="items">
+          {{#unless loading}}
+            <ul>
+              {{#each relatedParents}}
+                <li>{{#linkTo 'kb_obj.show' this}}{{name}}{{/linkTo}}</li>
+              {{/each}}
+            </ul>
+          {{/unless}}
+        </div>
       </div>
     {{/if}}
   {{/unless}}
