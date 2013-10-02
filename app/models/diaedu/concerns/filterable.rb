@@ -21,7 +21,9 @@ module Diaedu::Concerns::Filterable
         rel = rel.includes(:glyprob_triggers).where('diaedu_glyprob_triggers.glyprob_id' => filter[:glyprobs])
       end
       if filter[:triggers]
-        rel = rel.includes(:trigger_goals).where('diaedu_trigger_goals.trigger_id' => filter[:triggers])
+        # this filter can apply to a glyprob or a goal
+        assoc = self == Diaedu::Glyprob ? :glyprob_triggers : :trigger_goals
+        rel = rel.includes(assoc).where("diaedu_#{assoc}.trigger_id" => filter[:triggers])
       end
       if filter[:goals]
         rel = rel.includes(:trigger_goals).where('diaedu_trigger_goals.goal_id' => filter[:goals])

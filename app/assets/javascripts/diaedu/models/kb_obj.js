@@ -118,12 +118,14 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   }.property('relatedObjDataType'),
 
   relatedParents: function() { var self = this;
-    var k = self.get('relatedObjDataType.modelClass');
-    if (k) {
-      var filter = this.get('klass.shortName') + '-' + this.get('id');
-      this.lazyLoad('_relatedParents', k.findAll({filter: filter}));
-    }
-    return Em.A();
+    return this.lazyLoad('_relatedParents', Em.A(), function() {
+      var k = self.get('relatedObjDataType.modelClass');
+      if (k) {
+        var filter = self.get('klass.shortName') + '-' + self.get('id');
+        return k.findAll({filter: filter});
+      } else
+        return null;
+    });
   }.property('relatedObjDataType', '_relatedParents')
 });
 
@@ -170,7 +172,20 @@ Discourse.KbObj.reopenClass({
   // gets minimally populated versions of all objects
   findAll: function(options) {
     var def = $.Deferred();
-    def.resolve(Em.A());
+
+    Discourse.ajax(this.backendPath() + '/' + options.filter, {
+      method: 'GET'
+
+    // on ajax success
+    }).then(function(data) {
+      def.resolve(data.objs);
+      
+    // on ajax error
+    }, function(resp){
+
+      def.reject(resp);
+    });
+
     return def;
   }
 });

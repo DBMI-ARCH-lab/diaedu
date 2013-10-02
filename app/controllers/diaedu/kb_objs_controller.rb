@@ -12,7 +12,7 @@ module Diaedu
         render(:json => klass.approved.default_order.all.as_json(:id_name_only => true), :root => false)
 
       else
-        page = params[:page].to_i || 1
+        page = params[:page] ? params[:page].to_i : 1
 
         # sleep for a second in dev mode to test loading indicators
         #sleep(0.25) if Rails.env == 'development'
