@@ -20,9 +20,9 @@ Discourse.KbObjPage = Discourse.Model.extend({
     return this.get('objs').length == 0;
   }.property('objs'),
 
-  setNavParent: function(navParent) {
+  addToBreadcrumbs: function(parent) {
     this.get('objs').forEach(function(obj){
-      obj.set('navParent', navParent);
+      obj.set('breadcrumb', obj.get('breadcrumb').addCrumb(parent));
     });
   }
 });

@@ -4,7 +4,6 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
   },
   
   setupController: function(controller, model) {
-    
     // let the view know we are loading
     controller.set('loading', true);
     controller.set('loaded', false);
@@ -16,7 +15,7 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
     Discourse.set('title', model.get('dataType').get('title'));
 
     // initiate ajax request for object
-    var objReq = Discourse.KbObj.find({id: model.id, dataType: dataType, navParent: model.navParent});
+    var objReq = Discourse.KbObj.find({id: model.id, dataType: dataType});
 
     // initiate request for associated objects (if applicable -- not applicable for goals (rank 3))
     if (dataType.get('hasNext')) {
@@ -39,9 +38,10 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
       controller.set('model', obj);
       
       if (related) {
+        // add current obj to all related obj breadcrumbs
+        related.addToBreadcrumbs(obj);
+
         controller.set('relatedObjPage', related);
-        // set the nav parent on all the related objs
-        related.setNavParent(obj);
       }
 
       // find the filter block for tags

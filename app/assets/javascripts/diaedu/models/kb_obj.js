@@ -9,8 +9,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   // used for showing the new dialog and indicating which (if any) parent object should be preselected
   preselectedParentId: null,
 
-  // the parent of this object in the present navigation path
-  navParent: null,
+  breadcrumb: null,
 
   init: function() {
     this._super();
@@ -18,6 +17,9 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     // init tags to empty array if not already set
     if (!this.get('tags'))
       this.set('tags', []);
+
+    // default to breadcrumb with just self
+    this.set('breadcrumb', Discourse.KbBreadcrumb.create().addCrumb(this));
   },
 
   firstNTags: function() {
@@ -84,15 +86,6 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     });
   },
 
-  // gets the breadcrumb trail for this object based on its navParent
-  breadcrumb: function() {
-    // get breadcrumb from parent if available or create new otherwise
-    var c = this.get('navParent') ? this.get('navParent.breadcrumb') : Discourse.KbBreadcrumb.create();
-
-    // add self and return the new Breadcrumb
-    return c.addCrumb(this);
-  }.property('navParent'),
-
   hasRelatedParents: function() {
     return this.get('dataType.rank') > 1;
   }.property('dataType.rank'),
@@ -127,9 +120,8 @@ Discourse.KbObj.reopenClass({
     
     // on ajax success
     }).then(function(data) {
-      // store the dataType and navParent in the object also
+      // store the dataType in the object also
       data.dataType = options.dataType;
-      data.navParent = options.navParent;
 
       // create the object and send it to deferred resolve
       def.resolve(options.dataType.get('modelClass').create(data));
