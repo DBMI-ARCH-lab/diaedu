@@ -24,6 +24,15 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
   },
 
   serialized: function() {
-    return 'start';
-  }.property('glyprob', 'trigger', 'goal')
+    // start with the first non-null crumb and add each id
+    var ids = [];
+    this.get('crumbs').forEach(function(c){
+      if (c.obj) ids.push(c.obj.get('id'));
+    });
+
+    // remove the last id as we don't include the current obj in the serialized version
+    ids.pop();
+
+    return ids.length == 0 ? '' : 'trail-' + ids.join('-');
+  }.property('crumbs')
 });
