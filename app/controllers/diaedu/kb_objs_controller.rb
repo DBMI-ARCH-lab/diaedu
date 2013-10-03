@@ -21,7 +21,7 @@ module Diaedu
           :objs => klass.approved.filter_with(@filter).includes(:tags).default_order.
             offset((page - 1) * PER_PAGE).limit(PER_PAGE).as_json(:include => :tags),
           :per_page => PER_PAGE,
-          :total_count => klass.filter_with(@filter).count
+          :total_count => klass.approved.filter_with(@filter).count
         })
       end
     end
