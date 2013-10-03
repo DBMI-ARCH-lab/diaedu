@@ -39,6 +39,31 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     return 'obj-' + this.get('id');
   }.property('id'),
 
+  // loads details such as description, etc.
+  loadFully: function() { var self = this;
+    // setup a jquery deferred b/c it's better than Ember.Deferred
+    var def = $.Deferred();
+
+    Discourse.ajax("/kb/" + this.get('dataType.name') + '/' + this.get('id'), {
+      method: 'GET'
+    
+    // on ajax success
+    }).then(function(data) {
+
+      // update the attribs
+      self.setProperties(data);
+
+      // now were done!
+      def.resolve();
+      
+    // on ajax error
+    }, function(resp){
+      def.reject(resp);
+    });
+
+    return def;
+  },
+
   // saves this object to the db
   save: function() { var self = this;
     // setup a jquery deferred b/c it's better than Ember.Deferred

@@ -14,8 +14,8 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
     // set title to something basic while loading
     Discourse.set('title', model.get('dataType').get('title'));
 
-    // initiate ajax request for object
-    var objReq = Discourse.KbObj.find({id: model.id, dataType: dataType});
+    // initiate ajax request to populate object details
+    var objReq = model.loadFully();
 
     // initiate request for associated objects (if applicable -- not applicable for goals (rank 3))
     if (dataType.get('hasNext')) {
@@ -34,12 +34,12 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
 
     // if all requests are done, we can proceed
     .done(function(obj, related, filterSet){
-      // setup the model
-      controller.set('model', obj);
-      
+
+      controller.set('model', model);
+
       if (related) {
         // add current obj to all related obj breadcrumbs
-        related.addToBreadcrumbs(obj);
+        related.addToBreadcrumbs(model);
 
         controller.set('relatedObjPage', related);
       }
@@ -51,17 +51,14 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
       }
 
       // refine title now that we've loaded
-      Discourse.set('title', obj.get('name'));
+      Discourse.set('title', model.get('name'));
 
       controller.set('loaded', true);
 
     // if any request fails, we say load failed
-    }).fail(function(resp, dummyObj){
+    }).fail(function(resp){
       controller.set('loadFailed', true);
 
-      // set a dummy model so that a try again link can be generated
-      controller.set('model', dummyObj);
-      
       console.log('LOAD FAILED', resp);
 
     // in any case, we can turn off the loading indicator
