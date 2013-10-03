@@ -59,19 +59,35 @@ Discourse.KbBreadcrumb.reopenClass({
     var bits = str.split('-');
 
     if (bits.length > 0) {
-      var dt = Discourse.KbDataType.get(0);
+      
+      // create a metacrumb, which will get added to the reconstructed breadcrumb objects
+      // since those objects also need breadcrumbs
       var metaCrumb = Discourse.KbBreadcrumb.create();
+
+      // start with the appropriate data type (usually rank 1 (0) unless this is not a full trail)
+      var dt = Discourse.KbDataType.get(obj.get('dataType.rank') - bits.length);
+      console.log('STARTING WITH', dt.get('shortName'));
+
+      // walk backwards up the trail
       bits.slice(1).forEach(function(id){
+        // create the next breadcrumb object
         var crumb = dt.get('modelClass').create({id: id});
+
+        // add the current crumb to the meta crumb (this creates a new crumb)
+        // and set on the current crumb
         metaCrumb = metaCrumb.addCrumb(crumb);
         crumb.set('breadcrumb', metaCrumb);
+
+        // load the name (right now we only have the id)
         crumb.loadFully();
+
+        // add the current crumb to the reconstructed trail
         bc.set(dt.get('singularShortName'), crumb);
+
+        // go to next data type down the line
         dt = dt.get('next');
       });
     }
-
-    console.log(bc);
 
     return bc;
   }
