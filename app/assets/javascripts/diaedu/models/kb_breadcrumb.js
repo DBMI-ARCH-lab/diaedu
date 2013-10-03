@@ -45,6 +45,22 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
 
 Discourse.KbBreadcrumb.reopenClass({
   reconstruct: function(obj, str) {
-    return Discourse.KbBreadcrumb.create().addCrumb(obj);
+    var bc = Discourse.KbBreadcrumb.create().addCrumb(obj);
+
+    var bits = str.split('-');
+
+    if (bits.length > 0) {
+      var dt = obj.get('dataType');
+      bits.slice(1).reverse().forEach(function(id){
+        dt = dt.get('prev');
+        var crumb = dt.get('modelClass').create({id: id});
+        crumb.loadFully();
+        bc.set(dt.get('singularShortName'), crumb);
+      });
+    }
+
+    console.log(bc);
+
+    return bc;
   }
 });
