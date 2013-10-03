@@ -21,5 +21,9 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
     bc.set('goal', this.get('goal'));
     bc.set(crumb.get('dataType.singularShortName'), crumb);
     return bc;
-  }
+  },
+
+  serialized: function() {
+    return 'start';
+  }.property('glyprob', 'trigger', 'goal')
 });
