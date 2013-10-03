@@ -41,6 +41,11 @@ module Diaedu
       end
     end
 
+    # ensures there is a topic associated with the given object
+    def ensure_topic
+      klass.find(params[:id]).ensure_topic!(current_user)
+    end
+
     private
       def parse_filter_params
         @filter = Diaedu::Filter.new(:param_str => params[:filter_params])

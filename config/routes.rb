@@ -15,6 +15,8 @@ Diaedu::Engine.routes.draw do
     get("/#{prefix}/:filter_params" => 'kb_objs#index', :data_type => dt)
     get("/#{prefix}/page/:page" => 'kb_objs#index', :data_type => dt)
     get("/#{prefix}/:filter_params/page/:page" => 'kb_objs#index', :data_type => dt)
+
+    put("/#{prefix}/:id/ensure-topic" => 'kb_objs#ensure_topic', :data_type => dt)
   end
 
   get('/filter-options' => 'filter_options#fetch')
