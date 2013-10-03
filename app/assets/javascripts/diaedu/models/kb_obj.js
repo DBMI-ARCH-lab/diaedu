@@ -122,7 +122,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
       if (k) {
         // if this object has an id, then we should filter on it
         var filter = self.get('id') ? self.get('dataType.shortName') + '-' + self.get('id') : 'all';
-        return k.findAll({filter: filter});
+        return k.findAll({filter: filter, breadcrumb: self.get('breadcrumb').removeCrumb(self)});
       } else
         return null;
     });
@@ -173,7 +173,11 @@ Discourse.KbObj.reopenClass({
     }).then(function(data) {
       // create objs from the returned array of attribs and resolve
       var k = self.dataType().get('modelClass');
-      def.resolve(data.map(function(attribs){ return k.create(attribs); }));
+      def.resolve(data.map(function(attribs){
+        var obj = k.create(attribs); 
+        obj.set('breadcrumb', options.breadcrumb);
+        return obj;
+      }));
       
     // on ajax error
     }, function(resp){

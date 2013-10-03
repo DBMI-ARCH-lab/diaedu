@@ -23,6 +23,15 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
     return bc;
   },
 
+  removeCrumb: function(crumb) {
+    var bc = Discourse.KbBreadcrumb.create();
+    bc.set('glyprob', this.get('glyprob'));
+    bc.set('trigger', this.get('trigger'));
+    bc.set('goal', this.get('goal'));
+    bc.set(crumb.get('dataType.singularShortName'), null);
+    return bc;
+  },
+
   merge: function(other) { var self = this;
     'glyprob trigger goal'.w().forEach(function(t){
       if (!self.get(t)) self.set(t, other.get(t));
