@@ -1,6 +1,11 @@
 Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
   model: function(params, transition) {
-    return this.modelFor('kbObjShow');
+    var obj = this.modelFor('kbObjShow');
+
+    // reconstruct breadcrumb from params
+    obj.set('breadcrumb', Discourse.KbBreadcrumb.reconstruct(obj, params.breadcrumb));
+
+    return obj;
   },
   
   setupController: function(controller, model) {

@@ -42,3 +42,9 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
     return ids.length == 0 ? '' : 'trail-' + ids.join('-');
   }.property('crumbs')
 });
+
+Discourse.KbBreadcrumb.reopenClass({
+  reconstruct: function(obj, str) {
+    return Discourse.KbBreadcrumb.create().addCrumb(obj);
+  }
+});
