@@ -174,8 +174,11 @@ Discourse.KbObj.reopenClass({
       // create objs from the returned array of attribs and resolve
       var k = self.dataType().get('modelClass');
       def.resolve(data.map(function(attribs){
-        var obj = k.create(attribs); 
-        obj.set('breadcrumb', options.breadcrumb);
+        var obj = k.create(attribs);
+
+        // merge the provided breadcrumb, if it exists, with the object's
+        if (options.breadcrumb) obj.get('breadcrumb').merge(options.breadcrumb);
+
         return obj;
       }));
       

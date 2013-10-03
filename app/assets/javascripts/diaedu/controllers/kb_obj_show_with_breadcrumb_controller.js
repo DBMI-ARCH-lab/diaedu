@@ -39,6 +39,9 @@ Discourse.KbObjShowWithBreadcrumbController = Discourse.ObjectController.extend(
     // load the new kbobjpage
     Discourse.KbObjPage.find(dataType, 1, newFilterParams)
     .done(function(objPage){
+      // add current breadcrumb to all related obj breadcrumbs
+      objPage.get('objs').forEach(function(obj){ obj.get('breadcrumb').merge(self.get('model.breadcrumb')); })
+
       self.set('relatedObjPage', objPage);
     });
   }
