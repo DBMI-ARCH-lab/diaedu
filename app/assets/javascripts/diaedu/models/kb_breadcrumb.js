@@ -50,12 +50,15 @@ Discourse.KbBreadcrumb.reopenClass({
     var bits = str.split('-');
 
     if (bits.length > 0) {
-      var dt = obj.get('dataType');
-      bits.slice(1).reverse().forEach(function(id){
-        dt = dt.get('prev');
+      var dt = Discourse.KbDataType.get(0);
+      var metaCrumb = Discourse.KbBreadcrumb.create();
+      bits.slice(1).forEach(function(id){
         var crumb = dt.get('modelClass').create({id: id});
+        metaCrumb = metaCrumb.addCrumb(crumb);
+        crumb.set('breadcrumb', metaCrumb);
         crumb.loadFully();
         bc.set(dt.get('singularShortName'), crumb);
+        dt = dt.get('next');
       });
     }
 
