@@ -10,6 +10,7 @@ Diaedu::Engine.routes.draw do
 
     # id's always are digits and we don't want to take a filter params as an id
     get("/#{prefix}/:id" => 'kb_objs#show', :data_type => dt, :constraints => {:id => /\d+/})
+    get("/#{prefix}/:id/:breadcrumb" => 'kb_objs#show', :data_type => dt, :constraints => {:id => /\d+/})
 
     get("/#{prefix}/:filter_params" => 'kb_objs#index', :data_type => dt)
     get("/#{prefix}/page/:page" => 'kb_objs#index', :data_type => dt)
