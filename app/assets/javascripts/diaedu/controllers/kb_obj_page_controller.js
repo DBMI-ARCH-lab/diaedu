@@ -2,7 +2,7 @@ Discourse.KbObjPageController = Discourse.ObjectController.extend({
   needs: ["application", "kbObj"],
 
   showMode: function() {
-    return this.get('controllers.application.currentPath') == 'kb_obj.show';
+    return this.get('controllers.application.currentPath').match(/kb_obj_show/);
   }.property('controllers.application.currentPath'),
 
   // if model is null, we should show the loading indicator

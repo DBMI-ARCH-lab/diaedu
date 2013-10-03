@@ -9,7 +9,7 @@
         {{#each breadcrumb.crumbs}}
           <li {{bindAttr class="obj:isActive"}}>
             <div>{{type.singularTitle}}</div>
-            {{#linkTo 'kb_obj.show' obj}}<strong>{{obj.name}}</strong>{{/linkTo}}
+            {{#linkTo 'kb_obj_show' obj}}<strong>{{obj.name}}</strong>{{/linkTo}}
           </li>
         {{/each}}
       </ol>
@@ -27,7 +27,7 @@
           {{#unless loading}}
             <ul>
               {{#each relatedParents}}
-                <li>{{#linkTo 'kb_obj.show' this}}{{name}}{{/linkTo}}</li>
+                <li>{{#linkTo 'kb_obj_show' this}}{{name}}{{/linkTo}}</li>
               {{/each}}
             </ul>
           {{/unless}}
