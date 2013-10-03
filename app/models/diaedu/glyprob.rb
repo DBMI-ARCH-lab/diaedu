@@ -2,6 +2,7 @@ module Diaedu
   class Glyprob < ActiveRecord::Base
     include Diaedu::Concerns::Approvable
     include Diaedu::Concerns::Filterable
+    include Diaedu::Concerns::Commentable
 
     EVALS = %w(high low)
 

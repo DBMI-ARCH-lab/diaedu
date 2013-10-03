@@ -2,6 +2,7 @@ module Diaedu
   class Trigger < ActiveRecord::Base
     include Diaedu::Concerns::Approvable
     include Diaedu::Concerns::Filterable
+    include Diaedu::Concerns::Commentable
 
     has_many(:glyprob_triggers, :class_name => "Diaedu::GlyprobTrigger", :foreign_key => 'trigger_id', :dependent => :destroy, :autosave => true)
     has_many(:glyprobs, :include => :event, :class_name => "Diaedu::Glyprob", :through => :glyprob_triggers)
