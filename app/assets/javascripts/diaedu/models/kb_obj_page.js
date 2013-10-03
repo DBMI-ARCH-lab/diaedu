@@ -18,13 +18,7 @@ Discourse.KbObjPage = Discourse.Model.extend({
   // whether there are any objs
   noObjs: function() {
     return this.get('objs').length == 0;
-  }.property('objs'),
-
-  addToBreadcrumbs: function(parent) {
-    this.get('objs').forEach(function(obj){
-      obj.set('breadcrumb', obj.get('breadcrumb').addCrumb(parent));
-    });
-  }
+  }.property('objs')
 });
 
 Discourse.KbObjPage.reopenClass({

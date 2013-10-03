@@ -23,6 +23,12 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
     return bc;
   },
 
+  merge: function(other) { var self = this;
+    'glyprob trigger goal'.w().forEach(function(t){
+      if (!self.get(t)) self.set(t, other.get(t));
+    });
+  },
+
   serialized: function() {
     // start with the first non-null crumb and add each id
     var ids = [];
