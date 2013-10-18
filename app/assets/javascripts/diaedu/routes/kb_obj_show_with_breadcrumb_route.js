@@ -91,6 +91,11 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
 
       // show the modal
       Discourse.Route.showModal(this, 'kbObjNew', model);
+    },
+
+    // ensures that there is an existing topic for this object, then sends the user to the page for that topic
+    jumpToComments: function() {
+
     }
   }
 });
