@@ -3,6 +3,7 @@ module Diaedu
     include Diaedu::Concerns::Approvable
     include Diaedu::Concerns::Filterable
     include Diaedu::Concerns::Commentable
+    include Diaedu::Concerns::Jsonable
 
     EVALS = %w(high low)
 
@@ -43,16 +44,6 @@ module Diaedu
     # returns an eval object representing this glyprob's evaluation
     def eval
       Eval.get(evaluation)
-    end
-
-    def as_json(options = {})
-      if options[:id_name_only]
-        {:id => id, :name => name}
-      else
-        srand(id) unless new_record?
-        # spoof the likes and comments attribs for now
-        super(options).merge(:likes => rand(30), :comments => rand(15), :views => rand(200), :name => name)
-      end
     end
 
     private

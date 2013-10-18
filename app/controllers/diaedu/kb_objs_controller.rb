@@ -27,7 +27,7 @@ module Diaedu
     end
 
     def show
-      render(:json => klass.find(params[:id]), :root => false)
+      render(:json => klass.includes(:topic => :posts).find(params[:id]).as_json(:comment_preview => true), :root => false)
     end
 
     def create

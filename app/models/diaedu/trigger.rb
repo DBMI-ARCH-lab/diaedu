@@ -3,6 +3,7 @@ module Diaedu
     include Diaedu::Concerns::Approvable
     include Diaedu::Concerns::Filterable
     include Diaedu::Concerns::Commentable
+    include Diaedu::Concerns::Jsonable
 
     has_many(:glyprob_triggers, :class_name => "Diaedu::GlyprobTrigger", :foreign_key => 'trigger_id', :dependent => :destroy, :autosave => true)
     has_many(:glyprobs, :include => :event, :class_name => "Diaedu::Glyprob", :through => :glyprob_triggers)
@@ -30,16 +31,6 @@ module Diaedu
     # associates with glyprobs with the given IDs
     def parent_ids=(ids)
       ids.each{|id| glyprob_triggers.build(:glyprob_id => id)}
-    end
-
-    def as_json(options = {})
-      if options[:id_name_only]
-        {:id => id, :name => name}
-      else
-        # spoof the likes and comments attribs for now
-        srand(id) unless new_record?
-        super(options).merge(:likes => rand(30), :comments => rand(15), :views => rand(200))
-      end
     end
   end
 end

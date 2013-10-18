@@ -3,6 +3,7 @@ module Diaedu
     include Diaedu::Concerns::Approvable
     include Diaedu::Concerns::Filterable
     include Diaedu::Concerns::Commentable
+    include Diaedu::Concerns::Jsonable
 
     has_many(:trigger_goals, :class_name => 'Diaedu::TriggerGoal', :foreign_key => 'goal_id', :dependent => :destroy, :autosave => true)
     has_many(:triggers, :class_name => 'Diaedu::Trigger', :through => :trigger_goals)
@@ -21,16 +22,6 @@ module Diaedu
     # associates with triggers with the given IDs
     def parent_ids=(ids)
       ids.each{|id| trigger_goals.build(:trigger_id => id)}
-    end
-
-    def as_json(options = {})
-      if options[:id_name_only]
-        {:id => id, :name => name}
-      else
-        # spoof the likes and comments attribs for now
-        srand(id) unless new_record?
-        super(options).merge(:likes => rand(30), :comments => rand(15), :views => rand(200))
-      end
     end
   end
 end
