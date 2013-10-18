@@ -22,10 +22,6 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
     // default to breadcrumb with just self
     this.set('breadcrumb', Discourse.KbBreadcrumb.create().addCrumb(this));
-
-    // construct topic object if topic data given
-    if (this.topic != null)
-      this.topic = Discourse.Topic.create(this.topic);
   },
 
   firstNTags: function() {
@@ -140,7 +136,29 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   // else, if topic is currently null, calls server to construct one and returns that
   getTopic: function() { var self = this;
     var def = $.Deferred();
-    def.resolve('foo');
+    
+    // if already exists, just resolve immediately
+    if (self.topic != null)
+      def.resolve(Discourse.Topic.create(self.topic));
+    
+    // otherwise, hit the server
+    else
+      Discourse.ajax("/kb/" + self.get('dataType.name') + '/' + self.get('id') + '/ensure-topic', {
+        method: 'POST',
+        data: {'_method' : 'PUT'},
+      
+      // on ajax success
+      }).then(function(topic_data) {
+        console.log(topic_data);
+        // store the topic in the model
+        self.topic = topic_data;
+        def.resolve(Discourse.Topic.create(self.topic));
+        
+      // on ajax error
+      }, function(){
+        def.reject();
+      });
+
     return def;
   }
 });

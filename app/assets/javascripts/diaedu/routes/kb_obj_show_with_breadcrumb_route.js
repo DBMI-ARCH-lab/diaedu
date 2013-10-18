@@ -102,6 +102,7 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
 
         console.log('GOT TOPIC', topic);
 
+        self.get('controller').set('loading', false);
       }).fail(function(resp){
         self.get('controller').set('loadFailed', true);
         self.get('controller').set('loading', false);

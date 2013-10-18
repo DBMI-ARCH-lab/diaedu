@@ -10,7 +10,7 @@ module Diaedu::Concerns::Commentable
 
   # ensures there is a topic associated with this given object
   # creates one with default initial post and in correct category if not
-  def ensure_topic!(user)
+  def ensure_topic(user)
     if topic.nil?
       params = {}
       params[:raw] = "*#{topic_intro}*\n\n#{description}"
@@ -23,6 +23,7 @@ module Diaedu::Concerns::Commentable
 
       # then we get the topic from the post
       self.topic = post.topic
+      save!
     end
     # return for chainability
     topic

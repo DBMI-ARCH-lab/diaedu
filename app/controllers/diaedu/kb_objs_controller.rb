@@ -44,7 +44,7 @@ module Diaedu
     # ensures there is a topic associated with the given object
     # returns the topic's json
     def ensure_topic
-      render(:json => klass.find(params[:id]).ensure_topic!(current_user), :root => false)
+      render(:json => klass.find(params[:id]).ensure_topic(current_user), :root => false)
     end
 
     private
