@@ -24,6 +24,8 @@ module Diaedu::Concerns::Commentable
       # then we get the topic from the post
       self.topic = post.topic
     end
+    # return for chainability
+    topic
   end
 
   # returns a json representation of the earliest N comments for this object

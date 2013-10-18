@@ -11,6 +11,8 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
   breadcrumb: null,
 
+  topic: null,
+
   init: function() {
     this._super();
 
@@ -20,6 +22,10 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
     // default to breadcrumb with just self
     this.set('breadcrumb', Discourse.KbBreadcrumb.create().addCrumb(this));
+
+    // construct topic object if topic data given
+    if (this.topic != null)
+      this.topic = Discourse.Topic.create(this.topic);
   },
 
   firstNTags: function() {
@@ -126,7 +132,17 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
       } else
         return null;
     });
-  }.property('dataType.prev', '_relatedParents')
+  }.property('dataType.prev', '_relatedParents'),
+
+  // gets the topic associated with this object
+  // returns a Deferred that resolves with the topic
+  // if a topic is already defined, simply resolves immediately with the topic
+  // else, if topic is currently null, calls server to construct one and returns that
+  getTopic: function() { var self = this;
+    var def = $.Deferred();
+    def.resolve('foo');
+    return def;
+  }
 });
 
 Discourse.KbObj.reopenClass({
