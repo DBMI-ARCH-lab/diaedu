@@ -70,7 +70,10 @@
           <h3>{{i18n kb.comments.title}}</h3>
           <ul>
             {{#each commentPreview}}
-              <li>{{{cooked}}}</li>
+              <li>
+                {{avatar this.user imageSize="medium"}}
+                <div>{{{cooked}}}</div>
+              </li>
             {{/each}}
           </ul>
           <a {{action jumpToComments}}>{{i18n kb.comments.view_full}} ({{commentCountWithNoun}})</a>
