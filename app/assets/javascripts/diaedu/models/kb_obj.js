@@ -160,7 +160,11 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
       });
 
     return def;
-  }
+  },
+
+  hasComments: function() { var self = this;
+    return self.comments > 0;
+  }.property('comments')
 });
 
 Discourse.KbObj.reopenClass({
