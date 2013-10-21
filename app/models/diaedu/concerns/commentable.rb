@@ -29,16 +29,16 @@ module Diaedu::Concerns::Commentable
     topic
   end
 
-  # returns a json representation of the earliest N comments for this object
+  # returns a json representation of the earliest N comments for this object (excepting the original auto-gen'd comment)
   # if the topic has not been setup yet (it only gets setup when the user clicks 'add first comment'),
   # then the topic will be nil, and we just return an empty array
   def comment_preview_as_json
-    (topic.nil? ? [] : topic.posts[0...COMMENTS_IN_PREVIEW]).as_json
+    (topic.nil? ? [] : topic.posts[1..COMMENTS_IN_PREVIEW]).as_json
   end
 
-  # returns the total number of comments on this object
+  # returns the total number of comments on this object (not including the autogen'd one)
   def comment_count
-    topic.nil? ? 0 : topic.posts.size
+    topic.nil? ? 0 : topic.posts.size - 1
   end
 
   def i18n_key
