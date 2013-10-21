@@ -52,6 +52,11 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     // on ajax success
     }).then(function(data) {
 
+      // construct user objects in comment preview
+      if (data.commentPreview)
+        for (var i = 0; i < data.commentPreview.length; i++)
+          data.commentPreview[i].user = Discourse.User.create(data.commentPreview[i].user);
+
       // update the attribs
       self.setProperties(data);
 
@@ -179,6 +184,7 @@ Discourse.KbObj.reopenClass({
     return Discourse.KbDataType.get(this.dataTypeName);
   },
 
+  // REFACTOR this method needs to be removed
   find: function(options) {
     // setup a jquery deferred b/c it's better than Ember.Deferred
     var def = $.Deferred();

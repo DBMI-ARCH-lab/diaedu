@@ -71,7 +71,7 @@
           <ul>
             {{#each commentPreview}}
               <li>
-                {{avatar this.user imageSize="medium"}}
+                {{#linkTo 'userActivity.index' this.user}}{{avatar this.user imageSize="medium"}}{{/linkTo}}
                 <div>{{{cooked}}}</div>
               </li>
             {{/each}}
