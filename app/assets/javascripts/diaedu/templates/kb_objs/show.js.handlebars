@@ -76,9 +76,9 @@
               </li>
             {{/each}}
           </ul>
-          <a {{action jumpToComments}}>{{i18n kb.comments.view_full}} ({{commentCountWithNoun}})</a>
+          <a {{action jumpToComments}} class="jump view-full">{{i18n kb.comments.view_full}} ({{commentCountWithNoun}})</a>
         {{else}}
-          <a {{action jumpToComments}}>{{i18n kb.comments.none_yet}}</a>
+          <a {{action jumpToComments}} class="jump none-yet">{{i18n kb.comments.none_yet}}</a>
         {{/if}}
       </div>
     </div>
