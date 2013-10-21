@@ -14,7 +14,7 @@ module Diaedu::Concerns::Jsonable
     end
 
     # add comments if requested
-    json.merge!(:comment_preview => comment_preview_as_json) if options[:comment_preview]
+    json.merge!(:commentPreview => comment_preview_as_json) if options[:comment_preview]
 
     json
   end

@@ -65,11 +65,18 @@
         {{description}}
       </div>
 
-      {{#if hasComments}}
-        <a {{action jumpToComments}}>{{i18n kb.comments.view_full}}</a>
-      {{else}}
-        <a {{action jumpToComments}}>{{i18n kb.comments.none_yet}}</a>
-      {{/if}}
+      <div class="comments">
+        {{#if hasComments}}
+          <h3>{{i18n kb.comments.title}}:</h3>
+          {{#each commentPreview}}
+            {{raw}}
+          {{/each}}
+          <a {{action jumpToComments}}>{{i18n kb.comments.view_full}}</a>
+          
+        {{else}}
+          <a {{action jumpToComments}}>{{i18n kb.comments.none_yet}}</a>
+        {{/if}}
+      </div>
     </div>
 
     {{#if dataType.hasNext}}
