@@ -164,6 +164,11 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
   hasComments: function() { var self = this;
     return self.comments > 0;
+  }.property('comments'),
+
+  // i18n'd phrase such as '13 comments'
+  commentCountWithNoun: function() { var self = this;
+    return I18n.t('kb.comments.comment_count', {count: self.comments});
   }.property('comments')
 });
 
