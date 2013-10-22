@@ -1,3 +1,4 @@
+// controller for the new object modal
 Discourse.KbObjNewController = Discourse.ObjectController.extend(Discourse.ModalFunctionality, {
   // whether the submission process is complete
   done: false,

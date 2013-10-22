@@ -4,9 +4,10 @@ Discourse.KbFilteredPageController = Discourse.ObjectController.extend({
   // loading is initially true
   loading: true,
 
-  // filter set is the set of filter blocks on the left
+  // the KbFilterSet of filter blocks on the left
   filterSet: null,
 
+  // the KbObjPage that gets displayed
   objPage: null,
 
   data_type: function() {

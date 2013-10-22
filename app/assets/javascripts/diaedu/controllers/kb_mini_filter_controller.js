@@ -4,13 +4,15 @@
 Discourse.KbMiniFilterController = Discourse.ObjectController.extend({
   needs: 'kbObjShowWithBreadcrumb',
 
-  // handles changes to the filter block
-  filterChanged: function(tagId) {
-    var block = this.get('model');
+  actions: {
+    // handles changes to the filter block
+    filterChanged: function(tagId) {
+      var block = this.get('model');
 
-    // tell the block to mark the tag with the given ID as selected
-    block.setSelectionById(tagId);
+      // tell the block to mark the tag with the given ID as selected
+      block.setSelectionById(tagId);
 
-    this.get('controllers.kbObjShowWithBreadcrumb').send('relatedMiniFilterChanged', block);
+      this.get('controllers.kbObjShowWithBreadcrumb').send('relatedMiniFilterChanged', block);
+    }
   }
 });
