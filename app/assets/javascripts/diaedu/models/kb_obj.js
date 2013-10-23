@@ -53,6 +53,9 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
         for (var i = 0; i < data.commentPreview.length; i++)
           data.commentPreview[i].user = Discourse.User.create(data.commentPreview[i].user);
 
+      // construct firstPost object
+      data.firstPost = Discourse.Post.create(data.firstPost);
+
       // update the attribs
       self.setProperties(data);
     });

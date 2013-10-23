@@ -31,8 +31,14 @@ module Diaedu
       obj = klass.includes(:topic => :posts).find(params[:id])
       obj.increment_view_count!
 
+      # get json
+      json = obj.as_json(:root => false, :comment_preview => true)
+
+      # add first post to json using special serializer
+      json[:firstPost] = obj.first_post ? PostSerializer.new(obj.first_post, scope: guardian, root: false) : nil
+
       # render as json
-      render(:json => obj, :root => false, :comment_preview => true)
+      render(:json => json)
     end
 
     def create

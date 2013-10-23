@@ -29,6 +29,11 @@ module Diaedu::Concerns::Commentable
     topic
   end
 
+  # returns the first Post object in the associated topic, if a topic is present.
+  def first_post
+    topic ? topic.posts.order('created_at').first : nil
+  end
+
   # returns a json representation of the earliest N comments for this object (excepting the original auto-gen'd comment)
   # if the topic has not been setup yet (it only gets setup when the user clicks 'add first comment'),
   # then the topic will be nil, and we just return an empty array
