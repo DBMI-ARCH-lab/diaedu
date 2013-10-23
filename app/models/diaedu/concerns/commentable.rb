@@ -41,6 +41,11 @@ module Diaedu::Concerns::Commentable
     topic.nil? ? 0 : topic.posts.size - 1
   end
 
+  # total number of likes. lives in here because likes are recorded on the comment
+  def like_count
+    topic.nil? ? 0 : topic.like_count
+  end
+
   def i18n_key
     'js.kb.' + self.class.name.demodulize.pluralize.downcase
   end
