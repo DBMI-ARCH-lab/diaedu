@@ -4,6 +4,7 @@ module Diaedu
     include Diaedu::Concerns::Filterable
     include Diaedu::Concerns::Commentable
     include Diaedu::Concerns::Jsonable
+    include Diaedu::Concerns::Kbable
 
     EVALS = %w(high low)
 

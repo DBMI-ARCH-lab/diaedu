@@ -4,6 +4,7 @@ module Diaedu
     include Diaedu::Concerns::Filterable
     include Diaedu::Concerns::Commentable
     include Diaedu::Concerns::Jsonable
+    include Diaedu::Concerns::Kbable
 
     has_many(:trigger_goals, :class_name => 'Diaedu::TriggerGoal', :foreign_key => 'goal_id', :dependent => :destroy, :autosave => true)
     has_many(:triggers, :class_name => 'Diaedu::Trigger', :through => :trigger_goals)
