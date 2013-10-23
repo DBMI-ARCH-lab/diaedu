@@ -178,7 +178,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
   // i18n'd name for comments, properly pluralized
   commentsText: function() { var self = this;
-    return I18n.t('kb.comments.comments', {count: self.comments});
+    return I18n.t('kb.comments.comments', {count: self.comments}).toLowerCase();
   }.property('comments'),
 
   // i18n'd name for likes, properly pluralized
