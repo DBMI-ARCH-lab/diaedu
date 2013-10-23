@@ -96,17 +96,19 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
     // ensures that there is an existing topic for this object, then sends the user to the page for that topic
     jumpToComments: function() { var self = this;
       self.get('controller').set('loading', true);
+      self.get('controller').set('loaded', false);
       
       // get topic and do transition
       self.get('controller.model').getTopic().done(function(topic){
-        self.get('controller').set('loading', false);
         self.transitionTo('topic.fromParams', topic);
 
       // announce failure
       }).fail(function(resp){
         self.get('controller').set('loadFailed', true);
-        self.get('controller').set('loading', false);
         console.log('TOPIC LOAD FAILED', resp);
+      
+      }).always(function(){
+        self.get('controller').set('loading', false);
       });
     }
   }
