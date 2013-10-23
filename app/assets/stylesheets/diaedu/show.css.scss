@@ -51,13 +51,15 @@ div.diaedu-content {
           }
 
           /* comment text */
-          div {
+          > div {
             display: block;
             margin-left: 42px; /* avatar is 32 px wide */
             max-height: 60px;
             background-color: white;
             padding: 5px;
             overflow: hidden;
+            position: relative;
+            z-index: 1; /* need this b/c of bottom fade */
 
             p {
               margin: 0 0 5px 0;
@@ -67,6 +69,16 @@ div.diaedu-content {
             p, li {
               font-size: 13px;
             }
+
+            /* fade out at bottom in case overflow */
+            div.comment-fade {
+              width: 110%;
+              height: 10px;
+              z-index: 99;
+              position: absolute;
+              background: url(/assets/diaedu/comment-fade.png) bottom repeat-x;
+              top: 60px;
+              left: -5px;            }
           }
         }
       }
