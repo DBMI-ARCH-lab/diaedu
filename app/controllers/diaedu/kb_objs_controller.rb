@@ -31,8 +31,8 @@ module Diaedu
       obj = klass.includes(:topic => :posts).find(params[:id])
       obj.increment_view_count!
 
-      # convert to json and render
-      render(:json => obj.as_json(:comment_preview => true), :root => false)
+      # render as json
+      render(:json => obj, :root => false, :comment_preview => true)
     end
 
     def create
