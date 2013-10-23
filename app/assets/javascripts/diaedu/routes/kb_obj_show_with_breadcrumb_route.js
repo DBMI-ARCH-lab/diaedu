@@ -80,7 +80,7 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
     return {id: model.id, data_type: model.get('dataType.name'), breadcrumb: model.get('breadcrumb.serialized')};
   },
 
-  events: {
+  actions: {
     // loads the modal dialog to create a related object
     addRelatedObj: function() {
       // create new model for modal

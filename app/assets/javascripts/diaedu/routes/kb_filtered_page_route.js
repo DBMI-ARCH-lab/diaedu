@@ -64,7 +64,7 @@ Discourse.KbFilteredPageRoute = Discourse.Route.extend({
     return {data_type: this.modelFor('kb_obj').name, page_id: model.page_id, filter_params: model.filter_params};
   },
 
-  events: {
+  actions: {
     addObj: function() {
       var dataType = this.modelFor('kb_obj');
 
