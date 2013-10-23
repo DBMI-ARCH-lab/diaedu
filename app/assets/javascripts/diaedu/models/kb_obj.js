@@ -174,7 +174,22 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   // i18n'd phrase such as '13 comments'
   commentCountWithNoun: function() { var self = this;
     return I18n.t('kb.comments.comment_count', {count: self.comments});
-  }.property('comments')
+  }.property('comments'),
+
+  // i18n'd name for comments, properly pluralized
+  commentsText: function() { var self = this;
+    return I18n.t('kb.comments.comments', {count: self.comments});
+  }.property('comments'),
+
+  // i18n'd name for likes, properly pluralized
+  likesText: function() { var self = this;
+    return I18n.t('kb.likes', {count: self.likes});
+  }.property('likes'),
+
+  // i18n'd name for views, properly pluralized
+  viewsText: function() { var self = this;
+    return I18n.t('kb.views', {count: self.views});
+  }.property('views'),
 });
 
 Discourse.KbObj.reopenClass({

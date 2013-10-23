@@ -58,8 +58,8 @@
     <div class="attribs-comments">
       <div class="stats">
         <i class="icon-caret-up"></i>
-        <div class="likes">{{likes}} {{i18n likes}}</div>
-        <div class="views">{{views}} {{i18n views}}</div>
+        <div class="likes">{{likes}} {{likesText}}</div>
+        <div class="views">{{views}} {{viewsText}}</div>
       </div>
       <div class="description">
         {{description}}
@@ -76,7 +76,7 @@
               </li>
             {{/each}}
           </ul>
-          <a {{action jumpToComments}} class="jump view-full">{{i18n kb.comments.view_full}} ({{commentCountWithNoun}})</a>
+          <a {{action jumpToComments}} class="jump view-full">{{i18n kb.comments.view_full}} ({{comments}} {{commentsText}})</a>
         {{else}}
           <a {{action jumpToComments}} class="jump none-yet">{{i18n kb.comments.none_yet}}</a>
         {{/if}}
