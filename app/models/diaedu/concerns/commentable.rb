@@ -33,7 +33,7 @@ module Diaedu::Concerns::Commentable
   # if the topic has not been setup yet (it only gets setup when the user clicks 'add first comment'),
   # then the topic will be nil, and we just return an empty array
   def comment_preview_as_json
-    (topic.nil? ? [] : topic.posts[1..COMMENTS_IN_PREVIEW]).as_json(:methods => :user)
+    (topic.nil? ? [] : topic.posts.order('created_at')[1..COMMENTS_IN_PREVIEW]).as_json(:methods => :user)
   end
 
   # returns the total number of comments on this object (not including the autogen'd one)
