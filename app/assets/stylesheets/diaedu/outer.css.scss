@@ -80,7 +80,8 @@ header.d-header {
     padding: 0 20px;
   }
 
-  img.logo-big {
+  /* hide the stuff discourse puts in the subnav */
+  img.logo-big, div.extra-info-wrapper {
     display: none;
   }
 
