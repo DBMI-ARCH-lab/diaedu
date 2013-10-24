@@ -54,7 +54,8 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
           data.commentPreview[i].user = Discourse.User.create(data.commentPreview[i].user);
 
       // construct firstPost object
-      data.firstPost = Discourse.Post.create(data.firstPost);
+      if (null !== data.firstPost)
+        data.firstPost = Discourse.Post.create(data.firstPost);
 
       // update the attribs
       self.setProperties(data);
@@ -150,6 +151,8 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     return self.comments > 0;
   }.property('comments'),
 
+  ////////////// i18n properties, should probably be refactored to controllers /////////////////////
+
   // i18n'd phrase such as '13 comments'
   commentCountWithNoun: function() { var self = this;
     return I18n.t('kb.comments.comment_count', {count: self.comments});
@@ -168,7 +171,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   // i18n'd name for views, properly pluralized
   viewsText: function() { var self = this;
     return I18n.t('kb.views', {count: self.views});
-  }.property('views'),
+  }.property('views')
 });
 
 Discourse.KbObj.reopenClass({
