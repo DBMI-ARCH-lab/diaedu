@@ -30,6 +30,30 @@ Discourse.KbObjShowWithBreadcrumbController = Discourse.ObjectController.extend(
 
         self.set('relatedObjPage', objPage);
       });
+    },
+
+    // likes the curren KbObj by either creating a new topic for it or liking the existing one
+    likeObj: function() { var self = this;
+      this.set('loading', true);
+      this.set('loaded', false);
+
+      // if there is currently no firstPost, reload the model, making sure that a topic gets created
+      if (null === this.get('firstPost'))
+        var topic_load = this.get('model').loadFully({ensure_topic: true});
+      else
+        var topic_load = $.Deferred().resolve();
+
+      topic_load
+      .done(function(){
+        self.set('loaded', true);
+        self.get('firstPost.actionByName.like').act();
+      })
+      .fail(function() {
+        self.set('loadFailed', true);
+      })
+      .always(function() {
+        self.set('loading', false);
+      })
     }
   },
 

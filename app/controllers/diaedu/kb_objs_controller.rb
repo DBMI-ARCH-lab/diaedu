@@ -31,6 +31,9 @@ module Diaedu
       obj = klass.includes(:topic => :posts).find(params[:id])
       obj.increment_view_count!
 
+      # if requested to ensure topic, do so
+      obj.ensure_topic if params[:ensure_topic]
+
       # get json
       json = obj.as_json(:root => false, :comment_preview => true)
 
@@ -55,10 +58,7 @@ module Diaedu
     # ensures there is a topic associated with the given object
     # returns the topic's json
     def ensure_topic
-      # find the robot user, and error if doesn't exist
-      robot = User.where(:username => 'kbbot').first or raise "couldn't find user kbbot. please create and try again."
-
-      render(:json => klass.find(params[:id]).ensure_topic(robot), :root => false)
+      render(:json => klass.find(params[:id]).ensure_topic, :root => false)
     end
 
     private

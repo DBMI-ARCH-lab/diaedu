@@ -42,10 +42,11 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   }.property('id'),
 
   // loads details such as description, etc.
-  loadFully: function() { var self = this;
+  loadFully: function(opts) { var self = this;
+    opts = opts || {};
     
     // make ajax call
-    var promise = Discourse.ajax("/kb/" + this.get('dataType.name') + '/' + this.get('id'));
+    var promise = Discourse.ajax("/kb/" + this.get('dataType.name') + '/' + this.get('id'), {data: opts});
 
     return promise.then(function(data) {
       // construct user objects in comment preview
