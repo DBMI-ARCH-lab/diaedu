@@ -33,6 +33,11 @@ Discourse.KbObjShowWithBreadcrumbController = Discourse.ObjectController.extend(
     }
   },
 
+  // checks if the current user is allowed to post comments
+  canComment: function() {
+    return !!this.get('currentUser');
+  }.property('currentUser'),
+
   relatedChildrenHeading: function() {
     return I18n.t('kb.' + this.get('model.dataType.next.shortName') + '.related_heading');
   }.property('model.dataType.next'),

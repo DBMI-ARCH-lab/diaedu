@@ -79,9 +79,14 @@
               </li>
             {{/each}}
           </ul>
+        {{/if}}
+
+        {{#if hasComments}}
           <a {{action jumpToComments}} class="jump view-full">{{i18n kb.comments.view_full}} ({{comments}} {{lower commentsText}})</a>
         {{else}}
-          <a {{action jumpToComments}} class="jump none-yet">{{i18n kb.comments.none_yet}}</a>
+          {{#if canComment}}
+            <a {{action jumpToComments}} class="jump none-yet">{{i18n kb.comments.none_yet}}</a>
+          {{/if}}
         {{/if}}
       </div>
     </div>
