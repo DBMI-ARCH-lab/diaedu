@@ -15,8 +15,10 @@
     </div>
     <div class="flow">
       <div class="step">
-        <img src="/assets/diaedu/glyprobs-active.png" />
-        <div>Glycemic Problems</div>
+        {{#linkTo 'kb_obj' initialDataType}}
+          <img src="/assets/diaedu/glyprobs-active.png" />
+          <div>Glycemic Problems</div>
+        {{/linkTo}}
       </div>
       <img src="/assets/diaedu/right-arrow.png" />
       <div class="step">
@@ -30,7 +32,7 @@
       </div>
     </div>
     <div class="start-button">
-      <img src="/assets/diaedu/start-button.png" />
+      {{#linkTo 'kb_obj' initialDataType}}<img src="/assets/diaedu/start-button.png" />{{/linkTo}}
     </div>
   </div>
 </section>
