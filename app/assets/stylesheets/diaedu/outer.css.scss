@@ -13,17 +13,22 @@ div.banner {
   padding: 20px;
   background: url('/assets/diaedu/banner-bg.png') repeat-x;
 
-  img {
-    display: inline-block;
-    margin-right: 20px;
-    height: 60px;
-  }
+  > div {
+    width: 1110px;
+    margin: auto;
+  
+    img {
+      display: inline-block;
+      margin-right: 20px;
+      height: 60px;
+    }
 
-  h1 {
-    display: inline-block;
-    color: #6D6D6D;
-    vertical-align: middle;
-    font-size: 28pt;
+    h1 {
+      display: inline-block;
+      color: #6D6D6D;
+      vertical-align: middle;
+      font-size: 28pt;
+    }
   }
 }
 
@@ -31,18 +36,23 @@ nav.kb-main {
   padding: 20px;
   background-color: #686868;
 
-  > span {
-    display: inline-block;
-    margin-right: 50px;
+  > div {
+    width: 1110px;
+    margin: auto;
+  
+    > span {
+      display: inline-block;
+      margin-right: 50px;
 
-    &.active a {
-      color: #FC8C30;
-    }
+      &.active a {
+        color: #FC8C30;
+      }
 
-    a {
-      text-transform: uppercase;
-      font-size: 15px;
-      color: white;
+      a {
+        text-transform: uppercase;
+        font-size: 15px;
+        color: white;
+      }
     }
   }
 }
