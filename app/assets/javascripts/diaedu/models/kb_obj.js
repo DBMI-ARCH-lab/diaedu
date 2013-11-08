@@ -53,6 +53,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     var promise = Discourse.ajax("/kb/" + this.get('dataType.name') + '/' + this.get('id'), {data: opts});
 
     return promise.then(function(data) {
+      console.log('DATA', data);
       // construct user objects in comment preview
       if (data.commentPreview)
         for (var i = 0; i < data.commentPreview.length; i++)
@@ -167,6 +168,11 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     else
       return true;
   }.property('firstPost.actionByName.like.can_act', 'justLiked'),
+
+  // checks if the current user has already liked this obj
+  liked: function() {
+    return this.get('justLiked') || this.get('firstPost.actionByName.like.acted');
+  }.property('firstPost.actionByName.like.acted', 'justLiked'),
 
   // adds a 'like' for this object for the current user
   // returns a promise that resolves when the like operation is done

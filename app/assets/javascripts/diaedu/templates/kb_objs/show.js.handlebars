@@ -61,7 +61,8 @@
         {{! show the appropriate 'up' icon, with or without link, depending on whether item can be liked by this user}}
         {{#if canLike}}
           <a {{action likeObj}} class="like"><i class="icon-caret-up"></i></a>
-        {{else}}
+        {{/if}}
+        {{#if liked}}
           <i class="icon-caret-up disabled"></i>
         {{/if}}
         <div class="likes">{{likes}} {{likesText}}</div>
