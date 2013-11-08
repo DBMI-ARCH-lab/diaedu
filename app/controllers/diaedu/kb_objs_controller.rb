@@ -38,7 +38,15 @@ module Diaedu
       json = obj.as_json(:root => false, :comment_preview => true)
 
       # add first post to json using special serializer
-      json[:firstPost] = obj.first_post ? PostSerializer.new(obj.first_post, scope: guardian, root: false) : nil
+      json[:firstPost] = if obj.first_post
+        # setup a serializer
+        PostSerializer.new(obj.first_post, scope: guardian, root: false).tap do |ps|
+          # load the post actions (for some reason this has to be done manually)
+          ps.post_actions = PostAction.counts_for([obj.first_post], current_user)[obj.first_post.id]
+        end
+      else
+        nil
+      end
 
       # render as json
       render(:json => json)
