@@ -13,6 +13,10 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
   topic: null,
 
+  // whether the this obj was 'just' liked by the current user
+  // used to immediately disallow further likes
+  justLiked: null,
+
   init: function() {
     this._super();
 
@@ -156,23 +160,34 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   // this information is stored in the firstPost action summary
   // if there is no firstPost, then canLike returns true
   canLike: function() {
-    if (this.get('firstPost'))
+    if (this.get('justLiked'))
+      return false;
+    else if (this.get('firstPost'))
       return this.get('firstPost.actionByName.like.can_act');
     else
       return true;
-  }.property('firstPost.actionByName.like.can_act'),
+  }.property('firstPost.actionByName.like.can_act', 'justLiked'),
 
   // adds a 'like' for this object for the current user
   // returns a promise that resolves when the like operation is done
   like: function() { var self = this;
+    // increment the like count and 'justLiked' immediately for user feedback
+    self.set('likes', self.get('likes') + 1);
+    self.set('justLiked', true);
+
     // this function will actually finish the like once the post is loaded, and return a promise
     var finishLike = function(){ 
-      return self.get('firstPost.actionByName.like').act().then(function(){ self.likes += 1; }); 
+      return self.get('firstPost.actionByName.like').act(); 
     };
 
     // if there is currently no firstPost, reload, making sure that a topic gets created
     if (null === this.get('firstPost'))
-      return this.loadFully({ensure_topic: true}).then(function(){ return finishLike(); });
+      return this.loadFully({ensure_topic: true}).then(function(){ 
+        // we need to increment the like count here /again/ temporarily b/c we haven't actually liked it yet
+        self.set('likes', self.get('likes') + 1);
+
+        return finishLike(); 
+      });
     else
       return finishLike();
   },

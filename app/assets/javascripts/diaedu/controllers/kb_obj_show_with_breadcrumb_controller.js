@@ -34,13 +34,7 @@ Discourse.KbObjShowWithBreadcrumbController = Discourse.ObjectController.extend(
 
     // likes the current KbObj by either creating a new topic for it or liking the existing one
     likeObj: function() { var self = this;
-      self.set('loading', true);
-      self.set('loaded', false);
-
-      self.get('model').like().then(function(){
-        self.set('loaded', true);
-        self.set('loading', false);
-      });
+      self.get('model').like();
     }
   },
 
