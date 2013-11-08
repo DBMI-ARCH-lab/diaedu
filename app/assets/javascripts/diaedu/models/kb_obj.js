@@ -182,7 +182,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
     // if there is currently no firstPost, reload, making sure that a topic gets created
     if (null === this.get('firstPost'))
-      return this.loadFully({ensure_topic: true}).then(function(){ 
+      return this.loadFully({ensure_topic: true, dont_add_view: true}).then(function(){ 
         // we need to increment the like count here /again/ temporarily b/c we haven't actually liked it yet
         self.set('likes', self.get('likes') + 1);
 

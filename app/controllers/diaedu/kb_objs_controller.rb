@@ -29,7 +29,7 @@ module Diaedu
     def show
       # get object and increment views
       obj = klass.includes(:topic => :posts).find(params[:id])
-      obj.increment_view_count!
+      obj.increment_view_count! unless params[:dont_add_view]
 
       # if requested to ensure topic, do so
       obj.ensure_topic if params[:ensure_topic]
