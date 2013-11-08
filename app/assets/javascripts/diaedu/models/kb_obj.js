@@ -53,7 +53,6 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     var promise = Discourse.ajax("/kb/" + this.get('dataType.name') + '/' + this.get('id'), {data: opts});
 
     return promise.then(function(data) {
-      console.log('DATA', data);
       // construct user objects in comment preview
       if (data.commentPreview)
         for (var i = 0; i < data.commentPreview.length; i++)
