@@ -40,10 +40,8 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
       controller.set('model', model);
 
       if (results.related) {
-        console.log(results.related);
         // add current breadcrumb to all related obj breadcrumbs
         results.related.get('objs').forEach(function(obj){ obj.get('breadcrumb').merge(model.get('breadcrumb')); })
-
         controller.set('relatedObjPage', results.related);
       }
 

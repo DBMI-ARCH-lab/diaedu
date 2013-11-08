@@ -4,7 +4,8 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
   template: '',
 
   didInsertElement: function() {
-    // start the lazy load
+    // relatedParents is a lazy-loaded value, which means when we run this method it will trigger an ajax request
+    // and return a temporary value. the method below will pickup the change in the value when it is fully loaded.
     this.get('controller.model.relatedParents');
   },
 

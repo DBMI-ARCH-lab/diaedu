@@ -101,15 +101,13 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   }.property('dataType.rank'),
 
   // gets full list of related parent objs
+  // uses lazy loading
   relatedParents: function() { var self = this;
-    return this.lazyLoad('_relatedParents', Em.A(), function() {
-      var k = self.get('dataType.prev.modelClass');
-      if (k) {
-        // if this object has an id, then we should filter on it
-        var filter = self.get('id') ? self.get('dataType.shortName') + '-' + self.get('id') : 'all';
-        return k.findAll({filter: filter, breadcrumb: self.get('breadcrumb').removeCrumb(self)});
-      } else
-        return null;
+    return self.lazyLoad('_relatedParents', Em.A(), function() {
+      return self.get('dataType.prev.modelClass').findAll({
+        filterParams: self.get('id') ? self.get('dataType.shortName') + '-' + self.get('id') : 'all',
+        breadcrumb: self.get('breadcrumb').removeCrumb(self)
+      });
     });
   }.property('dataType.prev', '_relatedParents'),
 
@@ -179,31 +177,19 @@ Discourse.KbObj.reopenClass({
 
   // gets minimally populated versions of all objects
   findAll: function(options) { var self = this;
-    var def = $.Deferred();
+    var promise = Discourse.ajax(this.dataType().get('backendPath') + '/' + options.filterParams, {method: 'GET', data: {for_select: true}});
 
-    Discourse.ajax(this.dataType().get('backendPath') + '/' + options.filter, {
-      method: 'GET',
-      data: {for_select: true}
-
-    // on ajax success
-    }).then(function(data) {
-      // create objs from the returned array of attribs and resolve
+    // create objs from the returned array of attribs and return
+    return promise.then(function(data) {
       var k = self.dataType().get('modelClass');
-      def.resolve(data.map(function(attribs){
+      return data.map(function(attribs){
         var obj = k.create(attribs);
 
         // merge the provided breadcrumb, if it exists, with the object's
         if (options.breadcrumb) obj.get('breadcrumb').merge(options.breadcrumb);
 
         return obj;
-      }));
-      
-    // on ajax error
-    }, function(resp){
-
-      def.reject(resp);
+      });
     });
-
-    return def;
   }
 });
