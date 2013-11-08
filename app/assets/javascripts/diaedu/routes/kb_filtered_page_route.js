@@ -5,10 +5,6 @@ Discourse.KbFilteredPageRoute = Discourse.Route.extend({
   },
 
   setupController: function(controller, model) {
-    // setup promise variables for multiple loading processes
-    var modelLoaded = $.Deferred();
-    var filterLoaded = $.Deferred();
-
     // let the view know we are loading
     controller.set('loading', true);
 
@@ -18,46 +14,34 @@ Discourse.KbFilteredPageRoute = Discourse.Route.extend({
     // set the page title
     Discourse.set('title', data_type.get('title'));
 
-    // if the model is just a shell, populate it
+    // reset the model before loading
     controller.set('objPage', null);
     
     // start fetch and get promise
-    Discourse.KbObjPage.find(data_type, model.page_id, model.filter_params)
-    .done(function(loaded){
-      controller.set('objPage', loaded);
-      modelLoaded.resolve();
-    
-    }).fail(function(resp){
-      console.log("FETCH ERROR:", resp)
-    });
+    var promises = {
+      objPage: Discourse.KbObjPage.find(data_type, model.page_id, model.filter_params)
+    };
+
+    // set objPage on controller when loaded
+    promises.objPage.then(function(op){ controller.set('objPage', op); });
 
     // get current filter set (may be null)
     var currentFilterSet = controller.get('filterSet');
 
-    // if filter set matches current data type and filter_params, no need to change it
-    if (currentFilterSet && currentFilterSet.matches(data_type, model.filter_params)) {
+    // unless filter set matches current data type and filter_params, need to change it
+    if (!currentFilterSet || !currentFilterSet.matches(data_type, model.filter_params)) {
 
-      // in this case, resolve the promise so the loading indicator doesn't hang
-      filterLoaded.resolve();
-
-    } else {
-
-      // if we get in here, we do need to rebuild the filter block, so do it
       controller.set('filterSet', null);
       
       // start fetch and get promise
-      Discourse.KbFilterSet.generate(data_type, model.filter_params)
-      .done(function(filterSet){
-        controller.set('filterSet', filterSet);
-        filterLoaded.resolve();
+      promises.filterSet = Discourse.KbFilterSet.generate(data_type, model.filter_params);
       
-      }).fail(function(resp) {
-        console.log("FETCH ERROR:", resp);
-      });
+      // set filterSet on model when loaded
+      promises.filterSet.then(function(fs){ controller.set('filterSet', fs); });
     }
 
     // when everything is loaded, turn off the indicator
-    $.when(modelLoaded, filterLoaded).done(function() { controller.set('loading', false); });
+    Ember.RSVP.hash(promises).then(function(){ controller.set('loading', false); });
   },
 
   serialize: function(model) {
