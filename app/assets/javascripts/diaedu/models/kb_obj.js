@@ -177,32 +177,6 @@ Discourse.KbObj.reopenClass({
     return Discourse.KbDataType.get(this.dataTypeName);
   },
 
-  // REFACTOR this method needs to be removed
-  find: function(options) {
-    // setup a jquery deferred b/c it's better than Ember.Deferred
-    var def = $.Deferred();
-
-    Discourse.ajax("/kb/" + options.dataType.get('name') + '/' + options.id, {
-      method: 'GET'
-    
-    // on ajax success
-    }).then(function(data) {
-      // store the dataType in the object also
-      data.dataType = options.dataType;
-
-      // create the object and send it to deferred resolve
-      def.resolve(options.dataType.get('modelClass').create(data));
-      
-    // on ajax error
-    }, function(resp){
-
-      // reject the deferred and pass a dummy object
-      def.reject(resp, Discourse.KbObj.create(options));
-    });
-
-    return def;  
-  },
-
   // gets minimally populated versions of all objects
   findAll: function(options) { var self = this;
     var def = $.Deferred();
