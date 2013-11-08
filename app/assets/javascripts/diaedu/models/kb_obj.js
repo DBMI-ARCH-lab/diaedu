@@ -43,15 +43,11 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
   // loads details such as description, etc.
   loadFully: function() { var self = this;
-    // setup a jquery deferred b/c it's better than Ember.Deferred
-    var def = $.Deferred();
-
-    Discourse.ajax("/kb/" + this.get('dataType.name') + '/' + this.get('id'), {
-      method: 'GET'
     
-    // on ajax success
-    }).then(function(data) {
+    // make ajax call
+    var promise = Discourse.ajax("/kb/" + this.get('dataType.name') + '/' + this.get('id'));
 
+    return promise.then(function(data) {
       // construct user objects in comment preview
       if (data.commentPreview)
         for (var i = 0; i < data.commentPreview.length; i++)
@@ -59,33 +55,23 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
       // update the attribs
       self.setProperties(data);
-
-      // now were done!
-      def.resolve();
-      
-    // on ajax error
-    }, function(resp){
-      def.reject(resp);
     });
-
-    return def;
   },
 
   // saves this object to the db
   save: function() { var self = this;
-    // setup a jquery deferred b/c it's better than Ember.Deferred
-    var def = $.Deferred();
-
     // do ajax request
-    Discourse.ajax("/kb/" + this.get('dataType.name'), {
+    var ajax = Discourse.ajax("/kb/" + this.get('dataType.name'), {
       method: 'POST',
       data: {obj: this.serialize()},
     
     // on ajax success
-    }).then(function(data) {
-      def.resolve(data);
+    });
 
-    // on ajax error
+    // on success do nothing
+    ajax.then(function(data) {
+
+    // on error, if 422, save error messages
     }, function(resp){
       if (resp.status == 422) {
         
@@ -97,11 +83,9 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
         // save on model
         self.set('errors', errors);
       }
-
-      def.reject();
     });
 
-    return def;
+    return ajax;
   },
 
   // serializes the tags array to a Rails compatible format

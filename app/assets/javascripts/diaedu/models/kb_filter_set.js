@@ -35,24 +35,21 @@ Discourse.KbFilterSet.reopenClass({
   
   // generates a FilterSet containing a set of FilterBlock objects based on filterParams
   generate: function(dataType, filterParams) {
-    var def = $.Deferred();
-
     // call the backend asking for filter options matching the given filterParams
-    Discourse.ajax("/kb/filter-options", {
+    var promise = Discourse.ajax("/kb/filter-options", {
       data: {data_type: dataType.get('shortName'), filter_params: filterParams}
-    }).then(function (data) {
+    });
+
+    // on success, build objects
+    return promise.then(function(data) {
       // build block objects
       var blocks = data.filter_options.map(function(blockData){ return Discourse.KbFilterBlock.create(blockData); });
 
       // build set
       var set = Discourse.KbFilterSet.create({ dataType: dataType, filterParams: filterParams, blocks: blocks });
 
-      def.resolve(set);
-    }, function(resp) {
-      def.reject(resp);
+      return set;
     });
-
-    return def;
   }
 });
 

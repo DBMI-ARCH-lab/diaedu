@@ -12,7 +12,6 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
     // let the view know we are loading
     controller.set('loading', true);
     controller.set('loaded', false);
-    controller.set('loadFailed', false);
 
     var dataType = model.get('dataType');
 
@@ -20,38 +19,37 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
     Discourse.set('title', model.get('dataType').get('title'));
 
     // initiate ajax request to populate object details
-    var objReq = model.loadFully();
+    var promises = {
+      obj: model.loadFully()
+    };
 
     // initiate request for associated objects (if applicable -- not applicable for goals (rank 3))
     if (dataType.get('hasNext')) {
-      // build a filter string to get objs related to this obj
-      var relatedFilterParams = dataType.get('shortName') + '-' + model.get('id');
-      var relatedReq = Discourse.KbObjPage.find(dataType.get('next'), 1, relatedFilterParams);
-      var filterReq = Discourse.KbFilterSet.generate(dataType.get('next'), relatedFilterParams);
-    } else {
-      var relatedReq = $.Deferred();
-      relatedReq.resolve(null);
-      var filterReq = $.Deferred();
-      filterReq.resolve(null);
-    }
-  
-    $.when(objReq, relatedReq, filterReq)
 
-    // if all requests are done, we can proceed
-    .done(function(obj, related, filterSet){
+      // build a filter string to get objs related to this obj
+      var filterParams = dataType.get('shortName') + '-' + model.get('id');
+      
+      // setup promises
+      promises.related = Discourse.KbObjPage.find(dataType.get('next'), 1, filterParams);
+      promises.filterSet = Discourse.KbFilterSet.generate(dataType.get('next'), filterParams);
+    }
+
+    // when all requests are complete
+    Ember.RSVP.hash(promises).then(function(results){
 
       controller.set('model', model);
 
-      if (related) {
+      if (results.related) {
+        console.log(results.related);
         // add current breadcrumb to all related obj breadcrumbs
-        related.get('objs').forEach(function(obj){ obj.get('breadcrumb').merge(model.get('breadcrumb')); })
+        results.related.get('objs').forEach(function(obj){ obj.get('breadcrumb').merge(model.get('breadcrumb')); })
 
-        controller.set('relatedObjPage', related);
+        controller.set('relatedObjPage', results.related);
       }
 
       // find the filter block for tags
-      if (filterSet) {
-        var tagBlock = filterSet.get('blocks').filter(function(b){ return b.get('type') == 'tags'; })[0];
+      if (results.filterSet) {
+        var tagBlock = results.filterSet.get('blocks').filter(function(b){ return b.get('type') == 'tags'; })[0];
         controller.set('tagFilterBlock', tagBlock);
       }
 
@@ -59,15 +57,6 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
       Discourse.set('title', model.get('name'));
 
       controller.set('loaded', true);
-
-    // if any request fails, we say load failed
-    }).fail(function(resp){
-      controller.set('loadFailed', true);
-
-      console.log('LOAD FAILED', resp);
-
-    // in any case, we can turn off the loading indicator
-    }).always(function(){
       controller.set('loading', false);
     });
   },
