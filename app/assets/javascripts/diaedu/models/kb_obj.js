@@ -156,7 +156,9 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   // returns a promise that resolves when the like operation is done
   like: function() { var self = this;
     // this function will actually finish the like once the post is loaded, and return a promise
-    var finishLike = function(){ return self.get('firstPost.actionByName.like').act(); };
+    var finishLike = function(){ 
+      return self.get('firstPost.actionByName.like').act().then(function(){ self.likes += 1; }); 
+    };
 
     // if there is currently no firstPost, reload, making sure that a topic gets created
     if (null === this.get('firstPost'))
