@@ -13,6 +13,10 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
   topic: null,
 
+  // whether the this obj was 'just' liked by the current user
+  // used to immediately disallow further likes
+  justLiked: null,
+
   init: function() {
     this._super();
 
@@ -42,16 +46,21 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   }.property('id'),
 
   // loads details such as description, etc.
-  loadFully: function() { var self = this;
+  loadFully: function(opts) { var self = this;
+    opts = opts || {};
     
     // make ajax call
-    var promise = Discourse.ajax("/kb/" + this.get('dataType.name') + '/' + this.get('id'));
+    var promise = Discourse.ajax("/kb/" + this.get('dataType.name') + '/' + this.get('id'), {data: opts});
 
     return promise.then(function(data) {
       // construct user objects in comment preview
       if (data.commentPreview)
         for (var i = 0; i < data.commentPreview.length; i++)
           data.commentPreview[i].user = Discourse.User.create(data.commentPreview[i].user);
+
+      // construct firstPost object
+      if (null !== data.firstPost)
+        data.firstPost = Discourse.Post.create(data.firstPost);
 
       // update the attribs
       self.setProperties(data);
@@ -147,6 +156,49 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     return self.comments > 0;
   }.property('comments'),
 
+  // checks if the obj can be liked by the current user
+  // this information is stored in the firstPost action summary
+  // if there is no firstPost, then canLike returns true
+  canLike: function() {
+    if (this.get('justLiked'))
+      return false;
+    else if (this.get('firstPost'))
+      return this.get('firstPost.actionByName.like.can_act');
+    else
+      return true;
+  }.property('firstPost.actionByName.like.can_act', 'justLiked'),
+
+  // checks if the current user has already liked this obj
+  liked: function() {
+    return this.get('justLiked') || this.get('firstPost.actionByName.like.acted');
+  }.property('firstPost.actionByName.like.acted', 'justLiked'),
+
+  // adds a 'like' for this object for the current user
+  // returns a promise that resolves when the like operation is done
+  like: function() { var self = this;
+    // increment the like count and 'justLiked' immediately for user feedback
+    self.set('likes', self.get('likes') + 1);
+    self.set('justLiked', true);
+
+    // this function will actually finish the like once the post is loaded, and return a promise
+    var finishLike = function(){ 
+      return self.get('firstPost.actionByName.like').act(); 
+    };
+
+    // if there is currently no firstPost, reload, making sure that a topic gets created
+    if (null === this.get('firstPost'))
+      return this.loadFully({ensure_topic: true, dont_add_view: true}).then(function(){ 
+        // we need to increment the like count here /again/ temporarily b/c we haven't actually liked it yet
+        self.set('likes', self.get('likes') + 1);
+
+        return finishLike(); 
+      });
+    else
+      return finishLike();
+  },
+
+  ////////////// i18n properties, should probably be refactored to controllers /////////////////////
+
   // i18n'd phrase such as '13 comments'
   commentCountWithNoun: function() { var self = this;
     return I18n.t('kb.comments.comment_count', {count: self.comments});
@@ -165,7 +217,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   // i18n'd name for views, properly pluralized
   viewsText: function() { var self = this;
     return I18n.t('kb.views', {count: self.views});
-  }.property('views'),
+  }.property('views')
 });
 
 Discourse.KbObj.reopenClass({

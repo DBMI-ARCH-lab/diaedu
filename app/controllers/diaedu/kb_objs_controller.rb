@@ -29,10 +29,27 @@ module Diaedu
     def show
       # get object and increment views
       obj = klass.includes(:topic => :posts).find(params[:id])
-      obj.increment_view_count!
+      obj.increment_view_count! unless params[:dont_add_view]
+
+      # if requested to ensure topic, do so
+      obj.ensure_topic if params[:ensure_topic]
+
+      # get json
+      json = obj.as_json(:root => false, :comment_preview => true)
+
+      # add first post to json using special serializer
+      json[:firstPost] = if obj.first_post
+        # setup a serializer
+        PostSerializer.new(obj.first_post, scope: guardian, root: false).tap do |ps|
+          # load the post actions (for some reason this has to be done manually)
+          ps.post_actions = PostAction.counts_for([obj.first_post], current_user)[obj.first_post.id]
+        end
+      else
+        nil
+      end
 
       # render as json
-      render(:json => obj, :root => false, :comment_preview => true)
+      render(:json => json)
     end
 
     def create
@@ -49,10 +66,7 @@ module Diaedu
     # ensures there is a topic associated with the given object
     # returns the topic's json
     def ensure_topic
-      # find the robot user, and error if doesn't exist
-      robot = User.where(:username => 'kbbot').first or raise "couldn't find user kbbot. please create and try again."
-
-      render(:json => klass.find(params[:id]).ensure_topic(robot), :root => false)
+      render(:json => klass.find(params[:id]).ensure_topic, :root => false)
     end
 
     private

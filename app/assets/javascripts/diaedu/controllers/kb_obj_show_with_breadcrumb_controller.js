@@ -23,13 +23,16 @@ Discourse.KbObjShowWithBreadcrumbController = Discourse.ObjectController.extend(
       self.set('relatedObjPage', null);
 
       // load the new kbobjpage
-      Discourse.KbObjPage.find(dataType, 1, newFilterParams)
-      .done(function(objPage){
+      Discourse.KbObjPage.find(dataType, 1, newFilterParams).then(function(objPage){
         // add current breadcrumb to all related obj breadcrumbs
         objPage.get('objs').forEach(function(obj){ obj.get('breadcrumb').merge(self.get('model.breadcrumb')); })
-
         self.set('relatedObjPage', objPage);
       });
+    },
+
+    // likes the current KbObj by either creating a new topic for it or liking the existing one
+    likeObj: function() { var self = this;
+      self.get('model').like();
     }
   },
 

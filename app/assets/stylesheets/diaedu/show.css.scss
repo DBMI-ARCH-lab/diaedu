@@ -10,8 +10,14 @@ div.diaedu-content {
       text-align: center;
       width: 75px;
 
+      /* add like arrow */
       i {
         font-size: 30px;
+        color: black;
+
+        &.disabled {
+          color: #ccc;
+        }
       }
 
       div.likes {

@@ -10,8 +10,11 @@ module Diaedu::Concerns::Commentable
 
   # ensures there is a topic associated with this given object
   # creates one with default initial post and in correct category if not
-  def ensure_topic(user)
+  def ensure_topic
     if topic.nil?
+      # find the robot user, and error if doesn't exist
+      robot = User.where(:username => 'kbbot').first or raise "couldn't find user kbbot. please create and try again."
+
       params = {}
       params[:raw] = "*#{topic_intro}*\n\n#{description}"
       params[:title] = name
@@ -19,7 +22,7 @@ module Diaedu::Concerns::Commentable
       params[:category] = topic_category_name
 
       # we create the topic via a post
-      post = PostCreator.new(user, params).create
+      post = PostCreator.new(robot, params).create
 
       # then we get the topic from the post
       self.topic = post.topic
@@ -27,6 +30,11 @@ module Diaedu::Concerns::Commentable
     end
     # return for chainability
     topic
+  end
+
+  # returns the first Post object in the associated topic, if a topic is present.
+  def first_post
+    topic ? topic.posts.order('created_at').first : nil
   end
 
   # returns a json representation of the earliest N comments for this object (excepting the original auto-gen'd comment)
