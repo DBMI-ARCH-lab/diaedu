@@ -59,33 +59,27 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   },
 
   // saves this object to the db
+  // returns a promise that resolves to whether the save was successful or not (had errors)
   save: function() { var self = this;
     // do ajax request
-    var ajax = Discourse.ajax("/kb/" + this.get('dataType.name'), {
-      method: 'POST',
-      data: {obj: this.serialize()},
-    
-    // on ajax success
-    });
+    var promise = Discourse.ajax("/kb/" + this.get('dataType.name'), {method: 'POST', data: {obj: this.serialize()}});
 
-    // on success do nothing
-    ajax.then(function(data) {
+    return promise.then(function(response){
 
-    // on error, if 422, save error messages
-    }, function(resp){
-      if (resp.status == 422) {
-        
+      // if error set, save error messages
+      if (response.errors) {
         // join error messages into strings, and change any .'s in keys to _'s, for cases like event.name
         var errors = {};
-        for (var f in resp.responseJSON.errors) 
-          errors[f.replace(/\./g, '_')] = resp.responseJSON.errors[f].join(', ');
+        for (var f in response.errors) 
+          errors[f.replace(/\./g, '_')] = response.errors[f].join(', ');
 
         // save on model
         self.set('errors', errors);
       }
-    });
 
-    return ajax;
+      // return whether the save was successful
+      return !response.errors;
+    });
   },
 
   // serializes the tags array to a Rails compatible format

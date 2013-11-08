@@ -42,7 +42,7 @@ module Diaedu
       if obj.save
         render(:json => {})
       else
-        render(:json => {:errors => obj.errors}, :status => 422)
+        render(:json => {:errors => obj.errors})
       end
     end
 
