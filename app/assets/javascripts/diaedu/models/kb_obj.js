@@ -152,6 +152,19 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     return self.comments > 0;
   }.property('comments'),
 
+  // adds a 'like' for this object for the current user
+  // returns a promise that resolves when the like operation is done
+  like: function() { var self = this;
+    // this function will actually finish the like once the post is loaded, and return a promise
+    var finishLike = function(){ return self.get('firstPost.actionByName.like').act(); };
+
+    // if there is currently no firstPost, reload, making sure that a topic gets created
+    if (null === this.get('firstPost'))
+      return this.loadFully({ensure_topic: true}).then(function(){ return finishLike(); });
+    else
+      return finishLike();
+  },
+
   ////////////// i18n properties, should probably be refactored to controllers /////////////////////
 
   // i18n'd phrase such as '13 comments'
