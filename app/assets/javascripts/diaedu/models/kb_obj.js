@@ -152,6 +152,16 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     return self.comments > 0;
   }.property('comments'),
 
+  // checks if the obj can be liked by the current user
+  // this information is stored in the firstPost action summary
+  // if there is no firstPost, then canLike returns true
+  canLike: function() {
+    if (this.get('firstPost'))
+      return this.get('firstPost.actionByName.like.can_act');
+    else
+      return true;
+  }.property('firstPost.actionByName.like.can_act'),
+
   // adds a 'like' for this object for the current user
   // returns a promise that resolves when the like operation is done
   like: function() { var self = this;

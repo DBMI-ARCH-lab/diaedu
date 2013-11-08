@@ -49,16 +49,6 @@ Discourse.KbObjShowWithBreadcrumbController = Discourse.ObjectController.extend(
     return !!this.get('currentUser');
   }.property('currentUser'),
 
-  // checks if the current KbObj can be liked by the current user
-  // this information is stored in the KbObj's firstPost action summary
-  // if there is no firstPost, then canLike returns true
-  canLike: function() {
-    if (this.get('model.firstPost'))
-      return this.get('model.firstPost.actionByName.like.can_act');
-    else
-      return true;
-  }.property('model.firstPost.actionByName.like.can_act'),
-
   relatedChildrenHeading: function() {
     return I18n.t('kb.' + this.get('model.dataType.next.shortName') + '.related_heading');
   }.property('model.dataType.next'),
