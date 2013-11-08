@@ -114,35 +114,35 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   }.property('dataType.prev', '_relatedParents'),
 
   // gets the topic associated with this object
-  // returns a Deferred that resolves with the topic
+  // returns a promise that resolves with the topic
   // if a topic is already defined, simply resolves immediately with the topic
   // else, if topic is currently null, calls server to construct one and returns that
   getTopic: function() { var self = this;
-    var def = $.Deferred();
-    
-    // if already exists, just resolve immediately
-    if (self.topic != null)
-      def.resolve(Discourse.Topic.create(self.topic));
-    
-    // otherwise, hit the server
-    else
-      Discourse.ajax("/kb/" + self.get('dataType.name') + '/' + self.get('id') + '/ensure-topic', {
-        method: 'POST',
-        data: {'_method' : 'PUT'},
-      
-      // on ajax success
-      }).then(function(topic_data) {
-        console.log(topic_data);
-        // store the topic in the model
-        self.topic = topic_data;
-        def.resolve(Discourse.Topic.create(self.topic));
-        
-      // on ajax error
-      }, function(){
-        def.reject();
-      });
+    var promise;
 
-    return def;
+    // if already exists, just resolve immediately
+    if (self.topic != null) {
+
+      promise = new Ember.Deferred();
+      promise.resolve(Discourse.Topic.create(self.topic));
+
+    // otherwise, hit the server
+    } else {
+      
+      // do ajax
+      promise = Discourse.ajax("/kb/" + self.get('dataType.name') + '/' + self.get('id') + '/ensure-topic', {method: 'POST', data: {'_method' : 'PUT'}});
+
+      // on ajax success, setup the topic
+      promise = promise.then(function(topicData) {
+        // store the topic in the model
+        self.topic = topicData;
+
+        // build topic object and return
+        return Discourse.Topic.create(self.topic);
+      });
+    }
+
+    return promise;       
   },
 
   hasComments: function() { var self = this;

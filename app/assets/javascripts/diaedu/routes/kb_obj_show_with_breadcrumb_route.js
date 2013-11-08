@@ -88,16 +88,10 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
       self.get('controller').set('loaded', false);
       
       // get topic and do transition
-      self.get('controller.model').getTopic().done(function(topic){
+      self.get('controller.model').getTopic().then(function(topic){
         self.transitionTo('topic.fromParams', topic);
-
-      // announce failure
-      }).fail(function(resp){
-        self.get('controller').set('loadFailed', true);
-        console.log('TOPIC LOAD FAILED', resp);
-      
-      }).always(function(){
         self.get('controller').set('loading', false);
+        self.get('controller').set('loaded', true);
       });
     }
   }
