@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  type: 
+  name: MyString
+  description: MyText
+  approved: false
+  topic_id: 1
+  view_count: 1
+  event_id: 1
+  evaluation: MyString
+
+two:
+  type: 
+  name: MyString
+  description: MyText
+  approved: false
+  topic_id: 1
+  view_count: 1
+  event_id: 1
+  evaluation: MyString
