@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  obj1_id: 1
+  obj2_id: 1
+
+two:
+  obj1_id: 1
+  obj2_id: 1
