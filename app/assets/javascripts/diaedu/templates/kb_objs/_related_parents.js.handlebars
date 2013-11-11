@@ -1,0 +1,19 @@
+{{#unless loading}}
+  {{#if hasRelatedParents}}
+    <div class="block related-parents">
+      <h3>
+        <img {{bindAttr src="relatedParentsIconPath"}} />
+        {{relatedParentsHeading}}
+      </h3>
+      <div class="items">
+        {{#unless loading}}
+          <ul>
+            {{#each relatedParents}}
+              <li>{{#linkTo 'kb_obj_show.with_breadcrumb' this this}}{{name}}{{/linkTo}}</li>
+            {{/each}}
+          </ul>
+        {{/unless}}
+      </div>
+    </div>
+  {{/if}}
+{{/unless}}

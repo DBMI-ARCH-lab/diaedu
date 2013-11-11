@@ -1,10 +1,8 @@
 Discourse.KbObjShowWithBreadcrumbController = Discourse.ObjectController.extend({
   needs: ['kbObj', 'kbObjPage'],
 
-  // loading flags, with initial settings
-  loading: true,
-  loaded: false,
-  loadFailed: false,
+  // loading flag, with initial settings
+  loading: null,
 
   // KbObjPage instance that represents the list of related kb objs shown on the page
   relatedObjPage: null,

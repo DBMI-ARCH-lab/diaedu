@@ -1,40 +1,6 @@
 <div class="left-pane">
-  <div class="block breadcrumb">
-    <h3>
-      <i class="icon-random"></i>
-      {{i18n kb.how_got_here}}
-    </h3>
-    {{#unless loading}}
-      <ol>
-        {{#each breadcrumb.crumbs}}
-          <li {{bindAttr class="obj:isActive"}}>
-            <div>{{type.singularTitle}}</div>
-            {{#linkTo 'kb_obj_show.with_breadcrumb' obj obj}}<strong>{{obj.name}}</strong>{{/linkTo}}
-          </li>
-        {{/each}}
-      </ol>
-    {{/unless}}
-  </div>
-
-  {{#unless loading}}
-    {{#if hasRelatedParents}}
-      <div class="block related-parents">
-        <h3>
-          <img {{bindAttr src="relatedParentsIconPath"}} />
-          {{relatedParentsHeading}}
-        </h3>
-        <div class="items">
-          {{#unless loading}}
-            <ul>
-              {{#each relatedParents}}
-                <li>{{#linkTo 'kb_obj_show.with_breadcrumb' this this}}{{name}}{{/linkTo}}</li>
-              {{/each}}
-            </ul>
-          {{/unless}}
-        </div>
-      </div>
-    {{/if}}
-  {{/unless}}
+  {{partial 'diaedu/templates/kb_objs/_breadcrumb'}}
+  {{partial 'diaedu/templates/kb_objs/_related_parents'}}
 </div>
 
 <div class="main">
@@ -49,12 +15,7 @@
     <div class="spinner">{{i18n loading}}</div>
   {{/if}}
 
-  {{#if loadFailed}}
-    <i class="icon-frown"></i>
-    {{i18n kb.server_error}}.
-  {{/if}}
-
-  {{#if loaded}}
+  {{#unless loading}}
     <div class="attribs-comments">
       <div class="stats">
 
@@ -119,5 +80,5 @@
       </div>
       
     {{/if}}
-  {{/if}}
+  {{/loading}}
 </div>

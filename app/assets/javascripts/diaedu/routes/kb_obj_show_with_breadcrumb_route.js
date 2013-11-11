@@ -11,7 +11,6 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
   setupController: function(controller, model) {
     // let the view know we are loading
     controller.set('loading', true);
-    controller.set('loaded', false);
 
     var dataType = model.get('dataType');
 
@@ -54,7 +53,6 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
       // refine title now that we've loaded
       Discourse.set('title', model.get('name'));
 
-      controller.set('loaded', true);
       controller.set('loading', false);
     });
   },
@@ -83,13 +81,11 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
     // ensures that there is an existing topic for this object, then sends the user to the page for that topic
     jumpToComments: function() { var self = this;
       self.get('controller').set('loading', true);
-      self.get('controller').set('loaded', false);
       
       // get topic and do transition
       self.get('controller.model').getTopic().then(function(topic){
         self.transitionTo('topic.fromParams', topic);
         self.get('controller').set('loading', false);
-        self.get('controller').set('loaded', true);
       });
     }
   }

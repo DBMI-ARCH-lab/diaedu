@@ -1,0 +1,16 @@
+<div class="block breadcrumb">
+  <h3>
+    <i class="icon-random"></i>
+    {{i18n kb.how_got_here}}
+  </h3>
+  {{#unless loading}}
+    <ol>
+      {{#each breadcrumb.crumbs}}
+        <li {{bindAttr class="obj:isActive"}}>
+          <div>{{type.singularTitle}}</div>
+          {{#linkTo 'kb_obj_show.with_breadcrumb' obj obj}}<strong>{{obj.name}}</strong>{{/linkTo}}
+        </li>
+      {{/each}}
+    </ol>
+  {{/unless}}
+</div>
