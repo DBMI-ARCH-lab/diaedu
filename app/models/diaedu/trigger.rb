@@ -1,26 +1,11 @@
 module Diaedu
-  class Trigger < ActiveRecord::Base
-    include Diaedu::Concerns::Approvable
-    include Diaedu::Concerns::Filterable
-    include Diaedu::Concerns::Commentable
-    include Diaedu::Concerns::Jsonable
-    include Diaedu::Concerns::Kbable
-
-    has_many(:glyprob_triggers, :class_name => "Diaedu::GlyprobTrigger", :foreign_key => 'trigger_id', :dependent => :destroy, :autosave => true)
-    has_many(:glyprobs, :include => :event, :class_name => "Diaedu::Glyprob", :through => :glyprob_triggers)
-    has_many(:trigger_goals, :class_name => "Diaedu::TriggerGoal", :foreign_key => 'trigger_id', :dependent => :destroy, :autosave => true)
-    has_many(:goals, :class_name => "Diaedu::Goal", :through => :trigger_goals)
-    has_many(:taggings, :as => :taggable)
-    has_many(:tags, :through => :taggings)
-
-    scope(:default_order, order('diaedu_triggers.name'))
+  class Trigger < KbObj
+    scope(:default_order, order('diaedu_kb_objs.name'))
 
     validates(:name, :description, :presence => true)
     validates(:name, :uniqueness => true, :length => {:minimum => 20}, :unless => lambda{|t| t.name.blank?})
 
     filterable(:glyprobs => :related, :goals => :related, :tags => :related)
-
-    accepts_nested_attributes_for(:taggings, :allow_destroy => true)
 
     # determines which page of objects this object would appear on
     def appears_on_page(options = {})

@@ -1,26 +1,13 @@
 module Diaedu
-  class Glyprob < ActiveRecord::Base
-    include Diaedu::Concerns::Approvable
-    include Diaedu::Concerns::Filterable
-    include Diaedu::Concerns::Commentable
-    include Diaedu::Concerns::Jsonable
-    include Diaedu::Concerns::Kbable
+  class Glyprob < KbObj
 
     EVALS = %w(high low)
 
     belongs_to(:event, :class_name => 'Diaedu::Event', :autosave => true)
-    has_many(:glyprob_triggers, :class_name => 'Diaedu::GlyprobTrigger', :foreign_key => 'glyprob_id', :dependent => :destroy, :autosave => true)
-    has_many(:triggers, :class_name => 'Diaedu::Trigger', :through => :glyprob_triggers)
-    has_many(:taggings, :as => :taggable)
-    has_many(:tags, :through => :taggings)
 
-    scope(:default_order, includes(:event).order('diaedu_events.name, diaedu_glyprobs.evaluation'))
+    scope(:default_order, includes(:event).order('diaedu_events.name, diaedu_kb_objs.evaluation'))
 
     filterable(:eval => :all, :tags => :related)
-
-    accepts_nested_attributes_for(:taggings, :allow_destroy => true)
-
-    before_validation(:normalize_fields)
 
     validates(:evaluation, :presence => true)
     validates(:evaluation, :inclusion => {:in => EVALS}, :unless => lambda{|o| o.evaluation.blank?})
@@ -49,10 +36,6 @@ module Diaedu
 
     private
 
-      # trims whitespace, etc.
-      def normalize_fields
-        self.description = description.strip unless description.blank?
-      end
 
       # ensures combination of evaluation and event has not been taken
       def eval_event_unique

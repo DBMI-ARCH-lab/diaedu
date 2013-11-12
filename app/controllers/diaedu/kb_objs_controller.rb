@@ -1,13 +1,12 @@
 module Diaedu
   class KbObjsController < ::ApplicationController
-    include Diaedu::Concerns::KbHelpers
+    include Concerns::KbHelpers
 
     PER_PAGE = 10
 
     before_filter(:parse_filter_params, :only => :index)
 
     def index
-
       if params[:for_select]
         render(:json => klass.approved.default_order.filter_with(@filter).all.as_json(:id_name_only => true), :root => false)
 
@@ -71,7 +70,7 @@ module Diaedu
 
     private
       def parse_filter_params
-        @filter = Diaedu::Filter.new(:param_str => params[:filter_params])
+        @filter = Filter.new(:param_str => params[:filter_params])
       end
   end
 end

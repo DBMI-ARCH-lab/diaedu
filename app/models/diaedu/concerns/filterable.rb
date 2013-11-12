@@ -17,24 +17,25 @@ module Diaedu::Concerns::Filterable
     # returns a Relation including where clauses that implement the given filter
     def self.filter_with(filter)
       rel = scoped
-      if filter[:glyprobs]
-        rel = rel.includes(:glyprob_triggers).where('diaedu_glyprob_triggers.glyprob_id' => filter[:glyprobs])
+
+      # add condition for each kb obj subtype      
+      Diaedu::KbObj::SUBTYPES.each do |t|
+        if filter[t]
+          rel = rel.where('EXISTS (SELECT id FROM diaedu_kb_links 
+            WHERE diaedu_kb_objs.id = obj1_id AND obj2_id IN (?) OR
+              diaedu_kb_objs.id = obj2_id AND obj1_id IN (?))', filter[t], filter[t])
+        end
       end
-      if filter[:triggers]
-        # this filter can apply to a glyprob or a goal
-        assoc = self == Diaedu::Glyprob ? :glyprob_triggers : :trigger_goals
-        rel = rel.includes(assoc).where("diaedu_#{assoc}.trigger_id" => filter[:triggers])
-      end
-      if filter[:goals]
-        rel = rel.includes(:trigger_goals).where('diaedu_trigger_goals.goal_id' => filter[:goals])
-      end
+      
       if filter[:tags]
         rel = rel.includes(:taggings).where('diaedu_taggings.tag_id' => filter[:tags])
       end
+
       if filter[:eval]
         # note that eval is actually an array of possible evals, but this should work anyway
-        rel = rel.where('diaedu_glyprobs.evaluation' => filter[:eval])
+        rel = rel.where('diaedu_kb_objs.evaluation' => filter[:eval])
       end
+
       return rel
     end
 
@@ -50,15 +51,27 @@ module Diaedu::Concerns::Filterable
     # restricts to objects that are related to the objects from current model with the given filter applied, if appropriate
     # return value is a data structure suited to the KbFilterBlock client side model 
     def self.filter_options_for_field(field, filter)
-      Rails.logger.debug("***************#{field}")
       # first get all objs with given filter applied, but WITHOUT the portion of the filter for the given field
+      # THESE are the objects to which the returned filter options must be related
       filtered = filter_with(filter.without(field))
 
-      # include the appropriate associations
-      filtered = add_includes_for_filter_options(filtered, field)
+      # if the field is glyprob, trigger, etc., just get the (approved) objects that are related to the 
+      # filtered set of objects
+      if Diaedu::KbObj::SUBTYPES.include?(field)
+        option_filter = Diaedu::Filter.new(:items => {field => filtered.map(&:id)})
+        objs = model_for_field(field).filter_with(option_filter).where(:approved => true)
 
-      # now scan through each retrieved object and load the matching related object data into an array
-      objs = filtered.map{|o| o.send(field)}.flatten.uniq
+      # else if it's tags or evals, get the ones that are related to the filtered set of objects
+      elsif field == :tags || field == :evals
+        
+        filtered = filtered.includes(:tags) if field == :tags
+
+        # scan through each retrieved object and load the matching related object data into an array
+        objs = filtered.map{|o| o.send(field)}.flatten.uniq
+
+      else
+        raise "unrecognized filter field '#{field}'"
+      end
 
       # get the ids (strings) of all objects that are selected in the filter
       checked = filter[field] || []
@@ -77,25 +90,12 @@ module Diaedu::Concerns::Filterable
       # if there are lots of items sort items by whether they're checked, and then by name
       if items.size > 10
         items.sort_by!{|o| (o[:isChecked] ? 'A-' : 'B-') + o[:obj].name}
-
       # else just sort by name
       else
         items.sort_by!{|o| o[:obj].name}
       end
 
       {:type => field, :items => items, :noneChecked => checked.empty?}
-    end
-
-    # takes a relation and filter field (e.g. glyprobs) and adds any necessary .includes calls to the relation,
-    # depending on whether the filter field matches an association on the class
-    def self.add_includes_for_filter_options(rel, filter_field)
-      if reflect_on_association(filter_field) 
-        rel = rel.includes(filter_field)
-
-        # restrict to approved objs if applicable
-        rel = rel.where("diaedu_#{filter_field}.approved" => true) unless filter_field == :tags
-      end
-      rel
     end
 
     # gets the model class for the given filter field

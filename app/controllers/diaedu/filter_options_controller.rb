@@ -1,11 +1,11 @@
 module Diaedu
   # returns filter options for various filter types given a filter param string
   class FilterOptionsController < ::ApplicationController
-    include Diaedu::Concerns::KbHelpers
+    include Concerns::KbHelpers
 
     def fetch
       # parse filter params into Filter object
-      filter = Diaedu::Filter.new(:param_str => params[:filter_params])
+      filter = Filter.new(:param_str => params[:filter_params])
 
       # get the klass for the given data type
       klass = data_type_to_class(params[:data_type])
