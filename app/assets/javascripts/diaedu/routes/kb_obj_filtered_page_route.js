@@ -1,4 +1,4 @@
-Discourse.KbFilteredPageRoute = Discourse.Route.extend({
+Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
   model: function(params) {
     // on first load, create empty shell that will be updated by setupController
     return Discourse.KbObjPage.create({page_id: params.page_id, filter_params: params.filter_params});
@@ -46,6 +46,10 @@ Discourse.KbFilteredPageRoute = Discourse.Route.extend({
 
   serialize: function(model) {
     return {data_type: this.modelFor('kb_obj').name, page_id: model.page_id, filter_params: model.filter_params};
+  },
+
+  renderTemplate: function() {
+    this.render('diaedu/templates/kb_objs/filtered_page');
   },
 
   actions: {

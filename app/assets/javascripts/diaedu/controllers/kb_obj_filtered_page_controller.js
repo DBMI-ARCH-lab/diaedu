@@ -1,4 +1,4 @@
-Discourse.KbFilteredPageController = Discourse.ObjectController.extend({
+Discourse.KbObjFilteredPageController = Discourse.ObjectController.extend({
   needs: 'kbObj',
   
   // loading is initially true

@@ -1,5 +1,6 @@
 Discourse.KbObjIndexRoute = Discourse.Route.extend({
-  model: function(params, transition) {
-    this.transitionTo('kb_filtered_page.index', this.modelFor('kb_obj'), Discourse.KbObjPage.create({page_id: 1, filter_params: 'all'}));
+  redirect: function(model) {
+    // transition to the first page, no filter
+    this.transitionTo('kb_obj.filtered_page', {page_id: 1, filter_params: 'all'});
   }
 });

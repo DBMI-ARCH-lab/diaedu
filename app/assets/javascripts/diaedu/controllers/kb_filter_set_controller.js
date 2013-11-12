@@ -15,7 +15,7 @@ Discourse.KbFilterSetController = Ember.ObjectController.extend({
       var objPage = Discourse.KbObjPage.create({page_id: 1, filter_params: newFilterParams})
 
       // transition to new filter results
-      this.transitionToRoute('kb_filtered_page.index', dataType, objPage);
+      this.transitionToRoute('kb_obj.filtered_page', objPage);
     }
   }
 });
