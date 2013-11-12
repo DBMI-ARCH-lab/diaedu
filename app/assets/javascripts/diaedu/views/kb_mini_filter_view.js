@@ -1,5 +1,5 @@
 Discourse.KbMiniFilterView = Discourse.View.extend({
-  templateName: 'diaedu/templates/kb_objs/mini_filter',
+  templateName: 'diaedu/templates/mini_filter',
   classNames: 'mini-filter',
 
   // handle clicks on links
