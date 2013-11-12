@@ -36,6 +36,9 @@ module Diaedu::Concerns::Filterable
         rel = rel.where('diaedu_kb_objs.evaluation' => filter[:eval])
       end
 
+      # should always be approved
+      rel = rel.where(:approved => true)
+
       return rel
     end
 
@@ -59,7 +62,7 @@ module Diaedu::Concerns::Filterable
       # filtered set of objects
       if Diaedu::KbObj::SUBTYPES.include?(field)
         option_filter = Diaedu::Filter.new(:items => {field => filtered.map(&:id)})
-        objs = model_for_field(field).filter_with(option_filter).where(:approved => true)
+        objs = model_for_field(field).filter_with(option_filter)
 
       # else if it's tags or evals, get the ones that are related to the filtered set of objects
       elsif field == :tags || field == :eval
