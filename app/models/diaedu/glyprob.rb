@@ -36,7 +36,6 @@ module Diaedu
 
     private
 
-
       # ensures combination of evaluation and event has not been taken
       def eval_event_unique
         # no need to check if event is new_record

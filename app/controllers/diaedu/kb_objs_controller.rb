@@ -13,9 +13,6 @@ module Diaedu
       else
         page = params[:page] ? params[:page].to_i : 1
 
-        # sleep for a second in dev mode to test loading indicators
-        #sleep(0.25) if Rails.env == 'development'
-        
         render(:json => {
           :objs => klass.approved.filter_with(@filter).includes(:tags).default_order.
             offset((page - 1) * PER_PAGE).limit(PER_PAGE).as_json(:include => :tags),
