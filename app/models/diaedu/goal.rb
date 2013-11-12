@@ -6,10 +6,5 @@ module Diaedu
     validates(:name, :uniqueness => true, :length => {:minimum => 20}, :unless => lambda{|o| o.name.blank?})
 
     filterable(:triggers => :related, :tags => :related)
-
-    # associates with triggers with the given IDs
-    def parent_ids=(ids)
-      ids.each{|id| trigger_goals.build(:trigger_id => id)}
-    end
   end
 end
