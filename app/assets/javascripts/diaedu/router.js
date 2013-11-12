@@ -4,9 +4,8 @@ Discourse.Route.buildRoutes(function() {
 
   // TODO this should really be called kb_data_type route
   this.resource('kb_obj', {path: '/kb/:data_type'}, function() {
-    this.resource('kb_obj_show', {path: '/:id'}, function() {
-      this.route('with_breadcrumb', {path: '/:breadcrumb'});
-    });
+    this.route('show', {path: '/:id'});
+    this.route('show_with_breadcrumb', {path: '/:id/:breadcrumb'});
     this.resource('kb_filtered_page', {path: '/:filter_params/page/:page_id'}, function() {
       this.route('index', {path: '/'});
     });

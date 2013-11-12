@@ -62,7 +62,7 @@ module Diaedu::Concerns::Filterable
         objs = model_for_field(field).filter_with(option_filter).where(:approved => true)
 
       # else if it's tags or evals, get the ones that are related to the filtered set of objects
-      elsif field == :tags || field == :evals
+      elsif field == :tags || field == :eval
         
         filtered = filtered.includes(:tags) if field == :tags
 
