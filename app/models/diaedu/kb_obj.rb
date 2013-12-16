@@ -4,7 +4,7 @@ module Diaedu
     include Concerns::Filterable
     include Concerns::Commentable
 
-    SUBTYPES = [:glyprobs, :triggers, :goals]
+    SUBTYPES = [:glyprobs, :triggers, :barriers, :goals]
 
     has_many(:outlinks, :class_name => 'Diaedu::KbLink', :foreign_key => 'obj1_id', :dependent => :destroy, :autosave => true)
     has_many(:children, :through => :outlinks)
@@ -29,7 +29,7 @@ module Diaedu
 
     def as_json(options = {})
       json = nil
-      
+
       if options[:id_name_only]
         json = {:id => id, :name => name}
       else
