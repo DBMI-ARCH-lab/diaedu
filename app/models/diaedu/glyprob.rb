@@ -5,7 +5,7 @@ module Diaedu
 
     belongs_to(:event, :class_name => 'Diaedu::Event', :autosave => true)
 
-    scope(:default_order, includes(:event).order('diaedu_events.name, diaedu_kb_objs.evaluation'))
+    scope(:default_order, -> { includes(:event).order('diaedu_events.name, diaedu_kb_objs.evaluation') })
 
     filterable(:eval => :all, :tags => :related)
 

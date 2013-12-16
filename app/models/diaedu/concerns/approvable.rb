@@ -4,7 +4,7 @@ module Diaedu::Concerns::Approvable
 
   included do
 
-    scope(:approved, where(:approved => true))
+    scope(:approved, -> { where(:approved => true) })
 
   end
 end
