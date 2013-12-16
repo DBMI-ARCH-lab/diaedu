@@ -26,7 +26,7 @@ module Diaedu
 
     # finds or creates an event to match the given name
     def event_name=(name)
-      self.event = Event.find_or_initialize_by_name(name.strip)
+      self.event = Event.find_or_initialize_by(:name => name.strip)
     end
 
     # returns an eval object representing this glyprob's evaluation
