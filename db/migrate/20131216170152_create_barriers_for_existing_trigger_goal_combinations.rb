@@ -12,12 +12,11 @@ class CreateBarriersForExistingTriggerGoalCombinations < ActiveRecord::Migration
         VALUES ('Diaedu::Barrier', 'Barrier for #{name}', 'Description for barrier for #{name}', '#{trigger['approved']}', now(), now()) returning id")
       barrier_id = i[0]['id']
 
-      # create the trigger => barrier link
-      execute("INSERT INTO diaedu_kb_links(obj1_id, obj2_id, created_at, updated_at) VALUES (#{trigger['id']}, #{barrier_id}, now(), now())")
-
       # update the old trigger => goal links to use barrier instead
       execute("UPDATE diaedu_kb_links SET obj1_id = #{barrier_id} WHERE obj1_id = #{trigger['id']}")
 
+      # create the trigger => barrier link
+      execute("INSERT INTO diaedu_kb_links(obj1_id, obj2_id, created_at, updated_at) VALUES (#{trigger['id']}, #{barrier_id}, now(), now())")
     end
   end
 
