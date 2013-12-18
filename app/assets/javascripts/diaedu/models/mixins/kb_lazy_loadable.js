@@ -10,7 +10,7 @@ Discourse.KbLazyLoadable = Ember.Mixin.create({
       return this.get(propName);
 
     // otherwise do callback and add .then call to set property
-    else { 
+    else {
       callback().then(function(x){ self.set(propName, x); });
       return tempValue;
     }

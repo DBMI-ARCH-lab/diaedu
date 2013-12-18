@@ -1,7 +1,7 @@
 class CreateKbTopicCategories < ActiveRecord::Migration
   def up
     bot = User.where(:username => 'kbbot').first
-    
+
     ['Glycemic Problems', 'Triggers', 'Goals'].each{|n| Category.where(:name => n).destroy_all}
 
     old_rl1 = SiteSetting.send("rate_limit_create_topic")

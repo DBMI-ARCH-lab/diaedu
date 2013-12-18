@@ -39,7 +39,7 @@ Discourse.KbObjPage.reopenClass({
 
       // start the obj
       var this_page = Discourse.KbObjPage.create({
-        page_id: page_id, 
+        page_id: page_id,
         filter_params: filter_params,
         is_active: true,
         objs: Em.A(),
@@ -65,7 +65,7 @@ Discourse.KbObjPage.reopenClass({
       // insert a gap if needed
       if (page_id + i < page_count)
         this_page.other_pages.pushObject(Ember.Object.create({is_gap: true}));
-      
+
       // insert the last page unless we've already done so
       if (page_id != page_count)
         this_page.other_pages.pushObject(this_page.get_stub(page_count));

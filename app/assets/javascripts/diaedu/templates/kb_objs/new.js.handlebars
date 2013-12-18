@@ -1,6 +1,6 @@
 <form class="kb-obj-form">
   <div class="modal-body">
-    
+
     {{#if done}}
       {{! message if the save was successful}}
       {{i18n kb.objs.sent_for_approval}}
@@ -9,7 +9,7 @@
       {{dynPartial view.formTemplate}}
     {{/if}}
   </div>
-   
+
   <div class="modal-footer">
     {{#if done}}
       <a class="btn" {{action closeModal}}>{{i18n kb.ok}}</a>

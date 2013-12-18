@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  type: 
+  type:
   name: MyString
   description: MyText
   approved: false
@@ -11,7 +11,7 @@ one:
   evaluation: MyString
 
 two:
-  type: 
+  type:
   name: MyString
   description: MyText
   approved: false

@@ -7,7 +7,7 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
 
     return obj;
   },
-  
+
   setupController: function(controller, model) {
     // let the view know we are loading
     controller.set('loading', true);
@@ -27,7 +27,7 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
 
       // build a filter string to get objs related to this obj
       var filterParams = dataType.get('shortName') + '-' + model.get('id');
-      
+
       // setup promises
       promises.related = Discourse.KbObjPage.find(dataType.get('next'), 1, filterParams);
       promises.filterSet = Discourse.KbFilterSet.generate(dataType.get('next'), filterParams);
@@ -81,7 +81,7 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
     // ensures that there is an existing topic for this object, then sends the user to the page for that topic
     jumpToComments: function() { var self = this;
       self.get('controller').set('loading', true);
-      
+
       // get topic and do transition
       self.get('controller.model').getTopic().then(function(topic){
         self.transitionTo('topic.fromParams', topic);
