@@ -3,7 +3,7 @@
     <table><tr>
       {{#each page in other_pages}}
         {{#if page.is_gap}}
-          <td class="gap"><div>...</div></td>
+          <td class="skip"><div>...</div></td>
         {{else}}
           {{#if page.is_active}}
             <td class="active"><div>{{page.page_id}}</div></td>
