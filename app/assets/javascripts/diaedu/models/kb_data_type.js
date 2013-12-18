@@ -34,7 +34,7 @@ Discourse.KbDataType = Discourse.Model.extend({
   }.property('rank'),
 
   hasNext: function() {
-    return this.get('rank') < 3;
+    return this.get('rank') < Discourse.KbDataType.instances.length;
   }.property('rank'),
 
   iconPath: function() {
@@ -43,7 +43,7 @@ Discourse.KbDataType = Discourse.Model.extend({
 
   smallerIconPath: function() {
     return '/assets/diaedu/' + this.get('shortName') + '-smaller.png';
-  }.property('shortName'),    
+  }.property('shortName'),
 });
 
 Discourse.KbDataType.reopenClass({
@@ -75,9 +75,14 @@ Discourse.KbDataType.reopenClass({
       rank: 2
     }),
     Discourse.KbDataType.create({
+      name: 'barriers',
+      shortName: 'barriers',
+      rank: 3
+    }),
+    Discourse.KbDataType.create({
       name: 'goals',
       shortName: 'goals',
-      rank: 3
+      rank: 4
     })
   ]
 });

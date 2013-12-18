@@ -3,21 +3,24 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
 
   glyprob: null,
   trigger: null,
+  barrier: null,
   goal: null,
 
   crumbs: function() {
     return Em.A([
       {type: Discourse.KbDataType.get(0), obj: this.get('glyprob')},
       {type: Discourse.KbDataType.get(1), obj: this.get('trigger')},
-      {type: Discourse.KbDataType.get(2), obj: this.get('goal')}
+      {type: Discourse.KbDataType.get(2), obj: this.get('barrier')},
+      {type: Discourse.KbDataType.get(3), obj: this.get('goal')}
     ]);
-  }.property('glyprob', 'trigger', 'goal'),
+  }.property('glyprob', 'trigger', 'barrier', 'goal'),
 
   // creates a new Breadcrumb and adds the given crumb
   addCrumb: function(crumb) {
     var bc = Discourse.KbBreadcrumb.create();
     bc.set('glyprob', this.get('glyprob'));
     bc.set('trigger', this.get('trigger'));
+    bc.set('barrier', this.get('barrier'));
     bc.set('goal', this.get('goal'));
     bc.set(crumb.get('dataType.singularShortName'), crumb);
     return bc;
@@ -27,13 +30,14 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
     var bc = Discourse.KbBreadcrumb.create();
     bc.set('glyprob', this.get('glyprob'));
     bc.set('trigger', this.get('trigger'));
+    bc.set('barrier', this.get('barrier'));
     bc.set('goal', this.get('goal'));
     bc.set(crumb.get('dataType.singularShortName'), null);
     return bc;
   },
 
   merge: function(other) { var self = this;
-    'glyprob trigger goal'.w().forEach(function(t){
+    'glyprob trigger barrier goal'.w().forEach(function(t){
       if (!self.get(t)) self.set(t, other.get(t));
     });
   },
@@ -59,14 +63,13 @@ Discourse.KbBreadcrumb.reopenClass({
     var bits = str.split('-');
 
     if (bits.length > 0) {
-      
+
       // create a metacrumb, which will get added to the reconstructed breadcrumb objects
       // since those objects also need breadcrumbs
       var metaCrumb = Discourse.KbBreadcrumb.create();
 
       // start with the appropriate data type (usually rank 1 (0) unless this is not a full trail)
       var dt = Discourse.KbDataType.get(obj.get('dataType.rank') - bits.length);
-      console.log('STARTING WITH', dt.get('shortName'));
 
       // walk backwards up the trail
       bits.slice(1).forEach(function(id){

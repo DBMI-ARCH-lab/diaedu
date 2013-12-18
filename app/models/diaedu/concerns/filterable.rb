@@ -16,17 +16,17 @@ module Diaedu::Concerns::Filterable
 
     # returns a Relation including where clauses that implement the given filter
     def self.filter_with(filter)
-      rel = scoped
+      rel = where(nil)
 
-      # add condition for each kb obj subtype      
+      # add condition for each kb obj subtype
       Diaedu::KbObj::SUBTYPES.each do |t|
         if filter[t]
-          rel = rel.where('EXISTS (SELECT id FROM diaedu_kb_links 
+          rel = rel.where('EXISTS (SELECT id FROM diaedu_kb_links
             WHERE diaedu_kb_objs.id = obj1_id AND obj2_id IN (?) OR
               diaedu_kb_objs.id = obj2_id AND obj1_id IN (?))', filter[t], filter[t])
         end
       end
-      
+
       if filter[:tags]
         rel = rel.includes(:taggings).where('diaedu_taggings.tag_id' => filter[:tags])
       end
@@ -52,13 +52,13 @@ module Diaedu::Concerns::Filterable
 
     # returns filter options for the given field
     # restricts to objects that are related to the objects from current model with the given filter applied, if appropriate
-    # return value is a data structure suited to the KbFilterBlock client side model 
+    # return value is a data structure suited to the KbFilterBlock client side model
     def self.filter_options_for_field(field, filter)
       # first get all objs with given filter applied, but WITHOUT the portion of the filter for the given field
       # THESE are the objects to which the returned filter options must be related
       filtered = filter_with(filter.without(field))
 
-      # if the field is glyprob, trigger, etc., just get the (approved) objects that are related to the 
+      # if the field is glyprob, trigger, etc., just get the (approved) objects that are related to the
       # filtered set of objects
       if Diaedu::KbObj::SUBTYPES.include?(field)
         option_filter = Diaedu::Filter.new(:items => {field => filtered.map(&:id)})
@@ -66,7 +66,7 @@ module Diaedu::Concerns::Filterable
 
       # else if it's tags or evals, get the ones that are related to the filtered set of objects
       elsif field == :tags || field == :eval
-        
+
         filtered = filtered.includes(:tags) if field == :tags
 
         # scan through each retrieved object and load the matching related object data into an array

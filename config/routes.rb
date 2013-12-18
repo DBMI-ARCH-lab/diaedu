@@ -1,6 +1,7 @@
-PATH_PREFIXES = {'glyprobs' => 'glycemic-problems'}
-
 Diaedu::Engine.routes.draw do
+
+  PATH_PREFIXES = {'glyprobs' => 'glycemic-problems'}
+
   root(:to => 'home#index')
 
   %w(glyprobs triggers barriers goals).each do |dt|
