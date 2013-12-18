@@ -8,7 +8,7 @@ module Diaedu
 
     def index
       if params[:for_select]
-        render(:json => klass.approved.default_order.filter_with(@filter).all.as_json(:id_name_only => true))
+        render(:json => klass.approved.default_order.filter_with(@filter).all.as_json(:id_name_only => true), :root => false)
 
       else
         page = params[:page] ? params[:page].to_i : 1
@@ -31,7 +31,7 @@ module Diaedu
       obj.ensure_topic if params[:ensure_topic]
 
       # get json
-      json = obj.as_json(:comment_preview => true)
+      json = obj.as_json(:root => false, :comment_preview => true)
 
       # add first post to json using special serializer
       json[:firstPost] = if obj.first_post
@@ -49,7 +49,7 @@ module Diaedu
     end
 
     def create
-      obj = klass.new(params.require(:obj).permit(:name, :description, :event_name, :evaluation, :parent_ids => [],
+      obj = klass.new(params.require(:obj).permit(:name, :description, :event_name, :evaluation, :parent_ids => [], 
         :taggings_attributes => [:tag_id, :_destroy, :tag_attributes => [:name]]))
 
       if obj.save
@@ -62,7 +62,7 @@ module Diaedu
     # ensures there is a topic associated with the given object
     # returns the topic's json
     def ensure_topic
-      render(:json => klass.find(params[:id]).ensure_topic)
+      render(:json => klass.find(params[:id]).ensure_topic, :root => false)
     end
 
     private
