@@ -42,7 +42,9 @@ module Diaedu::Concerns::Commentable
   # then the topic will be nil, and we just return an empty array
   def comment_preview_as_json
     # need to include avatar template in json or avatar won't work
-    (topic.nil? ? [] : topic.posts.order('created_at')[1..COMMENTS_IN_PREVIEW]).as_json(:include => {:user => {:methods => :avatar_template}})
+    # excluding views because it was causing a weird rails error ('nil is not a symbol')
+    (topic.nil? ? [] : topic.posts.order('created_at')[1..COMMENTS_IN_PREVIEW]).as_json(
+      :include => {:user => {:methods => :avatar_template, :except => :views}})
   end
 
   # returns the total number of comments on this object (not including the autogen'd one)
