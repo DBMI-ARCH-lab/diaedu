@@ -25,16 +25,16 @@ Discourse.KbDataType = Discourse.Model.extend({
 
   // returns the previous data type in the hierarchy
   prev: function() {
-    return Discourse.KbDataType.instances[this.get('rank') - 2];
+    return Discourse.KbDataType.instances[this.get('rank') - 1];
   }.property('rank'),
 
   // returns the next data type in the hierarchy
   next: function() {
-    return Discourse.KbDataType.instances[this.get('rank')];
+    return Discourse.KbDataType.instances[this.get('rank') + 1];
   }.property('rank'),
 
   hasNext: function() {
-    return this.get('rank') < Discourse.KbDataType.instances.length;
+    return this.get('rank') < Discourse.KbDataType.instances.length - 1;
   }.property('rank'),
 
   iconPath: function() {
@@ -70,22 +70,22 @@ Discourse.KbDataType.reopenClass({
     Discourse.KbDataType.create({
       name: 'glycemic-problems',
       shortName: 'glyprobs',
-      rank: 1
+      rank: 0
     }),
     Discourse.KbDataType.create({
       name: 'triggers',
       shortName: 'triggers',
-      rank: 2
+      rank: 1
     }),
     Discourse.KbDataType.create({
       name: 'barriers',
       shortName: 'barriers',
-      rank: 3
+      rank: 2
     }),
     Discourse.KbDataType.create({
       name: 'goals',
       shortName: 'goals',
-      rank: 4
+      rank: 3
     })
   ]
 });

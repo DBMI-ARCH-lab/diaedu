@@ -22,14 +22,14 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
   // clones this breadcrumb and adds a new crumb
   addCrumb: function(crumb) { var self = this;
     var newBc = self.clone();
-    newBc.crumbs[crumb.get('dataType.rank') - 1] = crumb;
+    newBc.crumbs[crumb.get('dataType.rank')] = crumb;
     return newBc;
   },
 
   // clones this breadcrumb and removes the given crumb
   removeCrumb: function(crumb) { var self = this;
     var newBc = self.clone();
-    newBc.crumbs[crumb.get('dataType.rank') - 1] = null;
+    newBc.crumbs[crumb.get('dataType.rank')] = null;
     return newBc;
   },
 
@@ -74,8 +74,8 @@ Discourse.KbBreadcrumb.reopenClass({
       // since those objects also need breadcrumbs
       var metaCrumb = Discourse.KbBreadcrumb.create();
 
-      // start with the appropriate data type (usually rank 1 (0) unless this is not a full trail)
-      var dt = Discourse.KbDataType.get(obj.get('dataType.rank') - bits.length);
+      // start with the appropriate data type (usually rank 0 unless this is not a full trail)
+      var dt = Discourse.KbDataType.get(obj.get('dataType.rank') - bits.length + 1);
 
       // walk backwards up the trail
       bits.slice(1).forEach(function(id){
@@ -91,7 +91,7 @@ Discourse.KbBreadcrumb.reopenClass({
         crumb.loadFully();
 
         // add the current crumb to the reconstructed trail
-        bc.get('crumbs')[dt.get('rank') - 1] = crumb;
+        bc.get('crumbs')[dt.get('rank')] = crumb;
 
         // go to next data type down the line
         dt = dt.get('next');

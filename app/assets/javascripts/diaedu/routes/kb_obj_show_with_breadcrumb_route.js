@@ -22,7 +22,7 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
       obj: model.loadFully()
     };
 
-    // initiate request for associated objects (if applicable -- not applicable for goals (rank 3))
+    // initiate request for associated objects (if applicable)
     if (dataType.get('hasNext')) {
 
       // build a filter string to get objs related to this obj

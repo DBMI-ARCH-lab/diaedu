@@ -106,7 +106,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   },
 
   hasRelatedParents: function() {
-    return this.get('dataType.rank') > 1;
+    return this.get('dataType.rank') > 0;
   }.property('dataType.rank'),
 
   // gets full list of related parent objs
