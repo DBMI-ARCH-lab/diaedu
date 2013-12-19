@@ -1,4 +1,4 @@
-Discourse.KbFilterSetController = Ember.ObjectController.extend({
+Discourse.KbFilterSetController = Discourse.ObjectController.extend({
   needs: 'kbObj',
 
   actions: {
