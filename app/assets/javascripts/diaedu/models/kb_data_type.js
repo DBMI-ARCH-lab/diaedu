@@ -63,6 +63,9 @@ Discourse.KbDataType.reopenClass({
     }
   },
 
+  // total number of instances
+  count: 4,
+
   instances: [
     Discourse.KbDataType.create({
       name: 'glycemic-problems',
