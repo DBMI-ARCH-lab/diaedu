@@ -3,9 +3,9 @@ Discourse.KbTagEditView = Discourse.View.extend({
 
   didInsertElement: function() { var self = this;
     $('#obj-tags').tokenInput('/kb/tags/suggest', {
-      hintText: I18n.t('kb.tags.type_to_add_new'),
-      noResultsText: I18n.t('kb.tags.none_found'),
-      searchingText: I18n.t('kb.tags.searching'),
+      hintText: I18n.t('diaedu.tags.type_to_add_new'),
+      noResultsText: I18n.t('diaedu.tags.none_found'),
+      searchingText: I18n.t('diaedu.tags.searching'),
       tokenValue: 'name',
       preventDuplicates: true,
       zindex: 9999,

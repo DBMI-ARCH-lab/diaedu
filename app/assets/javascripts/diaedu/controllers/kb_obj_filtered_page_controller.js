@@ -15,6 +15,6 @@ Discourse.KbObjFilteredPageController = Discourse.ObjectController.extend({
   }.property('controllers.kbObj.model'),
 
   addLinkText: function() {
-    return I18n.t('kb.' + this.get('data_type.shortName') + '.add_link');
+    return I18n.t('diaedu.' + this.get('data_type.shortName') + '.add_link');
   }.property('data_type')
 });

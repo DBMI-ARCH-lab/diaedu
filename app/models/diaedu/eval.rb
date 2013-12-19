@@ -21,7 +21,7 @@ module Diaedu
 
     def initialize(value)
       @id = value
-      @name = I18n.t("js.kb.evals.#{value}")
+      @name = I18n.t("js.diaedu.evals.#{value}")
     end
   end
 end

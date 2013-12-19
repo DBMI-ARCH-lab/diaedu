@@ -4,11 +4,11 @@ Discourse.KbDataType = Discourse.Model.extend({
   rank: null,
 
   title: function() {
-    return I18n.t('kb.' + this.get('shortName') + '.title.other');
+    return I18n.t('diaedu.' + this.get('shortName') + '.title.other');
   }.property('shortName'),
 
   singularTitle: function() {
-    return I18n.t('kb.' + this.get('shortName') + '.title.one');
+    return I18n.t('diaedu.' + this.get('shortName') + '.title.one');
   }.property('shortName'),
 
   singularShortName: function() {

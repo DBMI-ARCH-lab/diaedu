@@ -8,7 +8,7 @@ Discourse.KbFilterBlock = Discourse.Model.extend({
 
   // returns translated filter block title
   title: function(){
-    return I18n.t('kb.filter.title.' + this.get('type'));
+    return I18n.t('diaedu.filter.title.' + this.get('type'));
   }.property('type'),
 
   init: function() {

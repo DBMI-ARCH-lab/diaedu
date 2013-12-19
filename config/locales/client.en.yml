@@ -5,5 +5,101 @@ en:
         diaedu/glyprob:
           eval_event_taken: "A Glycemic Problem with similar properties already exists."
 
-  # js:
-  #   diaedu:
+  js:
+    diaedu:
+      any: "Any"
+      cancel: "Cancel"
+      description: "Description"
+      how_got_here: "How You Got Here"
+      likes:
+        zero: "Likes"
+        one: "Like"
+        other: "Likes"
+      ok: "OK"
+      name: "Name"
+      none_found: "No matching objects found."
+      save: "Save"
+      server_error: "Error communicating with server"
+      title: "Knowledge Base"
+      try_again: "Try again"
+      views:
+        zero: "Views"
+        one: "View"
+        other: "Views"
+
+      barriers:
+        add_link: "Add Barrier"
+        add_related_link: "Add Associated Barrier"
+        new_title: "New Barrier"
+        related_heading: "Associated Barriers"
+        title:
+          zero: "Barriers"
+          one: "Barrier"
+          other: "Barriers"
+        topic_intro: "This topic is a discussion of the barrier '%{name}', which is described as follows:"
+
+      comments:
+        comments:
+          zero: "Comments"
+          one: "Comment"
+          other: "Comments"
+        none_yet: "No comments yet. Be the first!"
+        title: "Comments"
+        view_full: "View full discussion"
+
+      evals:
+        low: "Low"
+        high: "High"
+
+      filter:
+        title:
+          barriers: "Filter by Barrier"
+          eval: "Filter by High/Low"
+          glyprobs: "Filter by Glycemic Problem"
+          goals: "Filter by Goal"
+          tags: "Filter by Tag"
+          triggers: "Filter by Trigger"
+
+      glyprobs:
+        add_link: "Add Glycemic Problem"
+        high_low: "High/Low"
+        evaluation: "Evaluation"
+        event: "Event"
+        new_title: "New Glycemic Problem"
+        related_heading: "Associated Glycemic Probs."
+        title:
+          zero: "Glycemic Problems"
+          one: "Glycemic Problem"
+          other: "Glycemic Problems"
+        topic_intro: "This topic is a discussion of the glycemic problem '%{name}', which is described as follows:"
+
+      goals:
+        add_link: "Add Goal"
+        add_related_link: "Add Associated Goal"
+        new_title: "New Goal"
+        related_heading: "Associated Goals"
+        title:
+          zero: "Goals"
+          one: "Goal"
+          other: "Goals"
+        topic_intro: "This topic is a discussion of the goal '%{name}', which is described as follows:"
+
+      objs:
+        sent_for_approval: "Thanks! Your submission has been sent to the site moderators for approval."
+
+      tags:
+        none_found: "No matching tags found"
+        searching: "Searching..."
+        tags: "Tags"
+        type_to_add_new: "Enter a tag to add"
+
+      triggers:
+        add_link: "Add Trigger"
+        add_related_link: "Add Associated Trigger"
+        new_title: "New Trigger"
+        related_heading: "Associated Triggers"
+        title:
+          zero: "Triggers"
+          one: "Trigger"
+          other: "Triggers"
+        topic_intro: "This topic is a discussion of the trigger '%{name}', which is described as follows:"

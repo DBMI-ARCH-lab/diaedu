@@ -60,7 +60,7 @@ module Diaedu
       end
 
       def i18n_key
-        'js.kb.' + self.class.name.demodulize.pluralize.downcase
+        'js.diaedu.' + self.class.name.demodulize.pluralize.downcase
       end
 
       def topic_category_name
