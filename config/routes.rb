@@ -1,10 +1,11 @@
-PATH_PREFIXES = {'glyprobs' => 'glycemic-problems', 'triggers' => 'triggers', 'goals' => 'goals'}
-
 Diaedu::Engine.routes.draw do
+
+  PATH_PREFIXES = {'glyprobs' => 'glycemic-problems'}
+
   root(:to => 'home#index')
-  
-  %w(glyprobs triggers goals).each do |dt|
-    prefix = PATH_PREFIXES[dt]
+
+  %w(glyprobs triggers barriers goals).each do |dt|
+    prefix = PATH_PREFIXES[dt] || dt
     get("/#{prefix}" => 'kb_objs#index', :data_type => dt)
     post("/#{prefix}" => 'kb_objs#create', :data_type => dt)
 

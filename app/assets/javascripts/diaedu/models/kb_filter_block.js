@@ -8,7 +8,7 @@ Discourse.KbFilterBlock = Discourse.Model.extend({
 
   // returns translated filter block title
   title: function(){
-    return I18n.t('kb.filter.title.' + this.get('type'));
+    return I18n.t('diaedu.filter.title.' + this.get('type'));
   }.property('type'),
 
   init: function() {
@@ -17,7 +17,7 @@ Discourse.KbFilterBlock = Discourse.Model.extend({
     var self = this;
 
     // create filter block item objects for items
-    this.set('items', this.get('items').map(function(data){ 
+    this.set('items', this.get('items').map(function(data){
       // add a reference to self
       data.parent = self;
 
@@ -66,7 +66,7 @@ Discourse.KbFilterBlock = Discourse.Model.extend({
 
 // class methods
 Discourse.KbFilterBlock.reopen({
-  
+
   // observe noneChecked to make sure items.isChecked is kept accurate
   noneCheckedChanged: function() {
     // if noneChecked just became checked, set all isChecked for items to false

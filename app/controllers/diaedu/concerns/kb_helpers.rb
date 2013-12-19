@@ -1,7 +1,7 @@
 module Diaedu
   module Concerns
     module KbHelpers
-      
+
       def klass
         data_type_to_class(params[:data_type])
       end

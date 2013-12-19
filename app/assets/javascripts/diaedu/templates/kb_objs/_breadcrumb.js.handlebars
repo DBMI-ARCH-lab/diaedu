@@ -1,14 +1,14 @@
 <div class="block breadcrumb">
   <h3>
     <i class="icon-random"></i>
-    {{i18n kb.how_got_here}}
+    {{i18n diaedu.how_got_here}}
   </h3>
   {{#unless loading}}
     <ol>
-      {{#each breadcrumb.crumbs}}
-        <li {{bindAttr class="obj:isActive"}}>
-          <div>{{type.singularTitle}}</div>
-          {{#linkTo 'kb_obj.show_with_breadcrumb' obj.dataType obj}}<strong>{{obj.name}}</strong>{{/linkTo}}
+      {{#each breadcrumb.crumbsWithDataTypes}}
+        <li {{bindAttr class="crumb:isActive"}}>
+          <div>{{dataType.singularTitle}}</div>
+          {{#linkTo 'kb_obj.show_with_breadcrumb' dataType crumb}}<strong>{{crumb.name}}</strong>{{/linkTo}}
         </li>
       {{/each}}
     </ol>

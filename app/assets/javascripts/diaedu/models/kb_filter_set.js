@@ -1,4 +1,4 @@
-// models a set of filter blocks. 
+// models a set of filter blocks.
 // knows how to fetch data for a set of filter blocks from the backend, given filter types.
 // we do the fetch in one go to save on overhead.
 Discourse.KbFilterSet = Discourse.Model.extend({
@@ -32,7 +32,7 @@ Discourse.KbFilterSet = Discourse.Model.extend({
 
 // class methods
 Discourse.KbFilterSet.reopenClass({
-  
+
   // generates a FilterSet containing a set of FilterBlock objects based on filterParams
   generate: function(dataType, filterParams) {
     // call the backend asking for filter options matching the given filterParams

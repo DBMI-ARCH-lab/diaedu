@@ -4,11 +4,11 @@ Discourse.KbDataType = Discourse.Model.extend({
   rank: null,
 
   title: function() {
-    return I18n.t('kb.' + this.get('shortName') + '.title.other');
+    return I18n.t('diaedu.' + this.get('shortName') + '.title.other');
   }.property('shortName'),
 
   singularTitle: function() {
-    return I18n.t('kb.' + this.get('shortName') + '.title.one');
+    return I18n.t('diaedu.' + this.get('shortName') + '.title.one');
   }.property('shortName'),
 
   singularShortName: function() {
@@ -25,16 +25,16 @@ Discourse.KbDataType = Discourse.Model.extend({
 
   // returns the previous data type in the hierarchy
   prev: function() {
-    return Discourse.KbDataType.instances[this.get('rank') - 2];
+    return Discourse.KbDataType.instances[this.get('rank') - 1];
   }.property('rank'),
 
   // returns the next data type in the hierarchy
   next: function() {
-    return Discourse.KbDataType.instances[this.get('rank')];
+    return Discourse.KbDataType.instances[this.get('rank') + 1];
   }.property('rank'),
 
   hasNext: function() {
-    return this.get('rank') < 3;
+    return this.get('rank') < Discourse.KbDataType.instances.length - 1;
   }.property('rank'),
 
   iconPath: function() {
@@ -43,7 +43,7 @@ Discourse.KbDataType = Discourse.Model.extend({
 
   smallerIconPath: function() {
     return '/assets/diaedu/' + this.get('shortName') + '-smaller.png';
-  }.property('shortName'),    
+  }.property('shortName'),
 });
 
 Discourse.KbDataType.reopenClass({
@@ -63,15 +63,23 @@ Discourse.KbDataType.reopenClass({
     }
   },
 
+  // total number of instances
+  count: 4,
+
   instances: [
     Discourse.KbDataType.create({
       name: 'glycemic-problems',
       shortName: 'glyprobs',
-      rank: 1
+      rank: 0
     }),
     Discourse.KbDataType.create({
       name: 'triggers',
       shortName: 'triggers',
+      rank: 1
+    }),
+    Discourse.KbDataType.create({
+      name: 'barriers',
+      shortName: 'barriers',
       rank: 2
     }),
     Discourse.KbDataType.create({

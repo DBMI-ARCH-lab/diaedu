@@ -6,6 +6,6 @@ Discourse.KbObjNewView = Discourse.ModalBodyView.extend({
   }.property('controller.model.dataType.shortName'),
 
   title: function() {
-    return I18n.t('kb.' + this.get('controller.model.dataType.shortName') + '.new_title');
+    return I18n.t('diaedu.' + this.get('controller.model.dataType.shortName') + '.new_title');
   }.property('controller.model.dataType.shortName')
 });

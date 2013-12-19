@@ -40,17 +40,17 @@ Discourse.KbObjShowWithBreadcrumbController = Discourse.ObjectController.extend(
   }.property('currentUser'),
 
   relatedChildrenHeading: function() {
-    return I18n.t('kb.' + this.get('model.dataType.next.shortName') + '.related_heading');
+    return I18n.t('diaedu.' + this.get('model.dataType.next.shortName') + '.related_heading');
   }.property('model.dataType.next'),
 
   relatedParentsHeading: function() {
-    return I18n.t('kb.' + this.get('model.dataType.prev.shortName') + '.related_heading');
+    return I18n.t('diaedu.' + this.get('model.dataType.prev.shortName') + '.related_heading');
   }.property('model.dataType.prev'),
 
   relatedParentsIconPath: Ember.computed.alias('model.dataType.prev.smallerIconPath'),
 
   addRelatedObjLinkText: function() {
-    return I18n.t('kb.' + this.get('model.dataType.next.shortName') + '.add_related_link');
+    return I18n.t('diaedu.' + this.get('model.dataType.next.shortName') + '.add_related_link');
   }.property('model.dataType.next')
 
 });

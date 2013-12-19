@@ -35,7 +35,7 @@
 
       <div class="comments">
         {{#if hasComments}}
-          <h3>{{i18n kb.comments.title}}</h3>
+          <h3>{{i18n diaedu.comments.title}}</h3>
           <ul>
             {{#each commentPreview}}
               <li>
@@ -50,10 +50,10 @@
         {{/if}}
 
         {{#if hasComments}}
-          <a {{action jumpToComments}} class="jump view-full">{{i18n kb.comments.view_full}} ({{comments}} {{lower commentsText}})</a>
+          <a {{action jumpToComments}} class="jump view-full">{{i18n diaedu.comments.view_full}} ({{comments}} {{lower commentsText}})</a>
         {{else}}
           {{#if canComment}}
-            <a {{action jumpToComments}} class="jump none-yet">{{i18n kb.comments.none_yet}}</a>
+            <a {{action jumpToComments}} class="jump none-yet">{{i18n diaedu.comments.none_yet}}</a>
           {{/if}}
         {{/if}}
       </div>
@@ -78,7 +78,7 @@
 
         {{render 'kb_obj_page' relatedObjPage}}
       </div>
-      
+
     {{/if}}
   {{/unless}}
 </div>

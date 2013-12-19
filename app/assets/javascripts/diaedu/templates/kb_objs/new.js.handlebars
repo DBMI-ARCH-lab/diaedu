@@ -1,21 +1,21 @@
 <form class="kb-obj-form">
   <div class="modal-body">
-    
+
     {{#if done}}
       {{! message if the save was successful}}
-      {{i18n kb.objs.sent_for_approval}}
+      {{i18n diaedu.objs.sent_for_approval}}
     {{else}}
       {{! show object form}}
-      {{dynPartial view.formTemplate}}
+      {{partial view.formTemplate}}
     {{/if}}
   </div>
-   
+
   <div class="modal-footer">
     {{#if done}}
-      <a class="btn" {{action closeModal}}>{{i18n kb.ok}}</a>
+      <a class="btn" {{action closeModal}}>{{i18n diaedu.ok}}</a>
     {{else}}
-      <a class="btn" {{action closeModal}}>{{i18n kb.cancel}}</a>
-      <a class="btn btn-primary" {{action save}}>{{i18n kb.save}}</a>
+      <a class="btn" {{action closeModal}}>{{i18n diaedu.cancel}}</a>
+      <a class="btn btn-primary" {{action save}}>{{i18n diaedu.save}}</a>
       {{#if saving}}<img src="/assets/diaedu/loader.gif" class="loader" />{{/if}}
     {{/if}}
   </div>

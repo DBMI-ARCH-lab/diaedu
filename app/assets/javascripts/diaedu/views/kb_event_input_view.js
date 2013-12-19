@@ -16,5 +16,5 @@ Discourse.KbEventInputView = Discourse.View.extend({
       return $('<li>').append('<a>' + lbl + '</a>').appendTo(ul);
     };
   }
-  
+
 });

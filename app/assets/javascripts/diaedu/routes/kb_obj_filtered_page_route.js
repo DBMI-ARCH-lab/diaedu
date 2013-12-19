@@ -16,7 +16,7 @@ Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
 
     // reset the model before loading
     controller.set('objPage', null);
-    
+
     // start fetch and get promise
     var promises = {
       objPage: Discourse.KbObjPage.find(data_type, model.page_id, model.filter_params)
@@ -32,10 +32,10 @@ Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
     if (!currentFilterSet || !currentFilterSet.matches(data_type, model.filter_params)) {
 
       controller.set('filterSet', null);
-      
+
       // start fetch and get promise
       promises.filterSet = Discourse.KbFilterSet.generate(data_type, model.filter_params);
-      
+
       // set filterSet on model when loaded
       promises.filterSet.then(function(fs){ controller.set('filterSet', fs); });
     }

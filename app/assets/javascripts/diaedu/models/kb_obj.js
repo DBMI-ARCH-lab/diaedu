@@ -48,7 +48,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   // loads details such as description, etc.
   loadFully: function(opts) { var self = this;
     opts = opts || {};
-    
+
     // make ajax call
     var promise = Discourse.ajax("/kb/" + this.get('dataType.name') + '/' + this.get('id'), {data: opts});
 
@@ -79,7 +79,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
       if (response.errors) {
         // join error messages into strings, and change any .'s in keys to _'s, for cases like event.name
         var errors = {};
-        for (var f in response.errors) 
+        for (var f in response.errors)
           errors[f.replace(/\./g, '_')] = response.errors[f].join(', ');
 
         // save on model
@@ -106,7 +106,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   },
 
   hasRelatedParents: function() {
-    return this.get('dataType.rank') > 1;
+    return this.get('dataType.rank') > 0;
   }.property('dataType.rank'),
 
   // gets full list of related parent objs
@@ -135,7 +135,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
     // otherwise, hit the server
     } else {
-      
+
       // do ajax
       promise = Discourse.ajax("/kb/" + self.get('dataType.name') + '/' + self.get('id') + '/ensure-topic', {method: 'POST', data: {'_method' : 'PUT'}});
 
@@ -149,7 +149,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
       });
     }
 
-    return promise;       
+    return promise;
   },
 
   hasComments: function() { var self = this;
@@ -181,17 +181,17 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     self.set('justLiked', true);
 
     // this function will actually finish the like once the post is loaded, and return a promise
-    var finishLike = function(){ 
-      return self.get('firstPost.actionByName.like').act(); 
+    var finishLike = function(){
+      return self.get('firstPost.actionByName.like').act();
     };
 
     // if there is currently no firstPost, reload, making sure that a topic gets created
     if (null === this.get('firstPost'))
-      return this.loadFully({ensure_topic: true, dont_add_view: true}).then(function(){ 
+      return this.loadFully({ensure_topic: true, dont_add_view: true}).then(function(){
         // we need to increment the like count here /again/ temporarily b/c we haven't actually liked it yet
         self.set('likes', self.get('likes') + 1);
 
-        return finishLike(); 
+        return finishLike();
       });
     else
       return finishLike();
@@ -201,22 +201,22 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
   // i18n'd phrase such as '13 comments'
   commentCountWithNoun: function() { var self = this;
-    return I18n.t('kb.comments.comment_count', {count: self.comments});
+    return I18n.t('diaedu.comments.comment_count', {count: self.comments});
   }.property('comments'),
 
   // i18n'd name for comments, properly pluralized
   commentsText: function() { var self = this;
-    return I18n.t('kb.comments.comments', {count: self.comments});
+    return I18n.t('diaedu.comments.comments', {count: self.comments});
   }.property('comments'),
 
   // i18n'd name for likes, properly pluralized
   likesText: function() { var self = this;
-    return I18n.t('kb.likes', {count: self.likes});
+    return I18n.t('diaedu.likes', {count: self.likes});
   }.property('likes'),
 
   // i18n'd name for views, properly pluralized
   viewsText: function() { var self = this;
-    return I18n.t('kb.views', {count: self.views});
+    return I18n.t('diaedu.views', {count: self.views});
   }.property('views')
 });
 

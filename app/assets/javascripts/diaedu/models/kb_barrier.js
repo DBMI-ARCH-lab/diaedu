@@ -1,11 +1,11 @@
-Discourse.KbGoal = Discourse.KbObj.extend({
+Discourse.KbBarrier = Discourse.KbObj.extend({
   name: '',
 
-  // IDs of related objs
+  // IDs of related glyprobs
   parent_ids: null,
 
   init: function() {
-    this.set('dataType', Discourse.KbDataType.get('goals'));
+    this.set('dataType', Discourse.KbDataType.get('barriers'));
     this._super();
   },
 
@@ -18,6 +18,6 @@ Discourse.KbGoal = Discourse.KbObj.extend({
 
 });
 
-Discourse.KbGoal.reopenClass({
-  dataTypeName: 'goals'
+Discourse.KbBarrier.reopenClass({
+  dataTypeName: 'barriers'
 });

@@ -9,7 +9,7 @@ module Diaedu
     # based on code from ELMO (https://github.com/thecartercenter/elmo)
     def self.suggestions(query)
       query.downcase!
-      
+
       matches = where("name LIKE ?", "#{query}%").all
 
       # scan matches for exact match
@@ -26,7 +26,7 @@ module Diaedu
 
       # trim results to max size (couldn't do this earlier b/c had to search whole list for exact match)
       matches = matches[0...MAX_SUGGESTIONS]
-      
+
       # if there was no exact match, we append a 'new' placeholder
       matches << new(:name => query) unless exact_match
 
