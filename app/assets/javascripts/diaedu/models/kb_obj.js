@@ -223,6 +223,13 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 Discourse.KbObj.reopenClass({
   dataTypeName: null,
 
+  // constructs a skeleton KbObj subclass instance (e.g. KbTrigger) based on the given params hash
+  // the hash should contain id and dataType fields
+  // type should look like e.g. Glyprob
+  buildFromIdAndType: function(id, dataType) {
+    return Discourse['Kb' + dataType].create({id: id});
+  },
+
   dataType: function() {
     return Discourse.KbDataType.get(this.dataTypeName);
   },
@@ -242,6 +249,14 @@ Discourse.KbObj.reopenClass({
 
         return obj;
       });
+    });
+  },
+
+  // gets a kb obj subtype instance (e.g. KbTrigger) based on the ID of its related topic
+  // returns a promise that resolves to the KbObj if found, or to null if not
+  findByTopicId: function(topicId) { var self = this;
+    return Discourse.ajax('/kb/obj/by-topic-id', {method: 'GET', data: {topic_id: topicId}}).then(function(data){
+      return data ? Discourse.KbObj.buildFromIdAndType(data.id, data.unqualified_type) : null;
     });
   }
 });
