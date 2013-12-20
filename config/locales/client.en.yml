@@ -22,6 +22,8 @@ en:
       server_error: "Error communicating with server"
       title: "Knowledge Base"
       try_again: "Try again"
+      view_in_kb: "View in Knowledge Base"
+      view_in_kb_title: "View the knowledge base item corresponding to this topic."
       views:
         zero: "Views"
         one: "View"
