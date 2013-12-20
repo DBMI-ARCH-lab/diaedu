@@ -68,7 +68,7 @@ module Diaedu
     # looks for a kb obj matching the given topic id
     def by_topic_id
       obj = KbObj.where(:topic_id => params[:topic_id]).first
-      render(:json => obj)
+      render(:json => obj ? obj.as_json(:only => :id, :methods => :unqualified_type) : nil)
     end
 
     private

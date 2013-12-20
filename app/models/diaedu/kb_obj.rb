@@ -27,6 +27,10 @@ module Diaedu
       increment!(:view_count)
     end
 
+    def unqualified_type
+      type.gsub('Diaedu::', '')
+    end
+
     def as_json(options = {})
       json = nil
 
