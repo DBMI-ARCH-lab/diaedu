@@ -65,6 +65,12 @@ module Diaedu
       render(:json => klass.find(params[:id]).ensure_topic, :root => false)
     end
 
+    # looks for a kb obj matching the given topic id
+    def by_topic_id
+      obj = KbObj.where(:topic_id => params[:topic_id]).first
+      render(:json => obj)
+    end
+
     private
       def parse_filter_params
         @filter = Filter.new(:param_str => params[:filter_params])
