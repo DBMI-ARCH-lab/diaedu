@@ -2,8 +2,8 @@ Discourse.KbLinkToKbButtonView = Discourse.ButtonView.extend({
   text: I18n.t('diaedu.view_in_kb'),
   title: I18n.t('diaedu.view_in_kb_title'),
 
-  /* initially hidden */
-  /* classNames: ['hidden'] */,
+  /* initially hidden until we can check if this is a kb related post */
+  classNames: ['hidden'],
 
   click: function(topic) { var self = this;
     var kb_obj = Discourse.KbGlyprob.create({id: 50});

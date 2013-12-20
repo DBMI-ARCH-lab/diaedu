@@ -243,5 +243,13 @@ Discourse.KbObj.reopenClass({
         return obj;
       });
     });
+  },
+
+  // gets a kb obj based on the ID of its related topic
+  // returns a promise that resolves to the KbObj if found, or to null if not
+  findByTopicId: function(topicId) { var self = this;
+    promise = new Ember.Deferred();
+    promise.resolve(null);
+    return promise;
   }
 });
