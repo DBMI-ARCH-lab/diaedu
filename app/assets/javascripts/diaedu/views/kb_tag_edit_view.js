@@ -1,5 +1,5 @@
 Discourse.KbTagEditView = Discourse.View.extend({
-  templateName: 'diaedu/templates/tag_edit',
+  templateName: 'javascripts/diaedu/templates/tag_edit',
 
   didInsertElement: function() { var self = this;
     $('#obj-tags').tokenInput('/kb/tags/suggest', {

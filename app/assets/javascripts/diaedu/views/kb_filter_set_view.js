@@ -1,5 +1,5 @@
 Discourse.KbFilterSetView = Discourse.View.extend({
-  templateName: 'diaedu/templates/filter_set',
+  templateName: 'javascripts/diaedu/templates/filter_set',
 
   // handle clicks on checkboxes
   click: function(e) {

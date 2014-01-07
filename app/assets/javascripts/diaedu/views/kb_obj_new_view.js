@@ -1,8 +1,8 @@
 Discourse.KbObjNewView = Discourse.ModalBodyView.extend({
-  templateName: 'diaedu/templates/kb_objs/new',
+  templateName: 'javascripts/diaedu/templates/kb_objs/new',
 
   formTemplate: function() {
-    return 'diaedu/templates/kb_' + this.get('controller.model.dataType.shortName') + '/form';
+    return 'javascripts/diaedu/templates/kb_' + this.get('controller.model.dataType.shortName') + '/form';
   }.property('controller.model.dataType.shortName'),
 
   title: function() {

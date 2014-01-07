@@ -4,7 +4,7 @@ Discourse.KbObjRoute = Discourse.Route.extend({
   },
 
   renderTemplate: function() {
-    this.render('diaedu/templates/kb_objs/layout');
+    this.render('javascripts/diaedu/templates/kb_objs/layout');
   },
 
   serialize: function(model) {
