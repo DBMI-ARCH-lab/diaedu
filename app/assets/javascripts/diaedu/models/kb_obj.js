@@ -258,5 +258,10 @@ Discourse.KbObj.reopenClass({
     return Discourse.ajax('/kb/obj/by-topic-id', {method: 'GET', data: {topic_id: topicId}}).then(function(data){
       return data ? Discourse.KbObj.buildFromIdAndType(data.id, data.unqualified_type) : null;
     });
+  },
+
+  // implemented by subclasses
+  relations: function() {
+    throw new Error('relations method is implemented in subclasses');
   }
 });

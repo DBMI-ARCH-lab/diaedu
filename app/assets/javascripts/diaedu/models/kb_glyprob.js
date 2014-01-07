@@ -24,5 +24,13 @@ Discourse.KbGlyprob = Discourse.KbObj.extend({
 });
 
 Discourse.KbGlyprob.reopenClass({
-  dataTypeName: 'glycemic-problems'
+  dataTypeName: 'glycemic-problems',
+
+  // defines the other subtypes to which this one is related
+  relations: function() {
+    return [
+      Discourse.KbObjRelation.create({other: Discourse.KbTrigger, direction: 'forward'})
+    ];
+  }
+
 })

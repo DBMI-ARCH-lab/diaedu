@@ -19,5 +19,13 @@ Discourse.KbGoal = Discourse.KbObj.extend({
 });
 
 Discourse.KbGoal.reopenClass({
-  dataTypeName: 'goals'
+  dataTypeName: 'goals',
+
+  // defines the other subtypes to which this one is related
+  relations: function() {
+    return [
+      Discourse.KbObjRelation.create({other: Discourse.KbTrigger, direction: 'backward'}),
+      Discourse.KbObjRelation.create({other: Discourse.KbBarrier, direction: 'backward'})
+    ];
+  }
 });
