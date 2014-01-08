@@ -197,6 +197,28 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
       return finishLike();
   },
 
+  // returns an array of KbRelatedGroups related to this object
+  // direction - the direction of relation that should be returned (backward or forward)
+  relatedGroups: function(direction) { var self = this;
+    // get filtered set of KbObjRelations
+    var relations = self.constructor.relations().filter(function(r){ return r.get('direction') == direction; });
+
+    // build a KbRelatedGroup for each relation
+    return relations.map(function(relation) {
+      return Discourse.KbRelatedGroup.create({source: self, relation: relation});
+    });
+  },
+
+  // returns an array of KbRelatedGroups related to this object in the forward direction only
+  forwardRelatedGroups: function() { var self = this;
+    return self.relatedGroups('forward');
+  }.property(),
+
+  // returns an array of KbRelatedGroups related to this object in the backward direction only
+  backwardRelatedGroups: function() { var self = this;
+    return self.relatedGroups('backward');
+  }.property(),
+
   ////////////// i18n properties, should probably be refactored to controllers /////////////////////
 
   // i18n'd phrase such as '13 comments'
