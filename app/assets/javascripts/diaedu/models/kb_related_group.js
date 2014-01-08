@@ -23,8 +23,14 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
 
   // gets a filter param string for getting objs related to the source obj
   filterParams: function() { var self = this;
-    return self.get('dataType.shortName') + '-' + self.get('source.id');
-  }.property(),
+    var str = self.get('dataType.shortName') + '-' + self.get('source.id');
+
+    // add the serialized version of the tagFilter unless it's null
+    if (self.get('tagFilter.serialized'))
+      str += '-' + self.get('tagFilter.serialized');
+
+    return str;
+  }.property('tagFilter.serialized'),
 
   // sets up the objPage and filterBlock based on the source and relation that are passed in when this is created
   init: function() { var self = this;
@@ -72,7 +78,9 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
     // if the serialized filter value has actually changed, proceed
     if (self.get('tagFilterSerialized') != self.get('tagFilter.serialized')) {
       self.set('tagFilterSerialized', self.get('tagFilter.serialized'));
-      console.log('FILTER CHANGED TO', self.get('tagFilter.serialized'));
+
+      // reload the objPage
+      self.loadObjPage();
     }
   }.observes('tagFilter.serialized')
 });
