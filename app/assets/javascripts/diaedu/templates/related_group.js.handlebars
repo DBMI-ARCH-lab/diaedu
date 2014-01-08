@@ -1,0 +1,21 @@
+<div class="related-objs">
+
+  {{! add button}}
+  {{#if currentUser}}
+    <a {{action addRelatedObj}} class="new-related-obj">
+      &plus;
+      {{addLinkText}}
+    </a>
+  {{/if}}
+
+  {{! header}}
+  <h2>
+    <img {{bindAttr src="dataType.iconPath"}} />
+    {{heading}}
+  </h2>
+
+  {{!render 'kb_mini_filter' tagFilterBlock}}
+
+  {{! object listing}}
+  {{render 'kb_obj_page' objPage}}
+</div>

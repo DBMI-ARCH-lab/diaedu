@@ -57,5 +57,10 @@
       </div>
     </div>
 
+    {{! related groups of other kb objects (forward only)}}
+    {{#each forwardRelatedGroups}}
+      {{render 'kb_related_group' this}}
+    {{/each}}
+
   {{/unless}}
 </div>
