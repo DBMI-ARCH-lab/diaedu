@@ -58,9 +58,11 @@
     </div>
 
     {{! related groups of other kb objects (forward only)}}
-    {{#each forwardRelatedGroups}}
-      {{render 'kb_related_group' this}}
-    {{/each}}
+    <div class="forward-related-groups">
+      {{#each forwardRelatedGroups}}
+        {{render 'kb_related_group' this}}
+      {{/each}}
+    </div>
 
   {{/unless}}
 </div>
