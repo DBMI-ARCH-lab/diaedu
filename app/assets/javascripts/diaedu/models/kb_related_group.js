@@ -11,7 +11,7 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
   objPage: null,
 
   // a KbFilterBlock representing the tag mini filter, if needed
-  filterBlock: null,
+  tagFilter: null,
 
   // gets the KbDataType obj for the related subtype
   dataType: function() { var self = this;
@@ -34,7 +34,7 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
 
     // only need to load the filter block if this is a forward relation
     if (self.get('relation.direction') == 'forward')
-      self.loadFilterBlock();
+      self.loadTagFilter();
   },
 
   // loads and creates a KbObjPage for the appropriate source and relation
@@ -52,13 +52,13 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
 
   // loads and creates a KbFilterBlock for the tag mini filter
   // returns a promise which resolves to null when the loading is done
-  loadFilterBlock: function() { var self = this;
+  loadTagFilter: function() { var self = this;
 
     // start ajax request
     return Discourse.KbFilterSet.generate(self.get('dataType'), self.get('filterParams')).then(function(filterSet){
       // pick out the tag filter block from the set
       // we use the 'filter' method which is a built in JS array method, not related to our filter infrastructure
-      self.set('filterBlock', filterSet.get('blocks').filter(function(b){ return b.get('type') == 'tags'; })[0]);
+      self.set('tagFilter', filterSet.get('blocks').filter(function(b){ return b.get('type') == 'tags'; })[0]);
       return null;
     });
   }
