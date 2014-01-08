@@ -26,11 +26,13 @@ div.diaedu-content {
     h1 {
       margin-bottom: 20px;
       min-height: 50px;
+      line-height: 33px;
 
       img:first-child {
         display: inline-block;
         width: 50px;
         margin: 0 10px 3px 0;
+        vertical-align: bottom;
       }
 
       span.weaker {
