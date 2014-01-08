@@ -13,6 +13,9 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
   // a KbFilterBlock representing the tag mini filter, if needed
   tagFilter: null,
 
+  // the latest value of tagFilter.serialized. we cached it here to avoid duplicate calls
+  tagFilterSerialized: null,
+
   // gets the KbDataType obj for the related subtype
   dataType: function() { var self = this;
     return self.get('relation.other').dataType();
@@ -61,6 +64,15 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
       self.set('tagFilter', filterSet.get('blocks').filter(function(b){ return b.get('type') == 'tags'; })[0]);
       return null;
     });
-  }
+  },
 
+  // gets called to notify that tagFilter has changed
+  tagFilterChanged: function() { var self = this;
+
+    // if the serialized filter value has actually changed, proceed
+    if (self.get('tagFilterSerialized') != self.get('tagFilter.serialized')) {
+      self.set('tagFilterSerialized', self.get('tagFilter.serialized'));
+      console.log('FILTER CHANGED TO', self.get('tagFilter.serialized'));
+    }
+  }.observes('tagFilter.serialized')
 });

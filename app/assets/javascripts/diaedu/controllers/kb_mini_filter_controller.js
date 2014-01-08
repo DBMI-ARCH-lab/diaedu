@@ -2,17 +2,14 @@
 // as opposed to a full filter set with blocks and checkboxes
 // associated with a single filter block model
 Discourse.KbMiniFilterController = Discourse.ObjectController.extend({
-  needs: 'kbObjShowWithBreadcrumb',
+  needs: 'kbRelatedGroup',
 
   actions: {
     // handles changes to the filter block
-    filterChanged: function(tagId) {
-      var block = this.get('model');
+    filterChanged: function(tagId) { var self = this;
 
       // tell the block to mark the tag with the given ID as selected
-      block.setSelectionById(tagId);
-
-      this.get('controllers.kbObjShowWithBreadcrumb').send('relatedMiniFilterChanged', block);
+      self.get('content').setSelectionById(tagId);
     }
   }
 });
