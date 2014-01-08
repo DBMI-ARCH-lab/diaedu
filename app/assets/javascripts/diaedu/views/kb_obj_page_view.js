@@ -1,5 +1,5 @@
 Discourse.KbObjPageView = Discourse.View.extend({
-  templateName: 'javascripts/diaedu/templates/kb_objs/page',
+  templateName: 'javascripts/diaedu/templates/obj_page',
 
   didInsertElement: function() {
     // if there is a toHighlight set, honor it
