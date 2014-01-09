@@ -13,8 +13,8 @@ Discourse.KbObjNewController = Discourse.ObjectController.extend(Discourse.Modal
 
   actions: {
     save: function() { var self = this;
-      this.set('saving', true);
-      this.get('model').save().then(function(success) {
+      self.set('saving', true);
+      self.get('model').save().then(function(success) {
         // set the done variable so the modal changes
         if (success) self.set('done', true);
 

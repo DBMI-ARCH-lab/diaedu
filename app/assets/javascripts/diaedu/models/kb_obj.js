@@ -71,9 +71,7 @@ Discourse.KbObj = Discourse.Model.extend({
   // returns a promise that resolves to whether the save was successful or not (had errors)
   save: function() { var self = this;
     // do ajax request
-    var promise = Discourse.ajax("/kb/" + this.get('dataType.name'), {method: 'POST', data: {obj: this.serialize()}});
-
-    return promise.then(function(response){
+    return Discourse.ajax("/kb/" + self.get('dataType.name'), {method: 'POST', data: {obj: self.serialize()}}).then(function(response){
 
       // if error set, save error messages
       if (response.errors) {
@@ -137,9 +135,8 @@ Discourse.KbObj = Discourse.Model.extend({
     return promise;
   },
 
-  hasComments: function() { var self = this;
-    return self.comments > 0;
-  }.property('comments'),
+  // checks if this obj has any comments
+  hasComments: Ember.computed.gt('comments', 0),
 
   // checks if the obj can be liked by the current user
   // this information is stored in the firstPost action summary
