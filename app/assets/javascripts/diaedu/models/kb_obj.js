@@ -1,4 +1,4 @@
-Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
+Discourse.KbObj = Discourse.Model.extend({
   // the data type of this object
   dataType: null,
 
@@ -22,7 +22,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
     // init tags to empty array if not already set
     if (!this.get('tags'))
-      this.set('tags', []);
+      this.set('tags', Em.A());
 
     // default to breadcrumb with just self
     this.set('breadcrumb', Discourse.KbBreadcrumb.create().addCrumb(this));
@@ -104,21 +104,6 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
         return {tag_id: t.id, _destroy: t._destroy};
     });
   },
-
-  hasRelatedParents: function() {
-    return this.get('dataType.rank') > 0;
-  }.property('dataType.rank'),
-
-  // gets full list of related parent objs
-  // uses lazy loading
-  relatedParents: function() { var self = this;
-    return self.lazyLoad('_relatedParents', Em.A(), function() {
-      return self.get('dataType.prev.modelClass').findAll({
-        filterParams: self.get('id') ? self.get('dataType.shortName') + '-' + self.get('id') : 'all',
-        breadcrumb: self.get('breadcrumb').removeCrumb(self)
-      });
-    });
-  }.property('dataType.prev', '_relatedParents'),
 
   // gets the topic associated with this object
   // returns a promise that resolves with the topic
@@ -254,24 +239,6 @@ Discourse.KbObj.reopenClass({
 
   dataType: function() {
     return Discourse.KbDataType.get(this.dataTypeName);
-  },
-
-  // gets minimally populated versions of all objects
-  findAll: function(options) { var self = this;
-    var promise = Discourse.ajax(this.dataType().get('backendPath') + '/' + options.filterParams, {method: 'GET', data: {for_select: true}});
-
-    // create objs from the returned array of attribs and return
-    return promise.then(function(data) {
-      var k = self.dataType().get('modelClass');
-      return data.map(function(attribs){
-        var obj = k.create(attribs);
-
-        // merge the provided breadcrumb, if it exists, with the object's
-        if (options.breadcrumb) obj.get('breadcrumb').merge(options.breadcrumb);
-
-        return obj;
-      });
-    });
   },
 
   // gets a kb obj subtype instance (e.g. KbTrigger) based on the ID of its related topic
