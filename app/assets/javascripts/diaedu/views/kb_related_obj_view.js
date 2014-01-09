@@ -3,10 +3,10 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
 
   template: '',
 
-  didInsertElement: function() {
+  didInsertElement: function() { var self = this;
     // relatedParents is a lazy-loaded value, which means when we run this method it will trigger an ajax request
     // and return a temporary value. the method below will pickup the change in the value when it is fully loaded.
-    this.get('controller.model.relatedParents');
+    self.get('controller.model.relatedParents');
   },
 
   // observe when related parents array is populated and build multiselect using it
@@ -33,7 +33,7 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
 
     // setup event to copy changes to model
     sel.on('change', function() {
-      self.set('controller.parent_ids', sel.val());
+      self.set('controller.inlink_ids', sel.val());
     });
 
   }.observes('controller.model.relatedParents')

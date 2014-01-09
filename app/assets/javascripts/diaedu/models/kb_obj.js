@@ -201,6 +201,14 @@ Discourse.KbObj = Discourse.Model.extend({
     return self.relatedGroups('backward');
   }.property(),
 
+  // builds a data object to submit to server
+  // should be overridden for subclasses with special serialization needs
+  serialize: function() {
+    var data = this.getProperties('name', 'description', 'inlink_ids');
+    this.serializeTags(data);
+    return data;
+  },
+
   ////////////// i18n properties, should probably be refactored to controllers /////////////////////
 
   // i18n'd phrase such as '13 comments'
