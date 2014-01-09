@@ -1,4 +1,5 @@
 Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
+
   model: function(params, transition) {
     var obj = this.modelFor('kbObj').get('modelClass').create({id: params.id});
 
@@ -12,43 +13,16 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
     // let the view know we are loading
     controller.set('loading', true);
 
-    var dataType = model.get('dataType');
-
     // set title to something basic while loading
-    Discourse.set('title', model.get('dataType').get('title'));
+    Discourse.set('title', model.get('dataType.title'));
 
     // initiate ajax request to populate object details
-    var promises = {
-      obj: model.loadFully()
-    };
-
-    // initiate request for associated objects (if applicable)
-    if (dataType.get('hasNext')) {
-
-      // build a filter string to get objs related to this obj
-      var filterParams = dataType.get('shortName') + '-' + model.get('id');
-
-      // setup promises
-      promises.related = Discourse.KbObjPage.find(dataType.get('next'), 1, filterParams);
-      promises.filterSet = Discourse.KbFilterSet.generate(dataType.get('next'), filterParams);
-    }
-
-    // when all requests are complete
-    Ember.RSVP.hash(promises).then(function(results){
+    model.loadFully().then(function() {
 
       controller.set('model', model);
 
-      if (results.related) {
-        // add current breadcrumb to all related obj breadcrumbs
-        results.related.get('objs').forEach(function(obj){ obj.get('breadcrumb').merge(model.get('breadcrumb')); })
-        controller.set('relatedObjPage', results.related);
-      }
-
-      // find the filter block for tags
-      if (results.filterSet) {
-        var tagBlock = results.filterSet.get('blocks').filter(function(b){ return b.get('type') == 'tags'; })[0];
-        controller.set('tagFilterBlock', tagBlock);
-      }
+      // add current breadcrumb to all related obj breadcrumbs
+      // results.related.get('objs').forEach(function(obj){ obj.get('breadcrumb').merge(model.get('breadcrumb')); })
 
       // refine title now that we've loaded
       Discourse.set('title', model.get('name'));
@@ -58,7 +32,7 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
   },
 
   renderTemplate: function() {
-    this.render('javascripts/diaedu/templates/kb_objs/show');
+    this.render('javascripts/diaedu/templates/kb_objs/show_with_breadcrumb');
   },
 
   serialize: function(model) {
@@ -67,15 +41,17 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
 
   actions: {
     // loads the modal dialog to create a related object
-    addRelatedObj: function() {
+    // this should REALLY be in KbRelatedGroupController but couldn't figure out how to get a reference to this Route from there
+    // and Discourse.Route.showModal needs such a reference
+    showAddModal: function(relatedGroup) { var self = this;
       // create new model for modal
-      var model = this.get('controller.model.dataType.next.modelClass').create();
+      var model = relatedGroup.get('dataType.modelClass').create();
 
       // the model should have the proper obj preselected
-      model.set('preselectedParentId', this.get('controller.model.id'));
+      model.set('preselectedParentId', self.get('controller.model.id'));
 
       // show the modal
-      Discourse.Route.showModal(this, 'kbObjNew', model);
+      Discourse.Route.showModal(self, 'kbObjNew', model);
     },
 
     // ensures that there is an existing topic for this object, then sends the user to the page for that topic

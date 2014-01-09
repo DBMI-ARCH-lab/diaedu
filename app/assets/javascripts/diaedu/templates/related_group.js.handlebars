@@ -2,7 +2,7 @@
 
   {{! add button}}
   {{#if currentUser}}
-    <a {{action addRelatedObj}} class="new-related-obj">
+    <a {{action showAddModal this}} class="new-related-obj">
       &plus;
       {{addLinkText}}
     </a>
