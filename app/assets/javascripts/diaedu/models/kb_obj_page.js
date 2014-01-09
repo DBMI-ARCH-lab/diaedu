@@ -34,7 +34,7 @@ Discourse.KbObjPage.reopenClass({
 
     var url = "/kb/" + params.dataType.get('name') + "/" + params.filterParams + "/page/" + params.pageNum;
 
-    return Discourse.ajax(url).then(function(data) {
+    return Discourse.ajax(url, {data: {per_page: params.perPage}}).then(function(data) {
 
       // compute how many pages there will be and generate stub Page objects for them
       var pageCount = Math.ceil(data.total_count / data.per_page);

@@ -52,8 +52,20 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
   // loads and creates a KbObjPage for the appropriate source and relation
   // returns a promise which resolves to null when the loading is done
   loadObjPage: function() { var self = this;
+
+    // build objpage params
+    var params = {
+      dataType: self.get('dataType'),
+      pageNum: 1,
+      filterParams: self.get('filterParams'),
+
+      // per page is infinite (no pagination) if a backward relation
+      // otherwise set to null and defer to default
+      perPage: self.get('relation.backward') ? 1000000000 : null
+    }
+
     // start ajax request
-    return Discourse.KbObjPage.find({dataType: self.get('dataType'), pageNum: 1, filterParams: self.get('filterParams')}).then(function(objPage){
+    return Discourse.KbObjPage.find(params).then(function(objPage){
       self.set('objPage', objPage);
       return null;
     });
