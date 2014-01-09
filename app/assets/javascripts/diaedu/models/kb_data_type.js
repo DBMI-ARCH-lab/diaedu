@@ -3,6 +3,8 @@ Discourse.KbDataType = Discourse.Model.extend({
   shortName: null,
   rank: null,
 
+  // abbrv - a two letter abbreviation
+
   title: function() {
     return I18n.t('diaedu.' + this.get('shortName') + '.title.other');
   }.property('shortName'),
@@ -63,6 +65,10 @@ Discourse.KbDataType.reopenClass({
     }
   },
 
+  findByAbbrv: function(abbrv) { var self = this;
+    return self.instances.filter(function(dt){ return dt.get('abbrv') == abbrv; })[0];
+  },
+
   // total number of instances
   count: 4,
 
@@ -70,21 +76,25 @@ Discourse.KbDataType.reopenClass({
     Discourse.KbDataType.create({
       name: 'glycemic-problems',
       shortName: 'glyprobs',
+      abbrv: 'gp',
       rank: 0
     }),
     Discourse.KbDataType.create({
       name: 'triggers',
       shortName: 'triggers',
+      abbrv: 'tr',
       rank: 1
     }),
     Discourse.KbDataType.create({
       name: 'barriers',
       shortName: 'barriers',
+      abbrv: 'br',
       rank: 2
     }),
     Discourse.KbDataType.create({
       name: 'goals',
       shortName: 'goals',
+      abbrv: 'gl',
       rank: 3
     })
   ]
