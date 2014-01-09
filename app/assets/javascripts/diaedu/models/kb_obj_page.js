@@ -7,18 +7,15 @@ Discourse.KbObjPage = Discourse.Model.extend({
   filter_params: null,
   data_type: null,
 
-  get_stub: function(page_id) {
-    return Discourse.KbObjPage.create({page_id: page_id, filter_params: this.get('filter_params')});
-  },
+  isEmpty: Ember.computed.empty('objs.[]'),
 
   multiple_pages: function() {
     return this.other_pages.length > 1;
   }.property('other_pages'),
 
-  // whether there are any objs
-  noObjs: function() {
-    return this.get('objs').length == 0;
-  }.property('objs')
+  get_stub: function(page_id) {
+    return Discourse.KbObjPage.create({page_id: page_id, filter_params: this.get('filter_params')});
+  }
 });
 
 Discourse.KbObjPage.reopenClass({

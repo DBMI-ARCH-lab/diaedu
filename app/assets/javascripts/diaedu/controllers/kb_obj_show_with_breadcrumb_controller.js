@@ -20,12 +20,6 @@ Discourse.KbObjShowWithBreadcrumbController = Discourse.ObjectController.extend(
   // checks if the current user is allowed to post comments
   canComment: function() {
     return !!this.get('currentUser');
-  }.property('currentUser'),
-
-  relatedParentsHeading: function() {
-    return I18n.t('diaedu.' + this.get('model.dataType.prev.shortName') + '.related_heading');
-  }.property('model.dataType.prev'),
-
-  relatedParentsIconPath: Ember.computed.alias('model.dataType.prev.smallerIconPath')
+  }.property('currentUser')
 
 });

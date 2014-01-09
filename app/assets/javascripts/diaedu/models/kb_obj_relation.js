@@ -5,6 +5,9 @@ Discourse.KbObjRelation = Discourse.Model.extend({
   other: null,
 
   // a string indicating whether traversing this relationship is considered going 'forward' in the knowledgebase or 'backward'
-  direction: null
+  direction: null,
 
+  forward: Ember.computed.equal('direction', 'forward'),
+
+  backward: Ember.computed.equal('direction', 'backward')
 });

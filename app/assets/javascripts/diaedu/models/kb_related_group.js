@@ -16,6 +16,9 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
   // the latest value of tagFilter.serialized. we cached it here to avoid duplicate calls
   tagFilterSerialized: null,
 
+  // whether there are no objects in the group
+  isEmpty: Ember.computed.alias('objPage.isEmpty'),
+
   // gets the KbDataType obj for the related subtype
   dataType: function() { var self = this;
     return self.get('relation.other').dataType();
@@ -42,7 +45,7 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
     self.loadObjPage();
 
     // only need to load the filter block if this is a forward relation
-    if (self.get('relation.direction') == 'forward')
+    if (self.get('relation.forward'))
       self.loadTagFilter();
   },
 

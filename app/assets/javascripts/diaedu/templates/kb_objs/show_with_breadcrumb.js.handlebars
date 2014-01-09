@@ -1,4 +1,10 @@
 <div class="left-pane">
+
+  {{! related groups of other kb objects (backward relations only)}}
+  {{#each backwardRelatedGroups}}
+    {{render 'kb_related_group' this}}
+  {{/each}}
+
 </div>
 
 <div class="main">
