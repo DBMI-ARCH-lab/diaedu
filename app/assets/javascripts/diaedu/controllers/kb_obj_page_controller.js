@@ -10,11 +10,10 @@ Discourse.KbObjPageController = Discourse.ObjectController.extend({
       var filterParams = this.get('model.filter_params');
 
       // set the model to null so the loading indicator shows up
-      this.set('model', null);
+      self.set('model', null);
 
       // start fetch and get promise
-      Discourse.KbObjPage.find(dataType, newPage, filterParams)
-      .done(function(loaded){
+      Discourse.KbObjPage.find({dataType: dataType, pageNum: newPage, filterParams: filterParams}).then(function(loaded) {
 
         // add current breadcrumb to all page obj breadcrumbs
         loaded.get('objs').forEach(function(obj){ obj.get('breadcrumb').merge(
@@ -23,8 +22,6 @@ Discourse.KbObjPageController = Discourse.ObjectController.extend({
 
         self.set('model', loaded);
 
-      }).fail(function(resp){
-        console.log("FETCH ERROR:", resp)
       });
     }
   },

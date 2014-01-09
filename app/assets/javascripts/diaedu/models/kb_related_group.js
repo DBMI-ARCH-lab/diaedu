@@ -52,11 +52,8 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
   // loads and creates a KbObjPage for the appropriate source and relation
   // returns a promise which resolves to null when the loading is done
   loadObjPage: function() { var self = this;
-    // we always want the first page of results
-    var page = 1;
-
     // start ajax request
-    return Discourse.KbObjPage.find(self.get('dataType'), page, self.get('filterParams')).then(function(objPage){
+    return Discourse.KbObjPage.find({dataType: self.get('dataType'), pageNum: 1, filterParams: self.get('filterParams')}).then(function(objPage){
       self.set('objPage', objPage);
       return null;
     });
