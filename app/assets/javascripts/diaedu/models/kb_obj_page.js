@@ -61,7 +61,7 @@ Discourse.KbObjPage.reopenClass({
 
         // add the provided breadcrumb if given
         if (params.breadcrumb)
-          newObj.set('breadcrumb', params.breadcrumb.addCrumb(newObj));
+          newObj.set('breadcrumb', params.breadcrumb.add(newObj));
 
         thisPage.objs.pushObject(newObj);
       });

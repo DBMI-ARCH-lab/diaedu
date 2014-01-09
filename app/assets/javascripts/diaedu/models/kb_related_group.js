@@ -64,7 +64,9 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
       perPage: self.get('relation.backward') ? 1000000000 : null,
 
       // the breadcrumb depends on the relation type
-      breadcrumb: self.get('relation.forward') ? self.get('source.breadcrumb') : self.get('source.breadcrumb').removeCrumb(self.get('source'))
+      // if forward, we leave it as is since it already includes source
+      // if backward, we need to remove the last two crumbs (source and the one before it)
+      breadcrumb: self.get('relation.forward') ? self.get('source.breadcrumb') : self.get('source.breadcrumb').pop(2)
     }
 
     // start ajax request

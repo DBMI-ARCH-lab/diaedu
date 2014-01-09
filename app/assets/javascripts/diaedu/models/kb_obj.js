@@ -25,7 +25,7 @@ Discourse.KbObj = Discourse.Model.extend({
       this.set('tags', Em.A());
 
     // default to breadcrumb with just self
-    this.set('breadcrumb', Discourse.KbBreadcrumb.create().addCrumb(this));
+    this.set('breadcrumb', Discourse.KbBreadcrumb.create().add(this));
   },
 
   firstNTags: function() {

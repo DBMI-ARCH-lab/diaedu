@@ -5,10 +5,10 @@
   </h3>
   {{#unless loading}}
     <ol>
-      {{#each breadcrumb.crumbsWithDataTypes}}
-        <li {{bindAttr class="crumb:isActive"}}>
+      {{#each breadcrumb.crumbs}}
+        <li>
           <div>{{dataType.singularTitle}}</div>
-          {{#linkTo 'kb_obj.show_with_breadcrumb' dataType crumb}}<strong>{{crumb.name}}</strong>{{/linkTo}}
+          {{#linkTo 'kb_obj.show_with_breadcrumb' dataType this}}<strong>{{name}}</strong>{{/linkTo}}
         </li>
       {{/each}}
     </ol>

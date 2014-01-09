@@ -21,11 +21,6 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
 
       controller.set('model', model);
 
-      // add current breadcrumb to all related obj breadcrumbs, so that if they are clicked on, the breadcrumb will be correct
-      // related objects are from a forward relation, so this will always be a matter of adding on the end
-      // results.related.get('objs').forEach(function(obj){ obj.get('breadcrumb').merge(model.get('breadcrumb')); })
-      // results.related.get('objs').forEach(function(obj){ obj.set('breadcrumb', model.get('breadcrumb').addCrumb(obj)); })
-
       // refine title now that we've loaded
       Discourse.set('title', model.get('name'));
 

@@ -30,17 +30,18 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
   },
 
   // clones this breadcrumb and adds a new crumb
-  addCrumb: function(crumb) { var self = this;
+  add: function(crumb) { var self = this;
     var newBc = self.clone();
     newBc.get('crumbs').push(crumb);
     return newBc;
   },
 
-  // clones this breadcrumb and removes the given crumb
-  removeCrumb: function(crumb) { var self = this;
+  // clones this breadcrumb and removes the last N crumbs
+  pop: function(num) { var self = this;
     var newBc = self.clone();
-    idx = newBc.get('crumbs').indexOf(crumb);
-    newBc.get('crumbs').splice(idx, 1);
+    for (var i = 0; i < num; i++) {
+      newBc.get('crumbs').pop();
+    }
     return newBc;
   }
 
@@ -72,7 +73,7 @@ Discourse.KbBreadcrumb.reopenClass({
 
         // add the current crumb to the meta crumb (this creates a new crumb)
         // and set on the current crumb
-        metaCrumb = metaCrumb.addCrumb(crumb);
+        metaCrumb = metaCrumb.add(crumb);
         crumb.set('breadcrumb', metaCrumb);
 
         // load the name (right now we only have the id)
@@ -83,6 +84,6 @@ Discourse.KbBreadcrumb.reopenClass({
       });
     }
 
-    return breadcrumb.addCrumb(obj);
+    return breadcrumb.add(obj);
   }
 });
