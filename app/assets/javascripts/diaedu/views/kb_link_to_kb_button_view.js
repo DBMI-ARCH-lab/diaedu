@@ -25,7 +25,7 @@ Discourse.KbLinkToKbButtonView = Discourse.ButtonView.extend({
   },
 
   renderIcon: function(buffer) { var self = this;
-    buffer.push("<i class='icon icon-eye-open'></i>");
+    buffer.push("<i class='fa fa-eye-open'></i>");
   }
 });
 

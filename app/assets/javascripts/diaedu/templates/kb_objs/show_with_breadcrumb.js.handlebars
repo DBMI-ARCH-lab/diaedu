@@ -1,5 +1,6 @@
 <div class="left-pane">
 
+
   {{! related groups of other kb objects (backward relations only)}}
   {{#each backwardRelatedGroups}}
     {{render 'kb_related_group' this}}
@@ -25,10 +26,10 @@
 
         {{! show the appropriate 'up' icon, with or without link, depending on whether item can be liked by this user}}
         {{#if canLike}}
-          <a {{action likeObj}} class="like"><i class="icon-caret-up"></i></a>
+          <a {{action likeObj}} class="like"><i class="fa fa-caret-up"></i></a>
         {{/if}}
         {{#if liked}}
-          <i class="icon-caret-up disabled"></i>
+          <i class="fa fa-caret-up disabled"></i>
         {{/if}}
         <div class="likes">{{likes}} {{likesText}}</div>
         <div class="views">{{views}} {{viewsText}}</div>
