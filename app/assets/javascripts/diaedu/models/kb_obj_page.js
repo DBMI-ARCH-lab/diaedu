@@ -27,6 +27,7 @@ Discourse.KbObjPage.reopenClass({
   // params.filterParams - (string) the filter param string to use in the URL
   // params.pageNum - (int) the page number to fetch
   // params.perPage - (int) the number of items to fetch per page (optional)
+  // params.breadcrumb - (KbBreadcrumb) the breadcrumb upon which the breadcrumbs of all the fetched objects should build
   find: function(params) { var self = this;
 
     if (!params.perPage)
@@ -56,7 +57,13 @@ Discourse.KbObjPage.reopenClass({
       // create the Objs
       data.objs.forEach(function (g) {
         // create Obj object from returned JSON and add to this page
-        thisPage.objs.pushObject(params.dataType.get('modelClass').create(g));
+        var newObj = params.dataType.get('modelClass').create(g);
+
+        // add the provided breadcrumb if given
+        if (params.breadcrumb)
+          newObj.set('breadcrumb', params.breadcrumb.addCrumb(newObj));
+
+        thisPage.objs.pushObject(newObj);
       });
 
       // insert the current page

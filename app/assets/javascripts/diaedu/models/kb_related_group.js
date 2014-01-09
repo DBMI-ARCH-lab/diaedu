@@ -61,7 +61,10 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
 
       // per page is infinite (no pagination) if a backward relation
       // otherwise set to null and defer to default
-      perPage: self.get('relation.backward') ? 1000000000 : null
+      perPage: self.get('relation.backward') ? 1000000000 : null,
+
+      // the breadcrumb depends on the relation type
+      breadcrumb: self.get('relation.forward') ? self.get('source.breadcrumb') : self.get('source.breadcrumb').removeCrumb(self.get('source'))
     }
 
     // start ajax request

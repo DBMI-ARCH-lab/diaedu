@@ -12,16 +12,16 @@ Discourse.KbObjPageController = Discourse.ObjectController.extend({
       // set the model to null so the loading indicator shows up
       self.set('model', null);
 
+      // build objPage params
+      var params = {
+        dataType: dataType,
+        pageNum: newPage,
+        filterParams: filterParams
+      };
+
       // start fetch and get promise
-      Discourse.KbObjPage.find({dataType: dataType, pageNum: newPage, filterParams: filterParams}).then(function(loaded) {
-
-        // add current breadcrumb to all page obj breadcrumbs
-        loaded.get('objs').forEach(function(obj){ obj.get('breadcrumb').merge(
-          self.get('controllers.kbObjShowWithBreadcrumb.model.breadcrumb')
-        ); });
-
+      Discourse.KbObjPage.find(params).then(function(loaded) {
         self.set('model', loaded);
-
       });
     }
   },
