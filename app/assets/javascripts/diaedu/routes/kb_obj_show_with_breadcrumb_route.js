@@ -45,7 +45,7 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
       var model = relatedGroup.get('dataType.modelClass').create();
 
       // the model should have the proper obj preselected
-      model.set('preselectedParentId', self.get('controller.model.id'));
+      model.set('preselectedParent', self.get('controller.model'));
 
       // show the modal
       Discourse.Route.showModal(self, 'kbObjNew', model);
