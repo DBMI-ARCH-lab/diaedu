@@ -7,6 +7,10 @@ Discourse.KbObjNewController = Discourse.ObjectController.extend(Discourse.Modal
 
   saving: false,
 
+  relatedHeading: function() { var self = this;
+    return I18n.t('diaedu.' + self.get('model.preferredParentDataType.shortName') + '.related_heading');
+  }.property('model.preferredParentDataType'),
+
   onShow: function() { var self = this;
     self.set('done', false);
 
