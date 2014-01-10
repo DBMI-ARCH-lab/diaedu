@@ -1,6 +1,4 @@
 Discourse.KbObjShowWithBreadcrumbController = Discourse.ObjectController.extend({
-  needs: ['kbObj', 'kbObjPage'],
-
   // loading flag, with initial settings
   loading: null,
 

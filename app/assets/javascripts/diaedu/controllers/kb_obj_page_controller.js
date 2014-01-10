@@ -1,6 +1,15 @@
 // controller for the paginated kb obj index
 Discourse.KbObjPageController = Discourse.ObjectController.extend({
-  needs: ["application", "kbObj", "kbObjShowWithBreadcrumb"],
+  needs: 'application',
+
+  showMode: function() {
+    return this.get('controllers.application.currentPath').match(/kb_obj_show/);
+  }.property('controllers.application.currentPath'),
+
+  // if model is null, we should show the loading indicator
+  loading: function() {
+    return !this.get('model');
+  }.property('model'),
 
   actions: {
     // loads the specified page into the model
@@ -24,15 +33,6 @@ Discourse.KbObjPageController = Discourse.ObjectController.extend({
         self.set('model', loaded);
       });
     }
-  },
-
-  showMode: function() {
-    return this.get('controllers.application.currentPath').match(/kb_obj_show/);
-  }.property('controllers.application.currentPath'),
-
-  // if model is null, we should show the loading indicator
-  loading: function() {
-    return !this.get('model');
-  }.property('model')
+  }
 
 });

@@ -2,8 +2,6 @@
 // as opposed to a full filter set with blocks and checkboxes
 // associated with a single filter block model
 Discourse.KbMiniFilterController = Discourse.ObjectController.extend({
-  needs: 'kbRelatedGroup',
-
   actions: {
     // handles changes to the filter block
     filterChanged: function(tagId) { var self = this;
