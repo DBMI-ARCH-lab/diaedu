@@ -1,6 +1,7 @@
 Discourse.KbRelatedObjView = Discourse.View.extend({
   classNames: ['related-obj-view'],
 
+  // template is initially empty
   template: '',
 
   // observe when related objPage is populated and build multiselect using it

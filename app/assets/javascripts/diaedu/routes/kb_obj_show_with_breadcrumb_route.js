@@ -1,5 +1,4 @@
 Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
-
   model: function(params, transition) {
     var obj = this.modelFor('kbObj').get('modelClass').create({id: params.id});
 
