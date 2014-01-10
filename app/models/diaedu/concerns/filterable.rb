@@ -100,7 +100,7 @@ module Diaedu
             items.sort_by!{|o| o[:obj].name}
           end
 
-          {:type => field, :items => items, :noneChecked => checked.empty?}
+          {:type => field, :items => items}
         end
 
         # gets the model class for the given filter field

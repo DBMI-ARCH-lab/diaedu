@@ -1,24 +1,20 @@
 Discourse.KbRelatedObjView = Discourse.View.extend({
   classNames: ['related-obj-view'],
 
+  // template is initially empty
   template: '',
 
-  didInsertElement: function() {
-    // relatedParents is a lazy-loaded value, which means when we run this method it will trigger an ajax request
-    // and return a temporary value. the method below will pickup the change in the value when it is fully loaded.
-    this.get('controller.model.relatedParents');
-  },
-
-  // observe when related parents array is populated and build multiselect using it
+  // observe when related objPage is populated and build multiselect using it
   setupMultiselect: function() { var self = this;
+
     // build and insert the select tag and option tags
     var sel = $('<select>').attr('multiple', 'multiple');
 
-    this.get('controller.model.relatedParents').forEach(function(c){
-      var opt = $('<option>').attr('value', c.id).text(c.name)
+    self.get('controller.objPage.objs').forEach(function(o){
+      var opt = $('<option>').attr('value', o.id).text(o.name);
 
       // make the option selected if it matches the preselected parent
-      if (self.get('controller.preselectedParentId') == c.id)
+      if (self.get('controller.model.preselectedParent.id') == o.id)
         opt.attr('selected', 'selected');
 
       opt.appendTo(sel);
@@ -33,9 +29,9 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
 
     // setup event to copy changes to model
     sel.on('change', function() {
-      self.set('controller.parent_ids', sel.val());
+      self.set('controller.model.inlink_ids', sel.val());
     });
 
-  }.observes('controller.model.relatedParents')
+  }.observes('controller.objPage')
 
 });

@@ -2,7 +2,7 @@ module Diaedu
   class KbObjsController < ::ApplicationController
     include Concerns::KbHelpers
 
-    PER_PAGE = 10
+    DEFAULT_PER_PAGE = 10
 
     before_filter(:parse_filter_params, :only => :index)
 
@@ -11,12 +11,13 @@ module Diaedu
         render(:json => klass.approved.default_order.filter_with(@filter).all.as_json(:id_name_only => true), :root => false)
 
       else
-        page = params[:page] ? params[:page].to_i : 1
+        page = (params[:page] || 1).to_i
+        per_page = (params[:per_page] || DEFAULT_PER_PAGE).to_i
 
         render(:json => {
           :objs => klass.approved.filter_with(@filter).includes(:tags).default_order.
-            offset((page - 1) * PER_PAGE).limit(PER_PAGE).as_json(:include => :tags),
-          :per_page => PER_PAGE,
+            offset((page - 1) * per_page).limit(per_page).as_json(:include => :tags),
+          :per_page => per_page,
           :total_count => klass.approved.filter_with(@filter).count
         })
       end
@@ -49,7 +50,7 @@ module Diaedu
     end
 
     def create
-      obj = klass.new(params.require(:obj).permit(:name, :description, :event_name, :evaluation, :parent_ids => [],
+      obj = klass.new(params.require(:obj).permit(:name, :description, :event_name, :evaluation, :inlink_ids => [],
         :taggings_attributes => [:tag_id, :_destroy, :tag_attributes => [:name]]))
 
       if obj.save

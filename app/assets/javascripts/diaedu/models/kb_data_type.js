@@ -1,7 +1,8 @@
 Discourse.KbDataType = Discourse.Model.extend({
-  name: null,
-  shortName: null,
-  rank: null,
+  // fields:
+  // name - the longer hyphenated name for the type, e.g. glycemic-problems
+  // shortName - a one-word name for the type, e.g. glyprobs, triggers
+  // abbrv - a two letter abbreviation
 
   title: function() {
     return I18n.t('diaedu.' + this.get('shortName') + '.title.other');
@@ -22,20 +23,6 @@ Discourse.KbDataType = Discourse.Model.extend({
   backendPath: function() {
     return '/kb/' + this.get('name');
   }.property('name'),
-
-  // returns the previous data type in the hierarchy
-  prev: function() {
-    return Discourse.KbDataType.instances[this.get('rank') - 1];
-  }.property('rank'),
-
-  // returns the next data type in the hierarchy
-  next: function() {
-    return Discourse.KbDataType.instances[this.get('rank') + 1];
-  }.property('rank'),
-
-  hasNext: function() {
-    return this.get('rank') < Discourse.KbDataType.instances.length - 1;
-  }.property('rank'),
 
   iconPath: function() {
     return '/assets/diaedu/' + this.get('shortName') + '-active.png';
@@ -63,6 +50,10 @@ Discourse.KbDataType.reopenClass({
     }
   },
 
+  findByAbbrv: function(abbrv) { var self = this;
+    return self.instances.filter(function(dt){ return dt.get('abbrv') == abbrv; })[0];
+  },
+
   // total number of instances
   count: 4,
 
@@ -70,22 +61,22 @@ Discourse.KbDataType.reopenClass({
     Discourse.KbDataType.create({
       name: 'glycemic-problems',
       shortName: 'glyprobs',
-      rank: 0
+      abbrv: 'gp'
     }),
     Discourse.KbDataType.create({
       name: 'triggers',
       shortName: 'triggers',
-      rank: 1
+      abbrv: 'tr'
     }),
     Discourse.KbDataType.create({
       name: 'barriers',
       shortName: 'barriers',
-      rank: 2
+      abbrv: 'br'
     }),
     Discourse.KbDataType.create({
       name: 'goals',
       shortName: 'goals',
-      rank: 3
+      abbrv: 'gl'
     })
   ]
 });

@@ -19,7 +19,7 @@ module Diaedu
     before_validation(:normalize_fields)
 
     # associates with parents with the given IDs
-    def parent_ids=(ids)
+    def inlink_ids=(ids)
       ids.each{|id| inlinks.build(:obj1_id => id)}
     end
 

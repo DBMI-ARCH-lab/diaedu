@@ -1,4 +1,4 @@
-Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
+Discourse.KbObj = Discourse.Model.extend({
   // the data type of this object
   dataType: null,
 
@@ -22,10 +22,10 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
 
     // init tags to empty array if not already set
     if (!this.get('tags'))
-      this.set('tags', []);
+      this.set('tags', Em.A());
 
     // default to breadcrumb with just self
-    this.set('breadcrumb', Discourse.KbBreadcrumb.create().addCrumb(this));
+    this.set('breadcrumb', Discourse.KbBreadcrumb.create().add(this));
   },
 
   firstNTags: function() {
@@ -44,6 +44,42 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   rowId: function() {
     return 'obj-' + this.get('id');
   }.property('id'),
+
+  // checks if this obj has any comments
+  hasComments: Ember.computed.gt('comments', 0),
+
+  // checks if the obj can be liked by the current user
+  // this information is stored in the firstPost action summary
+  // if there is no firstPost, then canLike returns true
+  canLike: function() {
+    if (this.get('justLiked'))
+      return false;
+    else if (this.get('firstPost'))
+      return this.get('firstPost.actionByName.like.can_act');
+    else
+      return true;
+  }.property('firstPost.actionByName.like.can_act', 'justLiked'),
+
+  // checks if the current user has already liked this obj
+  liked: function() {
+    return this.get('justLiked') || this.get('firstPost.actionByName.like.acted');
+  }.property('firstPost.actionByName.like.acted', 'justLiked'),
+
+  // returns an array of KbRelatedGroups related to this object in the forward direction only
+  forwardRelatedGroups: function() { var self = this;
+    return self.relatedGroups('forward');
+  }.property(),
+
+  // returns an array of KbRelatedGroups related to this object in the backward direction only
+  backwardRelatedGroups: function() { var self = this;
+    return self.relatedGroups('backward');
+  }.property(),
+
+  // gets the preferred parent dataType, which is the data type of the preselectedParent, if set
+  // otherwise it's the datatype of the first backward relation
+  preferredParentDataType: function() { var self = this;
+    return self.get('preselectedParent') ? self.get('preselectedParent.dataType') : self.relations('backward')[0].other.dataType();
+  }.property('preselectedParent'),
 
   // loads details such as description, etc.
   loadFully: function(opts) { var self = this;
@@ -71,9 +107,7 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
   // returns a promise that resolves to whether the save was successful or not (had errors)
   save: function() { var self = this;
     // do ajax request
-    var promise = Discourse.ajax("/kb/" + this.get('dataType.name'), {method: 'POST', data: {obj: this.serialize()}});
-
-    return promise.then(function(response){
+    return Discourse.ajax("/kb/" + self.get('dataType.name'), {method: 'POST', data: {obj: self.serialize()}}).then(function(response){
 
       // if error set, save error messages
       if (response.errors) {
@@ -104,21 +138,6 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
         return {tag_id: t.id, _destroy: t._destroy};
     });
   },
-
-  hasRelatedParents: function() {
-    return this.get('dataType.rank') > 0;
-  }.property('dataType.rank'),
-
-  // gets full list of related parent objs
-  // uses lazy loading
-  relatedParents: function() { var self = this;
-    return self.lazyLoad('_relatedParents', Em.A(), function() {
-      return self.get('dataType.prev.modelClass').findAll({
-        filterParams: self.get('id') ? self.get('dataType.shortName') + '-' + self.get('id') : 'all',
-        breadcrumb: self.get('breadcrumb').removeCrumb(self)
-      });
-    });
-  }.property('dataType.prev', '_relatedParents'),
 
   // gets the topic associated with this object
   // returns a promise that resolves with the topic
@@ -152,27 +171,6 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
     return promise;
   },
 
-  hasComments: function() { var self = this;
-    return self.comments > 0;
-  }.property('comments'),
-
-  // checks if the obj can be liked by the current user
-  // this information is stored in the firstPost action summary
-  // if there is no firstPost, then canLike returns true
-  canLike: function() {
-    if (this.get('justLiked'))
-      return false;
-    else if (this.get('firstPost'))
-      return this.get('firstPost.actionByName.like.can_act');
-    else
-      return true;
-  }.property('firstPost.actionByName.like.can_act', 'justLiked'),
-
-  // checks if the current user has already liked this obj
-  liked: function() {
-    return this.get('justLiked') || this.get('firstPost.actionByName.like.acted');
-  }.property('firstPost.actionByName.like.acted', 'justLiked'),
-
   // adds a 'like' for this object for the current user
   // returns a promise that resolves when the like operation is done
   like: function() { var self = this;
@@ -197,12 +195,29 @@ Discourse.KbObj = Discourse.Model.extend(Discourse.KbLazyLoadable, {
       return finishLike();
   },
 
-  ////////////// i18n properties, should probably be refactored to controllers /////////////////////
+  // returns relations of the given direction
+  relations: function(direction) { var self = this;
+    return self.constructor.relations().filter(function(r){ return r.get('direction') == direction; });
+  },
 
-  // i18n'd phrase such as '13 comments'
-  commentCountWithNoun: function() { var self = this;
-    return I18n.t('diaedu.comments.comment_count', {count: self.comments});
-  }.property('comments'),
+  // returns an array of KbRelatedGroups related to this object
+  // direction - the direction of relation that should be returned (backward or forward)
+  relatedGroups: function(direction) { var self = this;
+    // build a KbRelatedGroup for each relation
+    return self.relations(direction).map(function(relation) {
+      return Discourse.KbRelatedGroup.create({source: self, relation: relation});
+    });
+  },
+
+  // builds a data object to submit to server
+  // should be overridden for subclasses with special serialization needs
+  serialize: function() {
+    var data = this.getProperties('name', 'description', 'inlink_ids');
+    this.serializeTags(data);
+    return data;
+  },
+
+  ////////////// i18n properties, should probably be refactored to controllers /////////////////////
 
   // i18n'd name for comments, properly pluralized
   commentsText: function() { var self = this;
@@ -234,29 +249,16 @@ Discourse.KbObj.reopenClass({
     return Discourse.KbDataType.get(this.dataTypeName);
   },
 
-  // gets minimally populated versions of all objects
-  findAll: function(options) { var self = this;
-    var promise = Discourse.ajax(this.dataType().get('backendPath') + '/' + options.filterParams, {method: 'GET', data: {for_select: true}});
-
-    // create objs from the returned array of attribs and return
-    return promise.then(function(data) {
-      var k = self.dataType().get('modelClass');
-      return data.map(function(attribs){
-        var obj = k.create(attribs);
-
-        // merge the provided breadcrumb, if it exists, with the object's
-        if (options.breadcrumb) obj.get('breadcrumb').merge(options.breadcrumb);
-
-        return obj;
-      });
-    });
-  },
-
   // gets a kb obj subtype instance (e.g. KbTrigger) based on the ID of its related topic
   // returns a promise that resolves to the KbObj if found, or to null if not
   findByTopicId: function(topicId) { var self = this;
     return Discourse.ajax('/kb/obj/by-topic-id', {method: 'GET', data: {topic_id: topicId}}).then(function(data){
       return data ? Discourse.KbObj.buildFromIdAndType(data.id, data.unqualified_type) : null;
     });
+  },
+
+  // implemented by subclasses
+  relations: function() {
+    throw new Error('relations method is implemented in subclasses');
   }
 });

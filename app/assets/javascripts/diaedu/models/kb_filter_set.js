@@ -14,7 +14,7 @@ Discourse.KbFilterSet = Discourse.Model.extend({
   // converts the current state of the filter set into a string for the url (e.g. glyprobs-1,2,3-tags-4,5)
   serialize: function() {
     // get chunks of string from blocks
-    var chunks = this.get('blocks').map(function(block){ return block.serialize(); });
+    var chunks = this.get('blocks').map(function(block){ return block.get('serialized'); });
 
     // filter out nulls
     chunks = chunks.filter(function(c){ return c != null; });
@@ -43,7 +43,9 @@ Discourse.KbFilterSet.reopenClass({
     // on success, build objects
     return promise.then(function(data) {
       // build block objects
-      var blocks = data.filter_options.map(function(blockData){ return Discourse.KbFilterBlock.create(blockData); });
+      var blocks = data.filter_options.map(function(blockData){
+        return Discourse.KbFilterBlock.create({itemsData: blockData.items, type: blockData.type});
+      });
 
       // build set
       var set = Discourse.KbFilterSet.create({ dataType: dataType, filterParams: filterParams, blocks: blocks });

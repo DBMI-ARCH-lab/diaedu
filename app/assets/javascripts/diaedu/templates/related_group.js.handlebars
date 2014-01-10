@@ -1,0 +1,55 @@
+<div class="related-group">
+
+  {{! render forward relations as objPages}}
+  {{#if relation.forward}}
+
+    {{! add button}}
+    {{#if currentUser}}
+      <a {{action showAddModal this}} class="new-related-obj">
+        &plus; {{addLinkText}}
+      </a>
+    {{/if}}
+
+    {{! header}}
+    <h2>
+      <img {{bindAttr src="dataType.iconPath"}} />
+      {{headingText}}
+    </h2>
+
+    {{! tag mini-filter}}
+    {{render 'kb_mini_filter' tagFilter}}
+
+    {{! object listing}}
+    {{render 'kb_obj_page' objPage}}
+
+  {{! otherwise this is a backward relation so render as a sidebar block}}
+  {{else}}
+
+    <div class="block">
+
+      <h3>
+        <img {{bindAttr src="smallerIconPath"}} />
+        {{headingText}}
+      </h3>
+
+      <div class="items">
+        <ul>
+          {{#if isEmpty}}
+
+            {{i18n diaedu.none_found}}
+
+          {{else}}
+
+            {{#each objPage.objs}}
+              <li>{{#linkTo 'kb_obj.show_with_breadcrumb' dataType this}}{{name}}{{/linkTo}}</li>
+            {{/each}}
+
+          {{/if}}
+        </ul>
+      </div>
+
+    </div>
+
+  {{/if}}
+
+</div>

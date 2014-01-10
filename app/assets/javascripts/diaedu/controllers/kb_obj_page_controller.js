@@ -1,6 +1,15 @@
 // controller for the paginated kb obj index
 Discourse.KbObjPageController = Discourse.ObjectController.extend({
-  needs: ["application", "kbObj", "kbObjShowWithBreadcrumb"],
+  needs: 'application',
+
+  showMode: function() {
+    return this.get('controllers.application.currentPath').match(/kb_obj_show/);
+  }.property('controllers.application.currentPath'),
+
+  // if model is null, we should show the loading indicator
+  loading: function() {
+    return !this.get('model');
+  }.property('model'),
 
   actions: {
     // loads the specified page into the model
@@ -10,32 +19,20 @@ Discourse.KbObjPageController = Discourse.ObjectController.extend({
       var filterParams = this.get('model.filter_params');
 
       // set the model to null so the loading indicator shows up
-      this.set('model', null);
+      self.set('model', null);
+
+      // build objPage params
+      var params = {
+        dataType: dataType,
+        pageNum: newPage,
+        filterParams: filterParams
+      };
 
       // start fetch and get promise
-      Discourse.KbObjPage.find(dataType, newPage, filterParams)
-      .done(function(loaded){
-
-        // add current breadcrumb to all page obj breadcrumbs
-        loaded.get('objs').forEach(function(obj){ obj.get('breadcrumb').merge(
-          self.get('controllers.kbObjShowWithBreadcrumb.model.breadcrumb')
-        ); });
-
+      Discourse.KbObjPage.find(params).then(function(loaded) {
         self.set('model', loaded);
-
-      }).fail(function(resp){
-        console.log("FETCH ERROR:", resp)
       });
     }
-  },
-
-  showMode: function() {
-    return this.get('controllers.application.currentPath').match(/kb_obj_show/);
-  }.property('controllers.application.currentPath'),
-
-  // if model is null, we should show the loading indicator
-  loading: function() {
-    return !this.get('model');
-  }.property('model')
+  }
 
 });

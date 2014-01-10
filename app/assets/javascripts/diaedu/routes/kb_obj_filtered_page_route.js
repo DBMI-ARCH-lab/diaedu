@@ -1,7 +1,7 @@
 Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
   model: function(params) {
     // on first load, create empty shell that will be updated by setupController
-    return Discourse.KbObjPage.create({page_id: params.page_id, filter_params: params.filter_params});
+    return Discourse.KbObjPage.create({page_id: parseInt(params.page_id), filter_params: params.filter_params});
   },
 
   setupController: function(controller, model) {
@@ -9,17 +9,17 @@ Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
     controller.set('loading', true);
 
     // get the data type
-    var data_type = this.modelFor('kb_obj');
+    var dataType = this.modelFor('kb_obj');
 
     // set the page title
-    Discourse.set('title', data_type.get('title'));
+    Discourse.set('title', dataType.get('title'));
 
     // reset the model before loading
     controller.set('objPage', null);
 
     // start fetch and get promise
     var promises = {
-      objPage: Discourse.KbObjPage.find(data_type, model.page_id, model.filter_params)
+      objPage: Discourse.KbObjPage.find({dataType: dataType, pageNum: model.get('page_id'), filterParams: model.get('filter_params')})
     };
 
     // set objPage on controller when loaded
@@ -29,12 +29,12 @@ Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
     var currentFilterSet = controller.get('filterSet');
 
     // unless filter set matches current data type and filter_params, need to change it
-    if (!currentFilterSet || !currentFilterSet.matches(data_type, model.filter_params)) {
+    if (!currentFilterSet || !currentFilterSet.matches(dataType, model.filter_params)) {
 
       controller.set('filterSet', null);
 
       // start fetch and get promise
-      promises.filterSet = Discourse.KbFilterSet.generate(data_type, model.filter_params);
+      promises.filterSet = Discourse.KbFilterSet.generate(dataType, model.filter_params);
 
       // set filterSet on model when loaded
       promises.filterSet.then(function(fs){ controller.set('filterSet', fs); });
