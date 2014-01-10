@@ -179,14 +179,16 @@ Discourse.KbObj = Discourse.Model.extend({
       return finishLike();
   },
 
+  // returns relations of the given direction
+  relations: function(direction) { var self = this;
+    return self.constructor.relations().filter(function(r){ return r.get('direction') == direction; });
+  },
+
   // returns an array of KbRelatedGroups related to this object
   // direction - the direction of relation that should be returned (backward or forward)
   relatedGroups: function(direction) { var self = this;
-    // get filtered set of KbObjRelations
-    var relations = self.constructor.relations().filter(function(r){ return r.get('direction') == direction; });
-
     // build a KbRelatedGroup for each relation
-    return relations.map(function(relation) {
+    return self.relations(direction).map(function(relation) {
       return Discourse.KbRelatedGroup.create({source: self, relation: relation});
     });
   },
@@ -200,6 +202,12 @@ Discourse.KbObj = Discourse.Model.extend({
   backwardRelatedGroups: function() { var self = this;
     return self.relatedGroups('backward');
   }.property(),
+
+  // gets the preferred parent dataType, which is the data type of the preselectedParent, if set
+  // otherwise it's the datatype of the first backward relation
+  preferredParentDataType: function() { var self = this;
+    return self.get('preselectedParent') ? self.get('preselectedParent.dataType') : self.relations('backward')[0].other.dataType();
+  }.property('preselectedParent'),
 
   // builds a data object to submit to server
   // should be overridden for subclasses with special serialization needs
