@@ -3,18 +3,6 @@ Discourse.KbFilterBlock = Discourse.Model.extend({
   // the filter type, e.g. glyprobs, tags
   type: null,
 
-  init: function() { var self = this;
-    this._super();
-
-    // create filter block item objects for each entry in itemsData
-    this.set('items', this.get('itemsData').map(function(data){
-      // add a reference to self
-      data.parent = self;
-
-      return Discourse.KbFilterBlockItem.create(data);
-    }));
-  },
-
   // returns translated filter block title
   title: function() {
     return I18n.t('diaedu.filter.title.' + this.get('type'));
@@ -56,6 +44,18 @@ Discourse.KbFilterBlock = Discourse.Model.extend({
       return null;
 
   }.property('items.@each.isChecked'),
+
+  init: function() { var self = this;
+    this._super();
+
+    // create filter block item objects for each entry in itemsData
+    this.set('items', this.get('itemsData').map(function(data){
+      // add a reference to self
+      data.parent = self;
+
+      return Discourse.KbFilterBlockItem.create(data);
+    }));
+  },
 
   // sets the item with the given id to checked, and all others to unchecked
   setSelectionById: function(id) { var self = this;

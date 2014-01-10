@@ -5,7 +5,6 @@ Discourse.KbBarrier = Discourse.KbObj.extend({
     this.set('dataType', Discourse.KbDataType.get('barriers'));
     this._super();
   }
-
 });
 
 Discourse.KbBarrier.reopenClass({

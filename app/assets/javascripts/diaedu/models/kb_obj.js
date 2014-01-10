@@ -45,6 +45,42 @@ Discourse.KbObj = Discourse.Model.extend({
     return 'obj-' + this.get('id');
   }.property('id'),
 
+  // checks if this obj has any comments
+  hasComments: Ember.computed.gt('comments', 0),
+
+  // checks if the obj can be liked by the current user
+  // this information is stored in the firstPost action summary
+  // if there is no firstPost, then canLike returns true
+  canLike: function() {
+    if (this.get('justLiked'))
+      return false;
+    else if (this.get('firstPost'))
+      return this.get('firstPost.actionByName.like.can_act');
+    else
+      return true;
+  }.property('firstPost.actionByName.like.can_act', 'justLiked'),
+
+  // checks if the current user has already liked this obj
+  liked: function() {
+    return this.get('justLiked') || this.get('firstPost.actionByName.like.acted');
+  }.property('firstPost.actionByName.like.acted', 'justLiked'),
+
+  // returns an array of KbRelatedGroups related to this object in the forward direction only
+  forwardRelatedGroups: function() { var self = this;
+    return self.relatedGroups('forward');
+  }.property(),
+
+  // returns an array of KbRelatedGroups related to this object in the backward direction only
+  backwardRelatedGroups: function() { var self = this;
+    return self.relatedGroups('backward');
+  }.property(),
+
+  // gets the preferred parent dataType, which is the data type of the preselectedParent, if set
+  // otherwise it's the datatype of the first backward relation
+  preferredParentDataType: function() { var self = this;
+    return self.get('preselectedParent') ? self.get('preselectedParent.dataType') : self.relations('backward')[0].other.dataType();
+  }.property('preselectedParent'),
+
   // loads details such as description, etc.
   loadFully: function(opts) { var self = this;
     opts = opts || {};
@@ -135,26 +171,6 @@ Discourse.KbObj = Discourse.Model.extend({
     return promise;
   },
 
-  // checks if this obj has any comments
-  hasComments: Ember.computed.gt('comments', 0),
-
-  // checks if the obj can be liked by the current user
-  // this information is stored in the firstPost action summary
-  // if there is no firstPost, then canLike returns true
-  canLike: function() {
-    if (this.get('justLiked'))
-      return false;
-    else if (this.get('firstPost'))
-      return this.get('firstPost.actionByName.like.can_act');
-    else
-      return true;
-  }.property('firstPost.actionByName.like.can_act', 'justLiked'),
-
-  // checks if the current user has already liked this obj
-  liked: function() {
-    return this.get('justLiked') || this.get('firstPost.actionByName.like.acted');
-  }.property('firstPost.actionByName.like.acted', 'justLiked'),
-
   // adds a 'like' for this object for the current user
   // returns a promise that resolves when the like operation is done
   like: function() { var self = this;
@@ -193,22 +209,6 @@ Discourse.KbObj = Discourse.Model.extend({
     });
   },
 
-  // returns an array of KbRelatedGroups related to this object in the forward direction only
-  forwardRelatedGroups: function() { var self = this;
-    return self.relatedGroups('forward');
-  }.property(),
-
-  // returns an array of KbRelatedGroups related to this object in the backward direction only
-  backwardRelatedGroups: function() { var self = this;
-    return self.relatedGroups('backward');
-  }.property(),
-
-  // gets the preferred parent dataType, which is the data type of the preselectedParent, if set
-  // otherwise it's the datatype of the first backward relation
-  preferredParentDataType: function() { var self = this;
-    return self.get('preselectedParent') ? self.get('preselectedParent.dataType') : self.relations('backward')[0].other.dataType();
-  }.property('preselectedParent'),
-
   // builds a data object to submit to server
   // should be overridden for subclasses with special serialization needs
   serialize: function() {
@@ -218,11 +218,6 @@ Discourse.KbObj = Discourse.Model.extend({
   },
 
   ////////////// i18n properties, should probably be refactored to controllers /////////////////////
-
-  // i18n'd phrase such as '13 comments'
-  commentCountWithNoun: function() { var self = this;
-    return I18n.t('diaedu.comments.comment_count', {count: self.comments});
-  }.property('comments'),
 
   // i18n'd name for comments, properly pluralized
   commentsText: function() { var self = this;

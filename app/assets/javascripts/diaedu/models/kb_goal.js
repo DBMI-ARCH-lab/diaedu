@@ -5,7 +5,6 @@ Discourse.KbGoal = Discourse.KbObj.extend({
     this.set('dataType', Discourse.KbDataType.get('goals'));
     this._super();
   }
-
 });
 
 Discourse.KbGoal.reopenClass({
