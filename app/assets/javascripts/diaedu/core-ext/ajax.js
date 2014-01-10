@@ -8,11 +8,11 @@ Discourse.cleanAjax = function() {
     var newHash = {};
 
     for (var k in hash) {
-      // recurse
-      if (typeof hash[k] == 'object')
+      // recurse if nested hash
+      if (hash[k] && hash[k].constructor == Object)
         hash[k] = transformHash(hash[k], transformer);
 
-      // transform the keys
+      // transform the key
       newHash[transformer(k)] = hash[k];
     }
 

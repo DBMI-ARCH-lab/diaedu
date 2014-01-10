@@ -32,7 +32,7 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
   },
 
   serialize: function(model) {
-    return {id: model.id, data_type: model.get('dataType.name'), breadcrumb: model.get('breadcrumb.serialized')};
+    return {id: model.id, dataType: model.get('dataType.name'), breadcrumb: model.get('breadcrumb.serialized')};
   },
 
   actions: {

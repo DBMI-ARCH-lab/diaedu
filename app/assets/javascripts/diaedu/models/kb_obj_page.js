@@ -1,20 +1,20 @@
 // models a page of objects
 Discourse.KbObjPage = Discourse.Model.extend({
-  page_id: null,
-  is_active: false,
+  pageId: null,
+  isActive: false,
   objs: null,
-  other_pages: null,
-  filter_params: null,
-  data_type: null,
+  otherPages: null,
+  filterParams: null,
+  dataType: null,
 
   isEmpty: Ember.computed.empty('objs.[]'),
 
-  multiple_pages: function() {
-    return this.other_pages.length > 1;
-  }.property('other_pages'),
+  multiplePages: function() {
+    return this.otherPages.length > 1;
+  }.property('otherPages'),
 
-  get_stub: function(page_id) {
-    return Discourse.KbObjPage.create({page_id: page_id, filter_params: this.get('filter_params')});
+  getStub: function(pageId) {
+    return Discourse.KbObjPage.create({pageId: pageId, filterParams: this.get('filterParams')});
   }
 });
 
@@ -35,10 +35,10 @@ Discourse.KbObjPage.reopenClass({
 
     var url = "/kb/" + params.dataType.get('name') + "/" + params.filterParams + "/page/" + params.pageNum;
 
-    return Discourse.ajax(url, {data: {per_page: params.perPage}}).then(function(data) {
+    return Discourse.cleanAjax(url, {data: {perPage: params.perPage}}).then(function(data) {
 
       // compute how many pages there will be and generate stub Page objects for them
-      var pageCount = Math.ceil(data.total_count / data.per_page);
+      var pageCount = Math.ceil(data.totalCount / data.perPage);
 
       // if the current page is too high, trim it
       if (params.pageNum > pageCount)
@@ -46,12 +46,12 @@ Discourse.KbObjPage.reopenClass({
 
       // start the obj
       var thisPage = Discourse.KbObjPage.create({
-        page_id: params.pageNum,
-        filter_params: params.filterParams,
-        is_active: true,
+        pageId: params.pageNum,
+        filterParams: params.filterParams,
+        isActive: true,
         objs: Em.A(),
-        other_pages: Em.A(),
-        data_type: params.dataType
+        otherPages: Em.A(),
+        dataType: params.dataType
       });
 
       // create the Objs
@@ -67,33 +67,33 @@ Discourse.KbObjPage.reopenClass({
       });
 
       // insert the current page
-      thisPage.other_pages.pushObject(thisPage);
+      thisPage.otherPages.pushObject(thisPage);
 
       // insert some pages to the right of the current page
       for (var i = 1; i < Math.max(6 - params.pageNum, 3); i++)
         if (params.pageNum + i < pageCount)
-          thisPage.other_pages.pushObject(thisPage.get_stub(params.pageNum + i));
+          thisPage.otherPages.pushObject(thisPage.getStub(params.pageNum + i));
 
       // insert a gap if needed
       if (params.pageNum + i < pageCount)
-        thisPage.other_pages.pushObject(Ember.Object.create({is_gap: true}));
+        thisPage.otherPages.pushObject(Ember.Object.create({isGap: true}));
 
       // insert the last page unless we've already done so
       if (params.pageNum != pageCount)
-        thisPage.other_pages.pushObject(thisPage.get_stub(pageCount));
+        thisPage.otherPages.pushObject(thisPage.getStub(pageCount));
 
       // insert some pages to the left of the current page
       for (var i = 1; i < Math.max(6 - (pageCount - params.pageNum), 3); i++)
         if (params.pageNum - i > 1)
-          thisPage.other_pages.insertAt(0, thisPage.get_stub(params.pageNum - i));
+          thisPage.otherPages.insertAt(0, thisPage.getStub(params.pageNum - i));
 
       // insert a gap if needed
       if (params.pageNum - i > 1)
-        thisPage.other_pages.insertAt(0, Ember.Object.create({is_gap: true}));
+        thisPage.otherPages.insertAt(0, Ember.Object.create({isGap: true}));
 
       // insert the first page unless we've already done so
       if (params.pageNum != 1)
-        thisPage.other_pages.insertAt(0, thisPage.get_stub(1));
+        thisPage.otherPages.insertAt(0, thisPage.getStub(1));
 
       return thisPage;
     });

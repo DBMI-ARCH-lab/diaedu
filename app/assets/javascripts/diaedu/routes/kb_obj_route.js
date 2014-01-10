@@ -1,6 +1,6 @@
 Discourse.KbObjRoute = Discourse.Route.extend({
   model: function(params, transition) {
-    return Discourse.KbDataType.get(params.data_type);
+    return Discourse.KbDataType.get(params.dataType);
   },
 
   renderTemplate: function() {
@@ -8,6 +8,6 @@ Discourse.KbObjRoute = Discourse.Route.extend({
   },
 
   serialize: function(model) {
-    return {data_type: model.name};
+    return {dataType: model.name};
   }
 });

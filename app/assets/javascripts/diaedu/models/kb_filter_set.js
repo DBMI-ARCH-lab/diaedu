@@ -36,14 +36,15 @@ Discourse.KbFilterSet.reopenClass({
   // generates a FilterSet containing a set of FilterBlock objects based on filterParams
   generate: function(dataType, filterParams) {
     // call the backend asking for filter options matching the given filterParams
-    var promise = Discourse.ajax("/kb/filter-options", {
-      data: {data_type: dataType.get('shortName'), filter_params: filterParams}
-    });
+    return Discourse.cleanAjax("/kb/filter-options", {
+      data: {dataType: dataType.get('shortName'), filterParams: filterParams}
 
-    // on success, build objects
-    return promise.then(function(data) {
+    }).then(function(data) {
+
       // build block objects
-      var blocks = data.filter_options.map(function(blockData){
+      console.log(data.filterOptions);
+
+      var blocks = data.filterOptions.map(function(blockData){
         return Discourse.KbFilterBlock.create({itemsData: blockData.items, type: blockData.type});
       });
 

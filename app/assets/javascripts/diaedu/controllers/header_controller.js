@@ -2,11 +2,11 @@ Discourse.HeaderController.reopen({
   needs: "application",
 
   isKbActive: function() {
-    return !!this.get('controllers.application.currentPath').match(/^kb_/);
+    return !!this.get('controllers.application.currentPath').match(/^kb/);
   }.property('controllers.application.currentPath'),
 
   isCommunityActive: function() {
-    return !this.get('controllers.application.currentPath').match(/^kb_/);
+    return !this.get('controllers.application.currentPath').match(/^kb/);
   }.property('controllers.application.currentPath'),
 
   dataTypes: function() {

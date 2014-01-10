@@ -5,7 +5,7 @@
 
   {{! related groups of other kb objects (backward relations only)}}
   {{#each backwardRelatedGroups}}
-    {{render 'kb_related_group' this}}
+    {{render 'kbRelatedGroup' this}}
   {{/each}}
 
 </div>
@@ -69,7 +69,7 @@
     {{! related groups of other kb objects (forward only)}}
     <div class="forward-related-groups">
       {{#each forwardRelatedGroups}}
-        {{render 'kb_related_group' this}}
+        {{render 'kbRelatedGroup' this}}
       {{/each}}
     </div>
 

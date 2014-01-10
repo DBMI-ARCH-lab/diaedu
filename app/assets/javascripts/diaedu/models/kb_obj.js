@@ -86,7 +86,7 @@ Discourse.KbObj = Discourse.Model.extend({
     opts = opts || {};
 
     // make ajax call
-    var promise = Discourse.ajax("/kb/" + this.get('dataType.name') + '/' + this.get('id'), {data: opts});
+    var promise = Discourse.cleanAjax("/kb/" + this.get('dataType.name') + '/' + this.get('id'), {data: opts});
 
     return promise.then(function(data) {
       // construct user objects in comment preview
@@ -107,14 +107,14 @@ Discourse.KbObj = Discourse.Model.extend({
   // returns a promise that resolves to whether the save was successful or not (had errors)
   save: function() { var self = this;
     // do ajax request
-    return Discourse.ajax("/kb/" + self.get('dataType.name'), {method: 'POST', data: {obj: self.serialize()}}).then(function(response){
+    return Discourse.cleanAjax("/kb/" + self.get('dataType.name'), {method: 'POST', data: {obj: self.serialize()}}).then(function(response){
 
       // if error set, save error messages
       if (response.errors) {
-        // join error messages into strings, and change any .'s in keys to _'s, for cases like event.name
+        // join error messages into strings, and change any .'s in keys to camel case, for cases like event.name
         var errors = {};
         for (var f in response.errors)
-          errors[f.replace(/\./g, '_')] = response.errors[f].join(', ');
+          errors[f.replace(/\.([a-z])/gi, function(m, $1){ return $1.toUpperCase(); })] = response.errors[f].join(', ');
 
         // save on model
         self.set('errors', errors);
@@ -129,13 +129,13 @@ Discourse.KbObj = Discourse.Model.extend({
   // stores in the passed data object
   serializeTags: function(data) {
     // add tags
-    data.taggings_attributes = this.get('tags').map(function(t){
+    data.taggingsAttributes = this.get('tags').map(function(t){
       var tagging = {id: t.id};
       // if the tag has no id (it's new), we need to add the tag attributes
       if (t.id == null)
-        return {tag_attributes: {name: t.name}}
+        return {tagAttributes: {name: t.name}}
       else
-        return {tag_id: t.id, _destroy: t._destroy};
+        return {tagId: t.id, _destroy: t._destroy};
     });
   },
 
@@ -156,7 +156,7 @@ Discourse.KbObj = Discourse.Model.extend({
     } else {
 
       // do ajax
-      promise = Discourse.ajax("/kb/" + self.get('dataType.name') + '/' + self.get('id') + '/ensure-topic', {method: 'POST', data: {'_method' : 'PUT'}});
+      promise = Discourse.cleanAjax("/kb/" + self.get('dataType.name') + '/' + self.get('id') + '/ensure-topic', {method: 'POST', data: {'_method' : 'PUT'}});
 
       // on ajax success, setup the topic
       promise = promise.then(function(topicData) {
@@ -185,7 +185,7 @@ Discourse.KbObj = Discourse.Model.extend({
 
     // if there is currently no firstPost, reload, making sure that a topic gets created
     if (null === this.get('firstPost'))
-      return this.loadFully({ensure_topic: true, dont_add_view: true}).then(function(){
+      return this.loadFully({ensureTopic: true, dontAddView: true}).then(function(){
         // we need to increment the like count here /again/ temporarily b/c we haven't actually liked it yet
         self.set('likes', self.get('likes') + 1);
 
@@ -212,7 +212,7 @@ Discourse.KbObj = Discourse.Model.extend({
   // builds a data object to submit to server
   // should be overridden for subclasses with special serialization needs
   serialize: function() {
-    var data = this.getProperties('name', 'description', 'inlink_ids');
+    var data = this.getProperties('name', 'description', 'inlinkIds');
     this.serializeTags(data);
     return data;
   },
@@ -252,8 +252,8 @@ Discourse.KbObj.reopenClass({
   // gets a kb obj subtype instance (e.g. KbTrigger) based on the ID of its related topic
   // returns a promise that resolves to the KbObj if found, or to null if not
   findByTopicId: function(topicId) { var self = this;
-    return Discourse.ajax('/kb/obj/by-topic-id', {method: 'GET', data: {topic_id: topicId}}).then(function(data){
-      return data ? Discourse.KbObj.buildFromIdAndType(data.id, data.unqualified_type) : null;
+    return Discourse.cleanAjax('/kb/obj/by-topic-id', {method: 'GET', data: {topicId: topicId}}).then(function(data){
+      return data ? Discourse.KbObj.buildFromIdAndType(data.id, data.unqualifiedType) : null;
     });
   },
 

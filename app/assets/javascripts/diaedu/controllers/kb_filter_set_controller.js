@@ -12,10 +12,10 @@ Discourse.KbFilterSetController = Discourse.ObjectController.extend({
       var dataType = this.get('controllers.kbObj.model');
 
       // build new obj page shell (objs to be fetched by obj page route)
-      var objPage = Discourse.KbObjPage.create({page_id: 1, filter_params: newFilterParams})
+      var objPage = Discourse.KbObjPage.create({pageId: 1, filterParams: newFilterParams})
 
       // transition to new filter results
-      this.transitionToRoute('kb_obj.filtered_page', objPage);
+      this.transitionToRoute('kbObj.filteredPage', objPage);
     }
   }
 });

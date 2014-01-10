@@ -10,11 +10,11 @@ Discourse.KbObjFilteredPageController = Discourse.ObjectController.extend({
   // the KbObjPage that gets displayed
   objPage: null,
 
-  data_type: function() {
+  dataType: function() {
     return this.get('controllers.kbObj.model');
   }.property('controllers.kbObj.model'),
 
   addLinkText: function() {
-    return I18n.t('diaedu.' + this.get('data_type.shortName') + '.add_link');
-  }.property('data_type')
+    return I18n.t('diaedu.' + this.get('dataType.shortName') + '.add_link');
+  }.property('dataType')
 });

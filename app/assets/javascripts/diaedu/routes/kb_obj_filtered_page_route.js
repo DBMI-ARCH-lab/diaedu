@@ -1,7 +1,7 @@
 Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
   model: function(params) {
     // on first load, create empty shell that will be updated by setupController
-    return Discourse.KbObjPage.create({page_id: parseInt(params.page_id), filter_params: params.filter_params});
+    return Discourse.KbObjPage.create({pageId: parseInt(params.pageId), filterParams: params.filterParams});
   },
 
   setupController: function(controller, model) {
@@ -9,7 +9,7 @@ Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
     controller.set('loading', true);
 
     // get the data type
-    var dataType = this.modelFor('kb_obj');
+    var dataType = this.modelFor('kbObj');
 
     // set the page title
     Discourse.set('title', dataType.get('title'));
@@ -19,7 +19,7 @@ Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
 
     // start fetch and get promise
     var promises = {
-      objPage: Discourse.KbObjPage.find({dataType: dataType, pageNum: model.get('page_id'), filterParams: model.get('filter_params')})
+      objPage: Discourse.KbObjPage.find({dataType: dataType, pageNum: model.get('pageId'), filterParams: model.get('filterParams')})
     };
 
     // set objPage on controller when loaded
@@ -28,13 +28,13 @@ Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
     // get current filter set (may be null)
     var currentFilterSet = controller.get('filterSet');
 
-    // unless filter set matches current data type and filter_params, need to change it
-    if (!currentFilterSet || !currentFilterSet.matches(dataType, model.filter_params)) {
+    // unless filter set matches current data type and filterParams, need to change it
+    if (!currentFilterSet || !currentFilterSet.matches(dataType, model.filterParams)) {
 
       controller.set('filterSet', null);
 
       // start fetch and get promise
-      promises.filterSet = Discourse.KbFilterSet.generate(dataType, model.filter_params);
+      promises.filterSet = Discourse.KbFilterSet.generate(dataType, model.filterParams);
 
       // set filterSet on model when loaded
       promises.filterSet.then(function(fs){ controller.set('filterSet', fs); });
@@ -45,7 +45,7 @@ Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
   },
 
   serialize: function(model) {
-    return {data_type: this.modelFor('kb_obj').name, page_id: model.page_id, filter_params: model.filter_params};
+    return {dataType: this.modelFor('kbObj').name, pageId: model.pageId, filterParams: model.filterParams};
   },
 
   renderTemplate: function() {
@@ -54,7 +54,7 @@ Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
 
   actions: {
     addObj: function() {
-      var dataType = this.modelFor('kb_obj');
+      var dataType = this.modelFor('kbObj');
 
       // create new model for modal
       var model = dataType.get('modelClass').create();

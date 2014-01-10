@@ -5,10 +5,10 @@ Discourse.KbObjShowRoute = Discourse.Route.extend({
   },
 
   redirect: function(model) {
-    this.transitionTo('kb_obj.show_with_breadcrumb', model);
+    this.transitionTo('kbObj.showWithBreadcrumb', model);
   },
 
   serialize: function(model) {
-    return {id: model.id, data_type: model.get('dataType.name')};
+    return {id: model.id, dataType: model.get('dataType.name')};
   }
 });

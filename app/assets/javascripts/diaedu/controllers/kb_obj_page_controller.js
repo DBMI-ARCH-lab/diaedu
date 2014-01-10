@@ -3,7 +3,7 @@ Discourse.KbObjPageController = Discourse.ObjectController.extend({
   needs: 'application',
 
   showMode: function() {
-    return this.get('controllers.application.currentPath').match(/kb_obj_show/);
+    return this.get('controllers.application.currentPath').match(/kbObjShow/);
   }.property('controllers.application.currentPath'),
 
   // if model is null, we should show the loading indicator
@@ -15,8 +15,8 @@ Discourse.KbObjPageController = Discourse.ObjectController.extend({
     // loads the specified page into the model
     changePage: function(newPage) { var self = this;
       // use the same data type and filter params
-      var dataType = this.get('model.data_type');
-      var filterParams = this.get('model.filter_params');
+      var dataType = self.get('model.dataType');
+      var filterParams = self.get('model.filterParams');
 
       // set the model to null so the loading indicator shows up
       self.set('model', null);

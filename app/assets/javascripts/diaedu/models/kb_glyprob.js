@@ -4,7 +4,7 @@ Discourse.KbGlyprob = Discourse.KbObj.extend({
   event: '',
 
   // a new event name that we are submitting to the store, which will handle creation of the event object
-  event_name: null,
+  eventName: null,
 
   // high/low
   evaluation: null,
@@ -16,7 +16,7 @@ Discourse.KbGlyprob = Discourse.KbObj.extend({
 
   // builds a data object to submit to server
   serialize: function() {
-    var data = this.getProperties('evaluation', 'event_name', 'description');
+    var data = this.getProperties('evaluation', 'eventName', 'description');
     this.serializeTags(data);
     return data;
   }

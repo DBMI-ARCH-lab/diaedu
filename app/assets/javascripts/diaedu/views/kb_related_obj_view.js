@@ -29,7 +29,7 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
 
     // setup event to copy changes to model
     sel.on('change', function() {
-      self.set('controller.model.inlink_ids', sel.val());
+      self.set('controller.model.inlinkIds', sel.val());
     });
 
   }.observes('controller.objPage')

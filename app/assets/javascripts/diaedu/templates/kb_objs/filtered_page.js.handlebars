@@ -1,5 +1,5 @@
 <div class="left-pane">
-  {{render "kb_filter_set" filterSet}}
+  {{render "kbFilterSet" filterSet}}
 </div>
 
 <div class="main">
@@ -12,13 +12,13 @@
   {{/if}}
 
   <h1>
-    <img {{bindAttr src="objPage.data_type.iconPath"}} />
-    {{data_type.title}}
+    <img {{bindAttr src="objPage.dataType.iconPath"}} />
+    {{dataType.title}}
   </h1>
 
   {{#if loading}}
     <div class="spinner">{{i18n loading}}</div>
   {{else}}
-    {{render 'kb_obj_page' objPage}}
+    {{render 'kbObjPage' objPage}}
   {{/if}}
 </div>

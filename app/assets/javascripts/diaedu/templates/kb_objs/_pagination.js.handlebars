@@ -1,19 +1,19 @@
-{{#if multiple_pages}}
+{{#if multiplePages}}
   <div class="pagination">
     <table><tr>
-      {{#each page in other_pages}}
-        {{#if page.is_gap}}
+      {{#each page in otherPages}}
+        {{#if page.isGap}}
           <td class="skip"><div>...</div></td>
         {{else}}
-          {{#if page.is_active}}
-            <td class="active"><div>{{page.page_id}}</div></td>
+          {{#if page.isActive}}
+            <td class="active"><div>{{page.pageId}}</div></td>
           {{else}}
             <td>
               {{! if in show mode, make the link trigger an action instead of a straight up transition}}
               {{#if showMode}}
-                {{#view Discourse.KbPaginationLink pageIdBinding="page.page_id"}}{{page.page_id}}{{/view}}
+                {{#view Discourse.KbPaginationLink pageIdBinding="page.pageId"}}{{page.pageId}}{{/view}}
               {{else}}
-                {{#linkTo 'kb_obj.filtered_page' data_type page}}{{page.page_id}}{{/linkTo}}
+                {{#linkTo 'kbObj.filteredPage' dataType page}}{{page.pageId}}{{/linkTo}}
               {{/if}}
             </td>
           {{/if}}

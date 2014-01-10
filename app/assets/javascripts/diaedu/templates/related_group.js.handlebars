@@ -17,10 +17,10 @@
     </h2>
 
     {{! tag mini-filter}}
-    {{render 'kb_mini_filter' tagFilter}}
+    {{render 'kbMiniFilter' tagFilter}}
 
     {{! object listing}}
-    {{render 'kb_obj_page' objPage}}
+    {{render 'kbObjPage' objPage}}
 
   {{! otherwise this is a backward relation so render as a sidebar block}}
   {{else}}
@@ -41,7 +41,7 @@
           {{else}}
 
             {{#each objPage.objs}}
-              <li>{{#linkTo 'kb_obj.show_with_breadcrumb' dataType this}}{{name}}{{/linkTo}}</li>
+              <li>{{#linkTo 'kbObj.showWithBreadcrumb' dataType this}}{{name}}{{/linkTo}}</li>
             {{/each}}
 
           {{/if}}

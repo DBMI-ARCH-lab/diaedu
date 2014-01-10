@@ -9,7 +9,7 @@ Discourse.KbLinkToKbButtonView = Discourse.ButtonView.extend({
   click: function(topic) { var self = this;
     // transition to the linked object's show action
     var obj = self.get('controller.kbObj');
-    self.get('controller').transitionToRoute('kb_obj.show_with_breadcrumb', obj.get('dataType'), obj);
+    self.get('controller').transitionToRoute('kbObj.showWithBreadcrumb', obj.get('dataType'), obj);
   },
 
   didInsertElement: function() { var self = this;
