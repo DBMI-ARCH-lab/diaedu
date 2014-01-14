@@ -5,6 +5,6 @@ module Diaedu
     validates(:name, :description, :presence => true)
     validates(:name, :uniqueness => true, :length => {:minimum => 20}, :unless => lambda{|o| o.name.blank?})
 
-    filterable(:barriers => :related, :triggers => :related, :tags => :related)
+    filterable(:barriers => :related, :tags => :related)
   end
 end
