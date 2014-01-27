@@ -13,7 +13,7 @@
               {{#if showMode}}
                 {{#view Discourse.KbPaginationLink pageIdBinding="page.pageId"}}{{page.pageId}}{{/view}}
               {{else}}
-                {{#linkTo 'kbObj.filteredPage' dataType page}}{{page.pageId}}{{/linkTo}}
+                {{#link-to 'kbObj.filteredPage' dataType page}}{{page.pageId}}{{/link-to}}
               {{/if}}
             </td>
           {{/if}}

@@ -1,7 +1,7 @@
 {{#each blocks}}
   <div class="block filter">
     <h3>
-      <img {{bindAttr src="iconPath"}} />
+      <img {{bind-attr src="iconPath"}} />
       {{title}}
     </h3>
     <div class="items">
@@ -12,7 +12,7 @@
       </div>
 
       {{#each items}}
-        <div {{bindAttr class=":item isGreyed:disabled"}}>
+        <div {{bind-attr class=":item isGreyed:disabled"}}>
           {{input type="checkbox" checked=isChecked disabled=isGreyed}}
           {{#with obj}}
             <div class="name">{{name}}</div>

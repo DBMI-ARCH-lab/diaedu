@@ -7,7 +7,7 @@
   {{else}}
     <div class="index-list">
       {{#each objs}}
-        <div class="index-row" {{bindAttr id="rowId"}}>
+        <div class="index-row" {{bind-attr id="rowId"}}>
           <div class="stat likes">
             {{likes}}
             <small>{{likesText}}</small>
@@ -25,7 +25,7 @@
                 <small>+{{moreTagCount}} more</small>
               {{/if}}
             </div>
-            {{#linkTo 'kbObj.showWithBreadcrumb' dataType this}}{{name}}{{/linkTo}}
+            {{#link-to 'kbObj.showWithBreadcrumb' dataType this}}{{name}}{{/link-to}}
           </div>
         </div>
       {{/each}}

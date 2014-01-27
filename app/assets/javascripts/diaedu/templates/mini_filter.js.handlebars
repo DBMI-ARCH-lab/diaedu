@@ -1,5 +1,5 @@
 <span>{{i18n diaedu.tags.tags}}:</span>&nbsp;
-<a href="#" {{bindAttr class=":any-link noneChecked:active"}}>{{i18n diaedu.any}}</a>&nbsp;
+<a href="#" {{bind-attr class=":any-link noneChecked:active"}}>{{i18n diaedu.any}}</a>&nbsp;
 {{#each items}}
-  <a href="#" {{bindAttr data-id="obj.id"}} {{bindAttr class="isChecked:active"}}>{{obj.name}}</a>&nbsp;
+  <a href="#" {{bind-attr data-id="obj.id"}} {{bind-attr class="isChecked:active"}}>{{obj.name}}</a>&nbsp;
 {{/each}}

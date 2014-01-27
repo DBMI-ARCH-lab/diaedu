@@ -1,15 +1,15 @@
 <div class="banner">
   <div>
-    {{#linkTo 'kbHome'}}
+    {{#link-to 'kbHome'}}
       <img src="/assets/diaedu/top-logo.png" />
       <h1>Diabetes Educator Community</h1>
-    {{/linkTo}}
+    {{/link-to}}
   </div>
 </div>
 <nav class="kb-main">
   <div>
-    <span {{bindAttr class="isKbActive:active"}}>{{#linkTo 'kbHome'}}Knowledge Base{{/linkTo}}</span>
-    <span {{bindAttr class="isCommunityActive:active"}}>{{#linkTo 'discovery.top'}}Community{{/linkTo}}</span>
+    <span {{bind-attr class="isKbActive:active"}}>{{#link-to 'kbHome'}}Knowledge Base{{/link-to}}</span>
+    <span {{bind-attr class="isCommunityActive:active"}}>{{#link-to 'discovery.top'}}Community{{/link-to}}</span>
     <span><a href="/kb/about" class="about-link">About</a></span>
   </div>
 </nav>

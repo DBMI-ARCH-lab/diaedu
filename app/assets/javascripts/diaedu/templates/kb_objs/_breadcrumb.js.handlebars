@@ -8,7 +8,7 @@
       {{#each breadcrumb.crumbs}}
         <li>
           <div>{{dataType.singularTitle}}</div>
-          {{#linkTo 'kbObj.showWithBreadcrumb' dataType this}}<strong>{{name}}</strong>{{/linkTo}}
+          {{#link-to 'kbObj.showWithBreadcrumb' dataType this}}<strong>{{name}}</strong>{{/link-to}}
         </li>
       {{/each}}
     </ol>

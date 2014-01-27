@@ -13,7 +13,7 @@
 <div class="main">
   {{#unless loading}}
     <h1>
-      <img {{bindAttr src="dataType.iconPath"}} />
+      <img {{bind-attr src="dataType.iconPath"}} />
       {{dataType.title}}: <span class="weaker">{{name}}</span>
     </h1>
   {{/unless}}
@@ -46,7 +46,7 @@
           <ul>
             {{#each commentPreview}}
               <li>
-                {{#linkTo 'userActivity.index' this.user}}{{avatar this.user imageSize="medium"}}{{/linkTo}}
+                {{#link-to 'userActivity.index' this.user}}{{avatar this.user imageSize="medium"}}{{/link-to}}
                 <div>
                   {{{cooked}}}
                   <div class="comment-fade"></div>

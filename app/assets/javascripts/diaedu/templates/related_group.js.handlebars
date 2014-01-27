@@ -12,7 +12,7 @@
 
     {{! header}}
     <h2>
-      <img {{bindAttr src="dataType.iconPath"}} />
+      <img {{bind-attr src="dataType.iconPath"}} />
       {{headingText}}
     </h2>
 
@@ -28,7 +28,7 @@
     <div class="block">
 
       <h3>
-        <img {{bindAttr src="smallerIconPath"}} />
+        <img {{bind-attr src="smallerIconPath"}} />
         {{headingText}}
       </h3>
 
@@ -41,7 +41,7 @@
           {{else}}
 
             {{#each objPage.objs}}
-              <li>{{#linkTo 'kbObj.showWithBreadcrumb' dataType this}}{{name}}{{/linkTo}}</li>
+              <li>{{#link-to 'kbObj.showWithBreadcrumb' dataType this}}{{name}}{{/link-to}}</li>
             {{/each}}
 
           {{/if}}
