@@ -18,6 +18,12 @@ module Diaedu
 
     before_validation(:normalize_fields)
 
+    scope(:recent_unapproved, ->(count) { order('created_at DESC').where(:approved => false).limit(count) })
+
+    def self.admin_route_key
+      "kb_admin_#{model_name.singular_route_key}"
+    end
+
     # associates with parents with the given IDs
     def inlink_ids=(ids)
       ids.each{|id| inlinks.build(:obj1_id => id)}
