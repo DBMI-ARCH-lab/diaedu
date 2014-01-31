@@ -1,0 +1,4 @@
+en:
+  active_admin:
+    # Changing this to 'Exit' since the link is not a real logout link
+    logout: "Exit"
