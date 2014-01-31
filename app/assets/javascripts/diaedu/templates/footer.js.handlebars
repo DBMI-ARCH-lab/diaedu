@@ -1,0 +1,12 @@
+<footer class="kb-footer">
+  <p>
+    <a href="#">About</a> |
+    <a href="#">Contact</a>
+
+    {{#if currentUser.admin}}
+      | <a {{action goToKbAdmin}}>Knowledge Base Admin Panel</a>
+    {{/if}}
+  </p>
+
+  <p>This project is funded by Columbia University.</p>
+</footer>
