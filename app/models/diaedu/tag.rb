@@ -3,6 +3,8 @@ module Diaedu
     has_many(:taggings, :class_name => 'Diaedu::Tagging', :dependent => :destroy)
     has_many(:objs, :through => :taggings)
 
+    scope(:default_order, ->{ order('name') })
+
     MAX_SUGGESTIONS = 5
 
     # returns an array of tags matching the given textual query
