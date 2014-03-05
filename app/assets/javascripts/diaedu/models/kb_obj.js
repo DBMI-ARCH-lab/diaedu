@@ -29,7 +29,7 @@ Discourse.KbObj = Discourse.Model.extend({
     // default to breadcrumb with just self
     this.set('breadcrumb', Discourse.KbBreadcrumb.create().add(this));
 
-    this.set('evidenceList', []);
+    this.set('evidenceList', Em.A());
   },
 
   firstNTags: function() {

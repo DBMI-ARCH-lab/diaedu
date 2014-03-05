@@ -4,6 +4,8 @@ Discourse.KbEvidenceItem = Discourse.Model.extend({
   type: null, // link or file
   title: null,
   url: null,
-  file: null // data about the file
+  file: null, // data about the file
+
+  isFile: Ember.computed.equal('type', 'file')
 
 });
