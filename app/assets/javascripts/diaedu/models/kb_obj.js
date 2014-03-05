@@ -13,6 +13,8 @@ Discourse.KbObj = Discourse.Model.extend({
 
   topic: null,
 
+  evidenceList: null,
+
   // whether the this obj was 'just' liked by the current user
   // used to immediately disallow further likes
   justLiked: null,
@@ -26,6 +28,8 @@ Discourse.KbObj = Discourse.Model.extend({
 
     // default to breadcrumb with just self
     this.set('breadcrumb', Discourse.KbBreadcrumb.create().add(this));
+
+    this.set('evidenceList', []);
   },
 
   firstNTags: function() {
