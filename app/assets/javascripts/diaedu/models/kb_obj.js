@@ -76,9 +76,14 @@ Discourse.KbObj = Discourse.Model.extend({
   }.property(),
 
   // gets the preferred parent dataType, which is the data type of the preselectedParent, if set
-  // otherwise it's the datatype of the first backward relation
+  // otherwise it's the datatype of the first backward relation, or null if there are no backward relations
   preferredParentDataType: function() { var self = this;
-    return self.get('preselectedParent') ? self.get('preselectedParent.dataType') : self.relations('backward')[0].other.dataType();
+    if (self.get('preselectedParent'))
+      return self.get('preselectedParent.dataType')
+    else {
+      var backward = self.relations('backward')[0];
+      return backward ? backward.other.dataType() : null;
+    }
   }.property('preselectedParent'),
 
   // loads details such as description, etc.
