@@ -138,9 +138,9 @@ Discourse.KbObj = Discourse.Model.extend({
       var tagging = {id: t.id};
       // if the tag has no id (it's new), we need to add the tag attributes
       if (t.id == null)
-        return {tagAttributes: {name: t.name}}
+        return {tag_attributes: {name: t.name}}
       else
-        return {tagId: t.id, _destroy: t._destroy};
+        return {tag_id: t.id, _destroy: t._destroy};
     });
   },
 
