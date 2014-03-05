@@ -53,6 +53,11 @@ en:
         low: "Low"
         high: "High"
 
+      evidence:
+        evidence: "Evidence"
+        add_link: "Add link"
+        add_file: "Attach file"
+
       filter:
         title:
           barriers: "Filter by Barrier"

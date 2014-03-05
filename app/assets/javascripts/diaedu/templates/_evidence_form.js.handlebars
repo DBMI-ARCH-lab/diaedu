@@ -1,0 +1,14 @@
+<div class="control-group">
+  <label class="control-label" for="obj-evidence">
+    {{i18n diaedu.evidence.evidence}}
+    <span class="errors">{{errors.evidence}}</span>
+  </label>
+  <div class="controls">
+    <div>
+      <a {{action addLink}}><i class="fa fa-plus"></i> {{i18n diaedu.evidence.add_link}}</a>&nbsp;&nbsp;
+      <a {{action addFile}}><i class="fa fa-file-o"></i> {{i18n diaedu.evidence.add_file}}</a>
+    </div>
+  </div>
+</div>
+
+{{!   <input id="fileupload" type="file" name="files[]" multiple> }}

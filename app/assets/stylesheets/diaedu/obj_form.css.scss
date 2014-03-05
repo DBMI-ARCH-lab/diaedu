@@ -1,6 +1,10 @@
 form.kb-obj-form {
   margin-bottom: 0;
 
+  .modal-body {
+    max-height: 480px;
+  }
+
   .errors {
     color: #e45735;
     font-size: 12px;
