@@ -2,6 +2,9 @@ div.diaedu-content div.index-list {
   display: table;
   margin-bottom: 20px;
 
+  /* should expand to fill width of container even if row text is short */
+  width: 100%;
+
   div.index-row {
     display: table-row;
 
