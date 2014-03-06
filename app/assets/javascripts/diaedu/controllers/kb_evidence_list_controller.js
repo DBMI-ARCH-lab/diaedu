@@ -62,9 +62,6 @@ Discourse.KbEvidenceItemController = Discourse.ObjectController.extend({
     return I18n.t('diaedu.evidence.title_for_' + self.get('type'));
   }.property('type'),
 
-  uploading: Ember.computed.equal('status', 'uploading'),
-
-  failed: Ember.computed.equal('status', 'failed')
 });
 
 // this is just here to specify the template

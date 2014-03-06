@@ -134,20 +134,6 @@ Discourse.KbObj = Discourse.Model.extend({
     });
   },
 
-  // serializes the tags array to a Rails compatible format
-  // stores in the passed data object
-  serializeTags: function(data) {
-    // add tags
-    data.taggingsAttributes = this.get('tags').map(function(t){
-      var tagging = {id: t.id};
-      // if the tag has no id (it's new), we need to add the tag attributes
-      if (t.id == null)
-        return {tag_attributes: {name: t.name}}
-      else
-        return {tag_id: t.id, _destroy: t._destroy};
-    });
-  },
-
   // gets the topic associated with this object
   // returns a promise that resolves with the topic
   // if a topic is already defined, simply resolves immediately with the topic
@@ -220,10 +206,31 @@ Discourse.KbObj = Discourse.Model.extend({
 
   // builds a data object to submit to server
   // should be overridden for subclasses with special serialization needs
-  serialize: function() {
-    var data = this.getProperties('name', 'description', 'inlinkIds');
-    this.serializeTags(data);
+  serialize: function() { var self = this;
+    var data = self.getProperties('name', 'description', 'inlinkIds');
+    self.serializeTags(data);
+    self.serializeEvidence(data);
     return data;
+  },
+
+  // serializes the tags array to a Rails compatible format
+  // stores in the passed data object
+  serializeTags: function(data) {
+    // add tags
+    data.taggingsAttributes = this.get('tags').map(function(t){
+      var tagging = {id: t.id};
+      // if the tag has no id (it's new), we need to add the tag attributes
+      if (t.id == null)
+        return {tag_attributes: {name: t.name}}
+      else
+        return {tag_id: t.id, _destroy: t._destroy};
+    });
+  },
+
+  // serializes evidence items in Rails compatible format
+  // stores in the passed data object
+  serializeEvidence: function(data) {
+    data.evidenceAttributes = this.get('evidenceList').rejectBy('failed').map(function(item){ return item.serialize(); });
   },
 
   ////////////// i18n properties, should probably be refactored to controllers /////////////////////
