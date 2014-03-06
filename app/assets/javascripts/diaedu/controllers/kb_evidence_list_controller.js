@@ -19,6 +19,11 @@ Discourse.KbEvidenceListController = Ember.ArrayController.extend({
       self.pushObject(item);
     },
 
+    // removes an evidence item
+    remove: function(item) { var self = this;
+      self.removeObject(self.findBy('content', item));
+    },
+
     // called when a file has been added to the evidence area
     // file - a hash of data about the file
     fileAdded: function(file) { var self = this;
@@ -58,6 +63,7 @@ Discourse.KbEvidenceItemController = Discourse.ObjectController.extend({
   }.property('type'),
 
   uploading: Ember.computed.equal('status', 'uploading'),
+
   failed: Ember.computed.equal('status', 'failed')
 });
 

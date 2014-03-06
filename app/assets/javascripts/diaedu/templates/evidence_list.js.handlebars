@@ -16,13 +16,14 @@
           {{else}}
             {{input type="text" value=url placeholder=linkPlaceholder}}
           {{/if}}
+          <a {{action 'remove' this}}><i class="fa fa-trash-o"></i> {{i18n diaedu.evidence.remove}}</a>
         </div>
       {{/each}}
 
       {{! links }}
       {{view Discourse.KbEvidenceUploadButtonView}}
-      <a {{action addLink}}><i class="fa fa-plus"></i> {{i18n diaedu.evidence.add_link}}</a>&nbsp;&nbsp;
-      <a {{action addFile}}><i class="fa fa-file-o"></i> {{i18n diaedu.evidence.add_file}}</a>
+      <a {{action 'addLink'}}><i class="fa fa-plus"></i> {{i18n diaedu.evidence.add_link}}</a>&nbsp;&nbsp;
+      <a {{action 'addFile'}}><i class="fa fa-file-o"></i> {{i18n diaedu.evidence.add_file}}</a>
     </div>
   </div>
 </div>
