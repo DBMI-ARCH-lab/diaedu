@@ -57,6 +57,12 @@ en:
         evidence: "Evidence"
         add_link: "Add link"
         add_file: "Attach file"
+        uploading: "Uploading..."
+        failed: "Upload failed"
+        title_for_file: "Title for attachment"
+        title_for_link: "Title for link"
+        link: "Link"
+        remove: "Remove"
 
       filter:
         title:

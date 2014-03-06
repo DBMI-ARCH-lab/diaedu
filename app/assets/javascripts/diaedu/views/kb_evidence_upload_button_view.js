@@ -15,12 +15,10 @@ Discourse.KbEvidenceUploadButtonView = Discourse.View.extend({
         // trigger the fileAdded action so the controller can handle creating a model
         self.get('controller').send('fileAdded', file);
       });
-
     }).on('fileuploadfail', function (e, data) {
       $.each(data.files, function (index, file) {
-
+        self.get('controller').send('fileFailed', file);
       });
-
     }).on('fileuploaddone', function (e, data) {
       $.each(data.files, function (index, file) {
         self.get('controller').send('fileCompleted', file, data.result);

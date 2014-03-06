@@ -5,22 +5,21 @@
   </label>
   <div class="controls">
     <div>
-      {{! list of the evidence items}}
-      {{#each content}}
+      {{! list of the evidence items }}
+      {{#each evidenceItem in controller}}
         <div>
-          {{input type="text" value=title}}
+          {{input type="text" value=title placeholder=titlePlaceholder}}
           {{#if isFile}}
             {{fileName}}
-            {{#unless uploaded}}
-              Uploading ...
-            {{/unless}}
+            {{#if uploading}}{{i18n diaedu.evidence.uploading}}{{/if}}
+            {{#if failed}}{{i18n diaedu.evidence.failed}}{{/if}}
           {{else}}
-            {{input type="text" value=url}}
+            {{input type="text" value=url placeholder=linkPlaceholder}}
           {{/if}}
         </div>
       {{/each}}
 
-      {{! links}}
+      {{! links }}
       {{view Discourse.KbEvidenceUploadButtonView}}
       <a {{action addLink}}><i class="fa fa-plus"></i> {{i18n diaedu.evidence.add_link}}</a>&nbsp;&nbsp;
       <a {{action addFile}}><i class="fa fa-file-o"></i> {{i18n diaedu.evidence.add_file}}</a>
