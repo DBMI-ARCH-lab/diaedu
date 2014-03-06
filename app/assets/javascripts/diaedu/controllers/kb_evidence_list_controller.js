@@ -13,9 +13,9 @@ Discourse.KbEvidenceListController = Ember.ArrayController.extend({
   },
 
   actions: {
-    // adds a new link-type evidence item
+    // adds a new link evidence item
     addLink: function() { var self = this;
-      var item = Discourse.KbEvidenceItem.create({type: 'link'});
+      var item = Discourse.KbEvidenceItem.create({kind: 'link'});
       self.pushObject(item);
     },
 
@@ -27,7 +27,7 @@ Discourse.KbEvidenceListController = Ember.ArrayController.extend({
     // called when a file has been added to the evidence area
     // file - a hash of data about the file
     fileAdded: function(file) { var self = this;
-      var item = Discourse.KbEvidenceItem.create({type: 'file', fileName: file.name, status: 'uploading'});
+      var item = Discourse.KbEvidenceItem.create({kind: 'file', filename: file.name, status: 'uploading'});
 
       // add a unique (to this controller) counter value
       file.index = self.fileCounter++;
@@ -59,8 +59,8 @@ Discourse.KbEvidenceItemController = Discourse.ObjectController.extend({
   linkPlaceholder: I18n.t('diaedu.evidence.link'),
 
   titlePlaceholder: function() { var self = this;
-    return I18n.t('diaedu.evidence.title_for_' + self.get('type'));
-  }.property('type'),
+    return I18n.t('diaedu.evidence.title_for_' + self.get('kind'));
+  }.property('kind'),
 
 });
 
