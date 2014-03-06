@@ -2,8 +2,11 @@ module Diaedu
   class EvidenceController < ::ApplicationController
 
     def create
-      sleep(1)
-      render(:json => {id: 10})
+      # create new EvidenceItem and attach file
+      @item = EvidenceItem.create!(attribs = params.require(:evidence_item).permit(:file))
+
+      # return id of new item
+      render(:json => {id: @item.id})
     end
 
   end
