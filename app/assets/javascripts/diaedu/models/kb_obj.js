@@ -230,7 +230,7 @@ Discourse.KbObj = Discourse.Model.extend({
   // serializes evidence items in Rails compatible format
   // stores in the passed data object
   serializeEvidence: function(data) {
-    data.evidenceAttributes = this.get('evidenceList').rejectBy('failed').map(function(item){ return item.serialize(); });
+    data.evidenceItemsAttributes = this.get('evidenceList').rejectBy('failed').map(function(item){ return item.serialize(); });
   },
 
   ////////////// i18n properties, should probably be refactored to controllers /////////////////////
