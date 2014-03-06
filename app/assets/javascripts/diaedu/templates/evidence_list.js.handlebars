@@ -7,12 +7,17 @@
     <div>
       {{! list of the evidence items}}
       {{#each content}}
-        <input type="text" />
-        {{#if isFile}}
-          {{file.name}}
-        {{else}}
-          It's a link!
-        {{/if}}
+        <div>
+          {{input type="text" value=title}}
+          {{#if isFile}}
+            {{file.name}}
+            {{#unless uploaded}}
+              Uploading ...
+            {{/unless}}
+          {{else}}
+            It's a link!
+          {{/if}}
+        </div>
       {{/each}}
 
       {{! links}}

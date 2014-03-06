@@ -16,10 +16,17 @@ Discourse.KbEvidenceListController = Ember.ArrayController.extend({
       var item = Discourse.KbEvidenceItem.create({type: 'file', file: file});
 
       // save for later
-      self.file_items[file] = item;
+      self.file_items[file.index] = item;
 
       // add to model, which will add to view
       self.pushObject(item);
+    },
+
+    // called when a file finishes uploading
+    fileCompleted: function(file, result) { var self = this;
+      var item = self.file_items[file.index];
+      item.set('id', result.id);
+      item.set('uploaded', true);
     }
   }
 });
