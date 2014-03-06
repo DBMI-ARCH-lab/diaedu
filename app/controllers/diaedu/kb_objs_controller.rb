@@ -50,14 +50,24 @@ module Diaedu
     end
 
     def create
-      obj = klass.new(params.require(:obj).permit(:name, :description, :event_name, :evaluation, :inlink_ids => [],
-        :taggings_attributes => [:tag_id, :_destroy, :tag_attributes => [:name]]))
+      # permit attributes and extract evidence
+      attribs = params.require(:obj).permit(:name, :description, :event_name, :evaluation, :inlink_ids => [],
+        :taggings_attributes => [:tag_id, :_destroy, :tag_attributes => [:name]],
+        :evidence_items_attributes => [:id, :kind, :title, :url]
+      )
+      evidence_attribs = attribs.delete(:evidence_items_attributes)
 
-      if obj.save
-        render(:json => {})
-      else
-        render(:json => {:errors => obj.errors})
-      end
+      # build the obj minus the evidence items
+      obj = klass.new(attribs)
+
+      # add existing evidence items (those with IDs) to the object before applying the attributes
+      evidence_attribs.values.select{|a| a[:id].present?}.each{|a| obj.evidence_items << EvidenceItem.find(a[:id])}
+
+      # now apply the attribs
+      obj.assign_attributes(:evidence_items_attributes => evidence_attribs)
+
+      # save and render
+      render(:json => obj.save ? {} : {:errors => obj.errors})
     end
 
     # ensures there is a topic associated with the given object
