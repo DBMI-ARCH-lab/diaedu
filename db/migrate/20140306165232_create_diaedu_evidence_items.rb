@@ -5,7 +5,6 @@ class CreateDiaeduEvidenceItems < ActiveRecord::Migration
       t.string :kind, :null => false
       t.string :title
       t.text :url
-      t.string :filename
 
       t.timestamps
     end
