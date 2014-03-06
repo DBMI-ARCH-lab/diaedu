@@ -4,8 +4,6 @@ Discourse.KbEvidenceUploadButtonView = Discourse.View.extend({
 
   didInsertElement: function() { var self = this;
 
-    self.counter = 0;
-
     // setup the fileupload widget (jquery file upload plugin)
     this.$('input[type=file]').fileupload({
       url: '/kb/evidence',
@@ -14,9 +12,6 @@ Discourse.KbEvidenceUploadButtonView = Discourse.View.extend({
 
     }).on('fileuploadadd', function (e, data) {
       $.each(data.files, function (index, file) {
-        // add a unique (to this view) counter value
-        file.index = self.counter++;
-
         // trigger the fileAdded action so the controller can handle creating a model
         self.get('controller').send('fileAdded', file);
       });

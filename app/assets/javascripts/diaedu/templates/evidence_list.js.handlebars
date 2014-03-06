@@ -10,12 +10,12 @@
         <div>
           {{input type="text" value=title}}
           {{#if isFile}}
-            {{file.name}}
+            {{fileName}}
             {{#unless uploaded}}
               Uploading ...
             {{/unless}}
           {{else}}
-            It's a link!
+            {{input type="text" value=url}}
           {{/if}}
         </div>
       {{/each}}

@@ -2,21 +2,31 @@
 Discourse.KbEvidenceListController = Ember.ArrayController.extend({
 
   // a hash for storing known file items so that we can look them up when we receive events about them
-  file_items: null,
+  fileItems: null,
 
   init: function() { var self = this;
     self._super();
-    self.file_items = {};
+    self.fileItems = {};
+    self.fileCounter = 0;
   },
 
   actions: {
+    // adds a new link-type evidence item
+    addLink: function() { var self = this;
+      var item = Discourse.KbEvidenceItem.create({type: 'link'});
+      self.pushObject(item);
+    },
+
     // called when a file has been added to the evidence area
     // file - a hash of data about the file
     fileAdded: function(file) { var self = this;
-      var item = Discourse.KbEvidenceItem.create({type: 'file', file: file});
+      var item = Discourse.KbEvidenceItem.create({type: 'file', fileName: file.name});
+
+      // add a unique (to this controller) counter value
+      file.index = self.fileCounter++;
 
       // save for later
-      self.file_items[file.index] = item;
+      self.fileItems[file.index] = item;
 
       // add to model, which will add to view
       self.pushObject(item);
@@ -24,7 +34,7 @@ Discourse.KbEvidenceListController = Ember.ArrayController.extend({
 
     // called when a file finishes uploading
     fileCompleted: function(file, result) { var self = this;
-      var item = self.file_items[file.index];
+      var item = self.fileItems[file.index];
       item.set('id', result.id);
       item.set('uploaded', true);
     }
