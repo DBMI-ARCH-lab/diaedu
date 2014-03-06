@@ -46,8 +46,6 @@ module Diaedu
       if options[:id_name_only]
         json = {:id => id, :name => name}
       else
-        srand(id) unless new_record?
-        # spoof the likes and comments attribs for now
         # explicitly include name b/c it's a method call on some objects
         json = super(options).merge(:likes => like_count, :comments => comment_count, :views => view_count, :name => name, :topic => topic)
       end

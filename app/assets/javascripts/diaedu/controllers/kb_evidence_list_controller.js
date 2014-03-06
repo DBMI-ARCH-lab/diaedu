@@ -15,7 +15,7 @@ Discourse.KbEvidenceListController = Ember.ArrayController.extend({
   actions: {
     // adds a new link evidence item
     addLink: function() { var self = this;
-      var item = Discourse.KbEvidenceItem.create({kind: 'link'});
+      var item = Discourse.KbEvidenceItem.create({kind: 'link', url: 'http://'});
       self.pushObject(item);
     },
 

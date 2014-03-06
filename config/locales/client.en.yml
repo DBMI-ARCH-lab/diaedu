@@ -1,5 +1,8 @@
 en:
   activerecord:
+    attributes:
+      diaedu/evidence_item:
+        url: "URL"
     errors:
       models:
         diaedu/glyprob:

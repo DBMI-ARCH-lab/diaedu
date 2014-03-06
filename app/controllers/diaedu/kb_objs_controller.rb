@@ -60,14 +60,19 @@ module Diaedu
       # build the obj minus the evidence items
       obj = klass.new(attribs)
 
-      # add existing evidence items (those with IDs) to the object before applying the attributes
-      evidence_attribs.values.select{|a| a[:id].present?}.each{|a| obj.evidence_items << EvidenceItem.find(a[:id])}
-
-      # now apply the attribs
-      obj.assign_attributes(:evidence_items_attributes => evidence_attribs)
+      # assign evidence attributes
+      evidence_attribs.values.each do |a|
+        if a[:id].present?
+          item = EvidenceItem.find(a[:id])
+          item.assign_attributes(a)
+          obj.evidence_items << item
+        else
+          obj.evidence_items.build(a)
+        end
+      end
 
       # save and render
-      render(:json => obj.save ? {} : {:errors => obj.errors})
+      render(:json => obj.save ? {} : {:errors => obj.errors, :evidence_errors => obj.evidence_items.map(&:error_messages)})
     end
 
     # ensures there is a topic associated with the given object

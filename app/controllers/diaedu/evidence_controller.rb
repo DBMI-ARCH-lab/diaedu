@@ -3,7 +3,7 @@ module Diaedu
 
     def create
       # create new EvidenceItem and attach file
-      @item = EvidenceItem.create!(attribs = params.require(:evidence_item).permit(:file))
+      @item = EvidenceItem.create!(params.require(:evidence_item).permit(:file).merge(:temporary => true))
 
       # return id of new item
       render(:json => {id: @item.id})

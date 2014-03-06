@@ -127,6 +127,12 @@ Discourse.KbObj = Discourse.Model.extend({
 
         // save on model
         self.set('errors', errors);
+
+        // copy evidence errors to evidence items
+        if (response.evidenceErrors)
+          response.evidenceErrors.forEach(function(msg, i){
+            self.evidenceList[i].set('errors', msg);
+          });
       }
 
       // return whether the save was successful
