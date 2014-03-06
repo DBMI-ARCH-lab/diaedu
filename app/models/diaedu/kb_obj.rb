@@ -14,7 +14,10 @@ module Diaedu
     has_many(:taggings, :class_name => 'Diaedu::Tagging', :foreign_key => 'obj_id')
     has_many(:tags, :through => :taggings)
 
+    has_many(:evidence_items, :class_name => 'Diaedu::EvidenceItem', :foreign_key => 'kb_obj_id', :dependent => :destroy, :autosave => true)
+
     accepts_nested_attributes_for(:taggings, :allow_destroy => true)
+    accepts_nested_attributes_for(:evidence_items, :allow_destroy => true)
 
     before_validation(:normalize_fields)
 
