@@ -42,6 +42,53 @@ form.kb-obj-form {
       height: 28px;
     }
   }
+
+  div.evidence {
+
+    div.item {
+      min-height: 25px;
+    }
+
+    input.title {
+      width: 250px;
+    }
+
+    input.url {
+      width: 190px;
+    }
+
+    span.filename {
+      width: 200px;
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: middle;
+    }
+
+    div.add-links {
+      a {
+        vertical-align: top;
+      }
+
+      a.fileUpload {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+
+        input[type=file] {
+          position: absolute;
+          top: 0;
+          right: 0;
+          margin: 0;
+          padding: 0;
+          font-size: 20px;
+          direction: ltr;
+          cursor: pointer;
+          opacity: 0;
+          filter: alpha(opacity=0);
+        }
+      }
+    }
+  }
 }
 
 ul.ui-helper-reset li {

@@ -2,6 +2,7 @@ module Diaedu
   class EvidenceController < ::ApplicationController
 
     def create
+      sleep(1)
       # remove old orphan items
       EvidenceItem.where(:kb_obj_id => nil).where('created_at < ?', 2.hours.ago).destroy_all
 
