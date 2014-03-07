@@ -1,0 +1,16 @@
+<div class="main patient-plan">
+  <a {{action 'showPrint'}} class="btn btn-primary">{{i18n diaedu.patient_plan.print}}</a>
+  <h2>{{i18n diaedu.patient_plan.patient_plan}}</h2>
+
+  {{#unless loading}}
+    {{#each breadcrumb.crumbs}}
+      <div>
+        <img {{bind-attr src="dataType.iconPath"}} />
+        <div class="name"><em>{{dataType.singularTitle}}:</em> {{name}}</div>
+        <div class="description">{{description}}</div>
+      </div>
+    {{/each}}
+  {{/unless}}
+
+  <a {{action 'hidePlan'}} class="hide-plan"><i class="fa fa-reply"></i> {{i18n diaedu.patient_plan.back}}</a>
+</div>
