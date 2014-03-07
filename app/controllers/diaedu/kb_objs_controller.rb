@@ -55,7 +55,7 @@ module Diaedu
         :taggings_attributes => [:tag_id, :_destroy, :tag_attributes => [:name]],
         :evidence_items_attributes => [:id, :kind, :title, :url]
       )
-      evidence_attribs = attribs.delete(:evidence_items_attributes)
+      evidence_attribs = attribs.delete(:evidence_items_attributes) || {}
 
       # build the obj minus the evidence items
       obj = klass.new(attribs)

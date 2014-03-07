@@ -1,5 +1,4 @@
 <div class="errors">{{errors.base}}</div>
-
 <div class="control-group">
   <label class="control-label" for="obj-evaluation">
     {{i18n diaedu.glyprobs.high_low}}
@@ -15,7 +14,6 @@
     {{i18n diaedu.evals.low}}
   </label>
 </div>
-
 <div class="control-group">
   <label class="control-label" for="obj-event">
     {{i18n diaedu.glyprobs.event}}
@@ -25,7 +23,6 @@
     {{view Discourse.KbEventInputView}}
   </div>
 </div>
-
 <div class="control-group">
   <label class="control-label" for="obj-description">
     {{i18n diaedu.description}}
@@ -35,7 +32,6 @@
     {{textarea id="obj-description" value=description class="obj-form"}}
   </div>
 </div>
-
 <div class="control-group">
   <label class="control-label" for="obj-tags">
     {{i18n diaedu.tags.tags}}
@@ -45,3 +41,4 @@
     {{view Discourse.KbTagEditView}}
   </div>
 </div>
+{{render 'kbEvidenceList' evidenceList}}
