@@ -4,6 +4,7 @@ Discourse.KbEvidenceItem = Discourse.Model.extend({
   id: null,
   kind: null, // link or file
   title: null,
+  href: null, // what we should actually link to
   url: null, // for link-type items only
   filename: null, // the original file name
   status: null, // upload status

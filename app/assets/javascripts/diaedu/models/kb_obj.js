@@ -52,6 +52,8 @@ Discourse.KbObj = Discourse.Model.extend({
   // checks if this obj has any comments
   hasComments: Ember.computed.gt('comments', 0),
 
+  hasEvidence: Ember.computed.notEmpty('evidenceList'),
+
   // checks if the obj can be liked by the current user
   // this information is stored in the firstPost action summary
   // if there is no firstPost, then canLike returns true
@@ -106,6 +108,9 @@ Discourse.KbObj = Discourse.Model.extend({
       // construct firstPost object
       if (null !== data.firstPost)
         data.firstPost = Discourse.Post.create(data.firstPost);
+
+      // construct evidence items
+      data.evidenceItems.forEach(function(attribs){ self.evidenceList.pushObject(Discourse.KbEvidenceItem.create(attribs)); })
 
       // update the attribs
       self.setProperties(data);

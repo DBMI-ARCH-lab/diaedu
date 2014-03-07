@@ -47,7 +47,8 @@ module Diaedu
         json = {:id => id, :name => name}
       else
         # explicitly include name b/c it's a method call on some objects
-        json = super(options).merge(:likes => like_count, :comments => comment_count, :views => view_count, :name => name, :topic => topic)
+        json = super(options).merge(:likes => like_count, :comments => comment_count, :views => view_count, :name => name, :topic => topic,
+          :evidence_items => evidence_items.as_json)
       end
 
       # add comments if requested

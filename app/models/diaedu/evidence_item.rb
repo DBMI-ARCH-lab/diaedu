@@ -17,6 +17,14 @@ module Diaedu
       errors.full_messages.join(', ')
     end
 
+    def href
+      kind == 'link' ? url : file.try(:url)
+    end
+
+    def as_json(options = nil)
+      super(:methods => :href)
+    end
+
     private
       def set_kind_if_file_present
         self.kind = 'file' if file.present?
