@@ -12,6 +12,10 @@ Discourse.KbEvidenceListController = Ember.ArrayController.extend({
     self.fileCounter = 0;
   },
 
+  uploadInProgress: function() { var self = this;
+    return self.filterBy('uploading').length > 0;
+  }.property('@each.uploading'),
+
   actions: {
     // adds a new link evidence item
     addLink: function() { var self = this;
