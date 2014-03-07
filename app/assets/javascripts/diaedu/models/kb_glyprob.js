@@ -15,9 +15,18 @@ Discourse.KbGlyprob = Discourse.KbObj.extend({
   },
 
   // builds a data object to submit to server
-  serialize: function() {
-    var data = this.getProperties('evaluation', 'eventName', 'description');
-    this.serializeTags(data);
+  // overrides parent method
+  serialize: function() { var self = this;
+    var data = self._super();
+
+    console.log("super", data);
+
+    // discard name and inlink properties and add eval and event name
+    delete data.name;
+    delete data.inlinkIds;
+    data.evaluation = self.get('evaluation');
+    data.eventName = self.get('eventName');
+
     return data;
   }
 

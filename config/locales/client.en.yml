@@ -1,5 +1,8 @@
 en:
   activerecord:
+    attributes:
+      diaedu/evidence_item:
+        url: "URL"
     errors:
       models:
         diaedu/glyprob:
@@ -52,6 +55,18 @@ en:
       evals:
         low: "Low"
         high: "High"
+
+      evidence:
+        evidence: "Evidence"
+        add_link: "Add link"
+        add_file: "Attach file"
+        uploading: "Uploading..."
+        failed: "Upload failed."
+        toobig: "File is too large."
+        title_for_file: "Title for attachment"
+        title_for_link: "Title for link"
+        link: "Link"
+        remove: "Remove"
 
       filter:
         title:

@@ -38,6 +38,25 @@
       </div>
       <div class="description">
         {{description}}
+
+        {{#if hasEvidence}}
+          <div class="evidence">
+            <ul>
+              {{#each evidenceList}}
+                <li>
+                  <a {{bind-attr href="href"}} target="_blank">
+                    {{#if isFile}}
+                      <i class="fa fa-file-o"></i>
+                    {{else}}
+                      <i class="fa fa-external-link"></i>
+                    {{/if}}
+                    {{title}}
+                  </a>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
       </div>
 
       <div class="comments">
