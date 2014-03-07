@@ -28,11 +28,6 @@ Discourse.KbObjShowWithBreadcrumbController = Discourse.ObjectController.extend(
 
     hidePlan: function() { var self = this;
       self.set('showingPlan', false);
-    },
-
-    // shows the print dialog
-    showPrint: function() { var self = this;
-      window.print();
     }
   }
 });
