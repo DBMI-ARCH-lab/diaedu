@@ -76,7 +76,8 @@ Discourse.KbBreadcrumb.reopenClass({
         metaCrumb = metaCrumb.add(crumb);
         crumb.set('breadcrumb', metaCrumb);
 
-        // load the name (right now we only have the id)
+        // load the name and description (right now we only have the id)
+        // we need the description for the patient view
         crumb.loadFully();
 
         // add the current crumb to the reconstructed trail
