@@ -15,6 +15,12 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
     return ids.length == 0 ? '' : 'trail-' + ids.join('-');
   }.property('crumbs'),
 
+  // whether this breadcrumb has a crumb in the last position
+  // that is, with no forward relations
+  hasEndCrumb: function() { var self = this;
+    return self.get('crumbs').filter(function(c){ return c.relations('forward').length == 0; }).length > 0;
+  }.property('crumbs.@each'),
+
   init: function() { var self = this;
     self._super();
 
@@ -44,7 +50,6 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
     }
     return newBc;
   }
-
 });
 
 Discourse.KbBreadcrumb.reopenClass({
