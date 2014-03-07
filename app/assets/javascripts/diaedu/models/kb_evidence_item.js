@@ -13,7 +13,7 @@ Discourse.KbEvidenceItem = Discourse.Model.extend({
 
   uploading: Ember.computed.equal('status', 'uploading'),
   failed: Ember.computed.equal('status', 'failed'),
-  completed: Ember.computed.equal('status', 'completed'),
+  complete: Ember.computed.equal('status', 'complete'),
 
   init: function() { var self = this;
     self._super();

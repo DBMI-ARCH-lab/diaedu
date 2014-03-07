@@ -15,7 +15,7 @@ Discourse.KbEvidenceListController = Ember.ArrayController.extend({
   actions: {
     // adds a new link evidence item
     addLink: function() { var self = this;
-      var item = Discourse.KbEvidenceItem.create({kind: 'link', url: 'http://'});
+      var item = Discourse.KbEvidenceItem.create({kind: 'link', url: 'http://', status: 'complete'});
       self.pushObject(item);
     },
 
@@ -26,7 +26,7 @@ Discourse.KbEvidenceListController = Ember.ArrayController.extend({
 
     // called when a file has been added to the evidence area
     // file - a hash of data about the file
-    fileAdded: function(file) { var self = this;
+    fileAdded: function(file, uploader) { var self = this;
       var item = Discourse.KbEvidenceItem.create({kind: 'file', filename: file.name, status: 'uploading'});
 
       // add a unique (to this controller) counter value
@@ -37,12 +37,22 @@ Discourse.KbEvidenceListController = Ember.ArrayController.extend({
 
       // add to model, which will add to view
       self.pushObject(item);
+
+      // if file is too big, error
+      if (file.size > 10000000) {
+        item.set('status', 'toobig');
+        setTimeout(function(){ self.send('remove', item); }, 3000);
+      } else {
+        // start the upload
+        uploader.submit();
+      }
     },
 
     // called when a file upload fails
     fileFailed: function(file) { var self = this;
       var item = self.fileItems[file.index];
       item.set('status', 'failed');
+      setTimeout(function(){ self.send('remove', item); }, 3000);
     },
 
     // called when a file finishes uploading
@@ -61,6 +71,10 @@ Discourse.KbEvidenceItemController = Discourse.ObjectController.extend({
   titlePlaceholder: function() { var self = this;
     return I18n.t('diaedu.evidence.title_for_' + self.get('kind'));
   }.property('kind'),
+
+  statusMessage: function() { var self = this;
+    return I18n.t('diaedu.evidence.' + self.get('status'));
+  }.property('status')
 
 });
 

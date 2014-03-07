@@ -7,22 +7,17 @@ Discourse.KbEvidenceUploadButtonView = Discourse.View.extend({
     // setup the fileupload widget (jquery file upload plugin)
     this.$('input[type=file]').fileupload({
       url: '/kb/evidence',
-      acceptFileTypes: /(\.|\/)(pdf|doc|docx)$/i,
-      maxFileSize: 10000000, // 10 MiB
-
-    }).on('fileuploadadd', function (e, data) {
-      $.each(data.files, function (index, file) {
+      autoUpload: false,
+      add: function (e, data) {
         // trigger the fileAdded action so the controller can handle creating a model
-        self.get('controller').send('fileAdded', file);
-      });
-    }).on('fileuploadfail', function (e, data) {
-      $.each(data.files, function (index, file) {
-        self.get('controller').send('fileFailed', file);
-      });
-    }).on('fileuploaddone', function (e, data) {
-      $.each(data.files, function (index, file) {
-        self.get('controller').send('fileCompleted', file, data.result);
-      });
+        self.get('controller').send('fileAdded', data.files[0], data);
+      },
+      fail: function (e, data) {
+        self.get('controller').send('fileFailed', data.files[0]);
+      },
+      done: function (e, data) {
+        self.get('controller').send('fileCompleted', data.files[0], data.result);
+      }
     });
   }
 });

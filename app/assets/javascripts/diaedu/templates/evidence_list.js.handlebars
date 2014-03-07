@@ -12,15 +12,20 @@
             <div class="errors">{{errors}}</div>
           {{/if}}
 
-          {{input type="text" value=title placeholder=titlePlaceholder}}
-          {{#if isFile}}
-            {{fileName}}
-            {{#if uploading}}{{i18n diaedu.evidence.uploading}}{{/if}}
-            {{#if failed}}{{i18n diaedu.evidence.failed}}{{/if}}
+          {{#if complete}}
+            {{input type="text" value=title placeholder=titlePlaceholder}}
+            {{#if isFile}}
+              {{filename}}
+            {{else}}
+              {{input type="text" value=url placeholder=linkPlaceholder}}
+            {{/if}}
+            <a {{action 'remove' this}}><i class="fa fa-trash-o"></i> {{i18n diaedu.evidence.remove}}</a>
+
           {{else}}
-            {{input type="text" value=url placeholder=linkPlaceholder}}
+
+            {{statusMessage}}
+
           {{/if}}
-          <a {{action 'remove' this}}><i class="fa fa-trash-o"></i> {{i18n diaedu.evidence.remove}}</a>
         </div>
       {{/each}}
 
