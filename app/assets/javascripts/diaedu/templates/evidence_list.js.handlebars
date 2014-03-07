@@ -1,0 +1,47 @@
+<div class="control-group">
+  <label class="control-label" for="obj-evidence">
+    {{i18n diaedu.evidence.evidence}}
+  </label>
+  <div class="controls">
+    <div class="evidence">
+      {{! list of the evidence items }}
+      {{#each evidenceItem in controller}}
+        <div class="item">
+          {{! error messages if present }}
+          {{#if errors}}
+            <div class="errors">{{errors}}</div>
+          {{/if}}
+
+          {{#if complete}}
+            {{input type="text" value=title class="title" placeholder=titlePlaceholder}}
+            {{#if isFile}}
+              <span class="filename">{{filename}}</span>
+            {{else}}
+              {{input type="text" value=url class="url" placeholder=linkPlaceholder}}
+            {{/if}}
+            <a {{action 'remove' this}}><i class="fa fa-trash-o"></i> {{i18n diaedu.evidence.remove}}</a>
+
+          {{else}}
+
+            {{statusMessage}}
+
+          {{/if}}
+        </div>
+      {{/each}}
+
+      {{! links }}
+
+      <div class="add-links">
+        <a {{action 'addLink'}}><i class="fa fa-plus"></i> {{i18n diaedu.evidence.add_link}}</a>&nbsp;&nbsp;
+
+        <a class="fileUpload">
+          <span>
+            <i class="fa fa-file-o"></i>
+            {{i18n diaedu.evidence.add_file}}
+          </span>
+          {{view Discourse.KbEvidenceUploadButtonView}}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

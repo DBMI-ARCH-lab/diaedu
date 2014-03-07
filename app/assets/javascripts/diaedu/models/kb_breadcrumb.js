@@ -15,6 +15,12 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
     return ids.length == 0 ? '' : 'trail-' + ids.join('-');
   }.property('crumbs'),
 
+  // whether this breadcrumb has a crumb in the last position
+  // that is, with no forward relations
+  hasEndCrumb: function() { var self = this;
+    return self.get('crumbs').filterBy('isEndPoint').length > 0;
+  }.property('crumbs.@each'),
+
   init: function() { var self = this;
     self._super();
 
@@ -44,7 +50,6 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
     }
     return newBc;
   }
-
 });
 
 Discourse.KbBreadcrumb.reopenClass({
@@ -76,7 +81,8 @@ Discourse.KbBreadcrumb.reopenClass({
         metaCrumb = metaCrumb.add(crumb);
         crumb.set('breadcrumb', metaCrumb);
 
-        // load the name (right now we only have the id)
+        // load the name and description (right now we only have the id)
+        // we need the description for the patient view
         crumb.loadFully();
 
         // add the current crumb to the reconstructed trail

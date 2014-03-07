@@ -13,6 +13,8 @@ Discourse.KbObj = Discourse.Model.extend({
 
   topic: null,
 
+  evidenceList: null,
+
   // whether the this obj was 'just' liked by the current user
   // used to immediately disallow further likes
   justLiked: null,
@@ -26,6 +28,8 @@ Discourse.KbObj = Discourse.Model.extend({
 
     // default to breadcrumb with just self
     this.set('breadcrumb', Discourse.KbBreadcrumb.create().add(this));
+
+    this.set('evidenceList', Em.A());
   },
 
   firstNTags: function() {
@@ -47,6 +51,8 @@ Discourse.KbObj = Discourse.Model.extend({
 
   // checks if this obj has any comments
   hasComments: Ember.computed.gt('comments', 0),
+
+  hasEvidence: Ember.computed.notEmpty('evidenceList'),
 
   // checks if the obj can be liked by the current user
   // this information is stored in the firstPost action summary
@@ -76,10 +82,20 @@ Discourse.KbObj = Discourse.Model.extend({
   }.property(),
 
   // gets the preferred parent dataType, which is the data type of the preselectedParent, if set
-  // otherwise it's the datatype of the first backward relation
+  // otherwise it's the datatype of the first backward relation, or null if there are no backward relations
   preferredParentDataType: function() { var self = this;
-    return self.get('preselectedParent') ? self.get('preselectedParent.dataType') : self.relations('backward')[0].other.dataType();
+    if (self.get('preselectedParent'))
+      return self.get('preselectedParent.dataType')
+    else {
+      var backward = self.relations('backward')[0];
+      return backward ? backward.other.dataType() : null;
+    }
   }.property('preselectedParent'),
+
+  // checks if this obj has no forward relations
+  isEndPoint: function() { var self = this;
+    return self.relations('forward').length == 0;
+  }.property(),
 
   // loads details such as description, etc.
   loadFully: function(opts) { var self = this;
@@ -97,6 +113,9 @@ Discourse.KbObj = Discourse.Model.extend({
       // construct firstPost object
       if (null !== data.firstPost)
         data.firstPost = Discourse.Post.create(data.firstPost);
+
+      // construct evidence items
+      data.evidenceItems.forEach(function(attribs){ self.evidenceList.pushObject(Discourse.KbEvidenceItem.create(attribs)); })
 
       // update the attribs
       self.setProperties(data);
@@ -118,24 +137,16 @@ Discourse.KbObj = Discourse.Model.extend({
 
         // save on model
         self.set('errors', errors);
+
+        // copy evidence errors to evidence items
+        if (response.evidenceErrors)
+          response.evidenceErrors.forEach(function(msg, i){
+            self.evidenceList[i].set('errors', msg);
+          });
       }
 
       // return whether the save was successful
       return !response.errors;
-    });
-  },
-
-  // serializes the tags array to a Rails compatible format
-  // stores in the passed data object
-  serializeTags: function(data) {
-    // add tags
-    data.taggingsAttributes = this.get('tags').map(function(t){
-      var tagging = {id: t.id};
-      // if the tag has no id (it's new), we need to add the tag attributes
-      if (t.id == null)
-        return {tagAttributes: {name: t.name}}
-      else
-        return {tagId: t.id, _destroy: t._destroy};
     });
   },
 
@@ -211,10 +222,31 @@ Discourse.KbObj = Discourse.Model.extend({
 
   // builds a data object to submit to server
   // should be overridden for subclasses with special serialization needs
-  serialize: function() {
-    var data = this.getProperties('name', 'description', 'inlinkIds');
-    this.serializeTags(data);
+  serialize: function() { var self = this;
+    var data = self.getProperties('name', 'description', 'inlinkIds');
+    self.serializeTags(data);
+    self.serializeEvidence(data);
     return data;
+  },
+
+  // serializes the tags array to a Rails compatible format
+  // stores in the passed data object
+  serializeTags: function(data) {
+    // add tags
+    data.taggingsAttributes = this.get('tags').map(function(t){
+      var tagging = {id: t.id};
+      // if the tag has no id (it's new), we need to add the tag attributes
+      if (t.id == null)
+        return {tag_attributes: {name: t.name}}
+      else
+        return {tag_id: t.id, _destroy: t._destroy};
+    });
+  },
+
+  // serializes evidence items in Rails compatible format
+  // stores in the passed data object
+  serializeEvidence: function(data) {
+    data.evidenceItemsAttributes = this.get('evidenceList').rejectBy('failed').map(function(item){ return item.serialize(); });
   },
 
   ////////////// i18n properties, should probably be refactored to controllers /////////////////////

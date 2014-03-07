@@ -1,0 +1,52 @@
+div.main.patient-plan {
+  margin-left: 0 !important;
+
+  a.btn.print {
+    float: right;
+  }
+
+  h2 {
+    margin-bottom: 30px;
+  }
+
+  div.item {
+    clear: both;
+    padding: 10px;
+    margin: 0 -10px 10px -10px;
+
+    img {
+      float: left;
+      width: 60px;
+    }
+
+    div.text {
+      margin-left: 75px;
+
+      div.name {
+        font-size: 16px;
+        margin-bottom: 6px;
+      }
+    }
+
+    /* endpoint objects (e.g. Goal) have special style */
+    &.endpoint {
+      background-color: #ddd;
+
+      div.name {
+        font-weight: bold;
+      }
+    }
+  }
+
+  div.hide-plan {
+    margin-top: 20px;
+    clear: both;
+  }
+}
+
+/* hide stuff in print mode */
+@media print {
+  div.hide-plan {
+    display: none;
+  }
+}
