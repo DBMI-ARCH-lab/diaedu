@@ -26,6 +26,14 @@ div.diaedu-content {
         max-height: 150px;
         overflow: auto;
       }
+
+      div.buttons {
+        text-align: center;
+
+        .btn {
+          background: #FC8C30;
+        }
+      }
     }
   }
 

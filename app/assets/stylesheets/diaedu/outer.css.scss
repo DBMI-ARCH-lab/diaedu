@@ -1,35 +1,7 @@
 /* these are styles for the template, including the custom banner and some overrides for existing discourse styles */
 
-/* use the Lato font for most header and template stuff */
-div.banner, nav.kb-main, nav.kb-subnav, section.kb-content, footer.kb-footer, body h1, body h2, body h3 {
-  font-family: 'Lato', sans-serif;
-}
-
 html {
   background-color: #86A8A5;
-}
-
-div.banner {
-  padding: 20px;
-  background: url('/assets/diaedu/banner-bg.png') repeat-x;
-
-  > div {
-    width: 1110px;
-    margin: auto;
-
-    img {
-      display: inline-block;
-      margin-right: 20px;
-      height: 60px;
-    }
-
-    h1 {
-      display: inline-block;
-      color: #6D6D6D;
-      vertical-align: middle;
-      font-size: 28pt;
-    }
-  }
 }
 
 nav.kb-main {
@@ -71,6 +43,50 @@ nav.kb-subnav {
 
     &.active {
       color: #CEEEE8;
+    }
+  }
+}
+
+footer.kb-footer {
+  border-top: 10px solid #ddd;
+  padding-top: 40px;
+  text-align: center;
+  background-color: #86A8A5;
+  color: white;
+
+  a {
+    color: white;
+  }
+
+  p {
+    margin: 0 0 20px 0;
+  }
+}
+
+/* use the Lato font for most header and template stuff */
+div.banner, nav.kb-main, nav.kb-subnav, section.kb-content, footer.kb-footer, body h1, body h2, body h3 {
+  font-family: 'Lato', sans-serif;
+}
+
+div.banner {
+  padding: 20px;
+  background: url('/assets/diaedu/banner-bg.png') repeat-x;
+
+  > div {
+    width: 1110px;
+    margin: auto;
+
+    img {
+      display: inline-block;
+      margin-right: 20px;
+      height: 60px;
+    }
+
+    h1 {
+      display: inline-block;
+      color: #6D6D6D;
+      vertical-align: middle;
+      font-size: 28pt;
     }
   }
 }
@@ -180,23 +196,18 @@ div.flow-area {
   }
 }
 
-footer.kb-footer {
-  border-top: 10px solid #ddd;
-  padding-top: 40px;
-  text-align: center;
-  background-color: #86A8A5;
-  color: white;
-
-  a {
-    color: white;
-  }
-
-  p {
-    margin: 0 0 20px 0;
-  }
-}
-
 /* 'view in knowledge base' button */
 div#topic-title div.inner button.btn.standard {
   float: right;
+}
+
+/* hide stuff in print mode */
+@media print {
+  nav.kb-main, nav.kb-subnav, header div.container, footer {
+    display: none;
+  }
+
+  html {
+    background-color: #fff !important;
+  }
 }

@@ -104,6 +104,12 @@ en:
       objs:
         sent_for_approval: "Thanks! Your submission has been sent to the site moderators for approval."
 
+      patient_plan:
+        view_print: "View & Print"
+        patient_plan: "Patient Plan"
+        print: "Print"
+        back: "Back to Knowledge Base"
+
       tags:
         none_found: "No matching tags found"
         searching: "Searching..."

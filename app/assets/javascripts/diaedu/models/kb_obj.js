@@ -92,6 +92,11 @@ Discourse.KbObj = Discourse.Model.extend({
     }
   }.property('preselectedParent'),
 
+  // checks if this obj has no forward relations
+  isEndPoint: function() { var self = this;
+    return self.relations('forward').length == 0;
+  }.property(),
+
   // loads details such as description, etc.
   loadFully: function(opts) { var self = this;
     opts = opts || {};
