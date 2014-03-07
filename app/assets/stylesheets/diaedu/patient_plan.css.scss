@@ -43,3 +43,10 @@ div.main.patient-plan {
     clear: both;
   }
 }
+
+/* hide stuff in print mode */
+@media print {
+  div.hide-plan {
+    display: none;
+  }
+}
