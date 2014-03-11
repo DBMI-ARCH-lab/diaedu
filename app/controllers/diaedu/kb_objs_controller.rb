@@ -87,6 +87,10 @@ module Diaedu
       render(:json => obj ? obj.as_json(:only => :id, :methods => :unqualified_type) : nil)
     end
 
+    def plan
+      # nothing needed here
+    end
+
     private
       def parse_filter_params
         @filter = Filter.new(:param_str => params[:filter_params])

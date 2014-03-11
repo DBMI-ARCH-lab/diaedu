@@ -1,6 +1,6 @@
 // models a box for inputting an event, with autocomplete
 Discourse.KbEventInputView = Discourse.View.extend({
-  templateName: 'javascripts/diaedu/templates/kb_glyprobs/event_input',
+  templateName: 'javascripts/diaedu/templates/event_input',
 
   didInsertElement: function() { var self = this;
     this.$('input').autocomplete2({source: '/kb/events/suggest'})

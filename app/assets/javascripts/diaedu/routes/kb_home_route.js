@@ -4,6 +4,6 @@ Discourse.KbHomeRoute = Discourse.Route.extend({
   },
 
   renderTemplate: function() {
-    this.render('javascripts/diaedu/templates/kb_home/index');
+    this.render('javascripts/diaedu/templates/home');
   }
 });

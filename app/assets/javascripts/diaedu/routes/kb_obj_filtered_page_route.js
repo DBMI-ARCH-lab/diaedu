@@ -49,7 +49,7 @@ Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
   },
 
   renderTemplate: function() {
-    this.render('javascripts/diaedu/templates/kb_objs/filtered_page');
+    this.render('javascripts/diaedu/templates/filtered_page');
   },
 
   actions: {

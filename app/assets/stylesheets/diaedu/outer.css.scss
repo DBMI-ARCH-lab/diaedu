@@ -64,7 +64,7 @@ footer.kb-footer {
 }
 
 /* use the Lato font for most header and template stuff */
-div.banner, nav.kb-main, nav.kb-subnav, section.kb-content, footer.kb-footer, body h1, body h2, body h3 {
+div.banner, nav.kb-main, nav.kb-subnav, div.diaedu, footer.kb-footer, body h1, body h2, body h3 {
   font-family: 'Lato', sans-serif;
 }
 
@@ -124,11 +124,6 @@ header.d-header {
 
 div#main-outlet {
   padding-top: 15px;
-  background-color: white;
-}
-
-section.kb-content {
-  color: #888;
   background-color: white;
 }
 

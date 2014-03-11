@@ -37,6 +37,10 @@ div.diaedu-content {
         vertical-align: bottom;
       }
 
+      span {
+        vertical-align: top;
+      }
+
       span.weaker {
         font-weight: 400;
       }
@@ -46,7 +50,7 @@ div.diaedu-content {
 
 /* main should get smaller when lower res */
 @media (max-width: 1170px) {
-  div.diaedu-content div.main {
+  div.diaedu-content.objs div.main {
     width: 700px;
   }
 }

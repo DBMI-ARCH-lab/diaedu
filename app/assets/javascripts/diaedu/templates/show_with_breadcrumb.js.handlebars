@@ -1,7 +1,7 @@
 <div class="left-pane">
 
   {{! breadcrumb}}
-  {{partial 'javascripts/diaedu/templates/kb_objs/_breadcrumb'}}
+  {{partial 'javascripts/diaedu/templates/_breadcrumb'}}
 
   {{! related groups of other kb objects (backward relations only)}}
   {{#each backwardRelatedGroups}}
@@ -14,7 +14,7 @@
   {{#unless loading}}
     <h1>
       <img {{bind-attr src="dataType.iconPath"}} />
-      {{dataType.title}}: <span class="weaker">{{name}}</span>
+      <span>{{dataType.title}}:</span> <span class="weaker">{{name}}</span>
     </h1>
   {{/unless}}
 

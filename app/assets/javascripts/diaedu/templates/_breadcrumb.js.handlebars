@@ -1,3 +1,4 @@
+{{! included from show_with_breadcrumb.js.handlebars }}
 <div class="block breadcrumb">
   <h3>
     <i class="fa fa-random"></i>
@@ -15,7 +16,7 @@
 
     {{#if breadcrumb.hasEndCrumb}}
       <div class="buttons">
-        <a class="btn btn-primary" {{action 'showPlan'}}><i class="fa fa-print"></i>{{i18n diaedu.patient_plan.view_print}}</a>
+        {{#link-to 'kbPlan' breadcrumb classNames='btn btn-primary'}}<i class="fa fa-print"></i>{{i18n diaedu.patient_plan.view_print}}{{/link-to}}
       </div>
     {{/if}}
   {{/unless}}
