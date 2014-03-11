@@ -1,0 +1,22 @@
+<div class="main patient-plan">
+  <h2>{{i18n diaedu.patient_plan.patient_plan}}</h2>
+
+  {{#unless loading}}
+    {{#each crumbs}}
+      <div {{bind-attr class=":item isEndPoint:endpoint"}}>
+        <img {{bind-attr src="dataType.iconPath"}} />
+        <div class="text">
+          <div class="name"><strong>{{dataType.singularTitle}}:</strong> {{name}}</div>
+          <div class="description">{{description}}</div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    {{/each}}
+  {{/unless}}
+
+  {{#if lastCrumb}}
+    <div class="hide-plan">
+      {{#link-to 'kbObj.showWithBreadcrumb' lastCrumb.dataType lastCrumb}}<i class="fa fa-reply"></i> {{i18n diaedu.patient_plan.back}}{{/link-to}}
+    </div>
+  {{/if}}
+</div>
