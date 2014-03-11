@@ -28,7 +28,7 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
   },
 
   renderTemplate: function() {
-    this.render('javascripts/diaedu/templates/kb_objs/show_with_breadcrumb');
+    this.render('javascripts/diaedu/templates/show_with_breadcrumb');
   },
 
   serialize: function(model) {

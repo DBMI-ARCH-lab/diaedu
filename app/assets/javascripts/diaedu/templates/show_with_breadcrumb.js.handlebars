@@ -1,0 +1,6 @@
+{{! special view if we're in showingPlan mode }}
+{{#if showingPlan}}
+  {{partial 'javascripts/diaedu/templates/_show_plan'}}
+{{else}}
+  {{partial 'javascripts/diaedu/templates/_show_normal'}}
+{{/if}}
