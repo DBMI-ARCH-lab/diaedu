@@ -6,19 +6,23 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
 
   // returns a string representation of this breadcrumb
   serialized: function() { var self = this;
-    // get crumb ids and type abbreviations
-    var ids = self.get('crumbs').map(function(c){ return c.get('dataType.abbrv') + c.get('id'); });
+    return self.serialize(self.get('crumbs').slice(0, -1));
+  }.property('crumbs.@each'),
 
-    // remove the last id as we don't include the current obj in the serialized version
-    ids.pop();
-
-    return ids.length == 0 ? '' : 'trail-' + ids.join('-');
-  }.property('crumbs'),
+  // returns the same style string as .serialized but does not remove the last crumb
+  serializedWithLast: function() { var self = this;
+    return self.serialize(self.get('crumbs'));
+  }.property('crumbs.@each'),
 
   // whether this breadcrumb has a crumb in the last position
   // that is, with no forward relations
   hasEndCrumb: function() { var self = this;
     return self.get('crumbs').filterBy('isEndPoint').length > 0;
+  }.property('crumbs.@each'),
+
+  // gets last crumb
+  lastCrumb: function() { var self = this;
+    return self.get('crumbs.lastObject');
   }.property('crumbs.@each'),
 
   init: function() { var self = this;
@@ -49,6 +53,12 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
       newBc.get('crumbs').pop();
     }
     return newBc;
+  },
+
+  // converts an array of crumbs into a serialized string
+  serialize: function(crumbs) { var self = this;
+    var ids = crumbs.map(function(c){ return c.get('dataType.abbrv') + c.get('id'); });
+    return ids.length == 0 ? '' : 'trail-' + ids.join('-');
   }
 });
 

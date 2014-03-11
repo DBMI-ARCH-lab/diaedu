@@ -21,6 +21,7 @@ Diaedu::Engine.routes.draw do
 
   end
 
+  get('/plan/:breadcrumb' => 'kb_objs#plan')
   get('/obj/by-topic-id' => 'kb_objs#by_topic_id')
   get('/filter-options' => 'filter_options#fetch')
   get('/tags/suggest' => 'tags#suggest')

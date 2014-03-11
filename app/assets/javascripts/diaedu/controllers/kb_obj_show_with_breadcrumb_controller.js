@@ -12,8 +12,8 @@ Discourse.KbObjShowWithBreadcrumbController = Discourse.ObjectController.extend(
   showingPlan: null,
 
   // checks if the current user is allowed to post comments
-  canComment: function() {
-    return !!this.get('currentUser');
+  canComment: function() { var self = this;
+    return !!self.get('currentUser');
   }.property('currentUser'),
 
   actions: {

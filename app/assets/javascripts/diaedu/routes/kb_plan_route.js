@@ -19,6 +19,6 @@ Discourse.KbPlanRoute = Discourse.Route.extend({
   },
 
   serialize: function(model) {
-    return {breadcrumb: model.get('serialized')};
+    return {breadcrumb: model.get('serializedWithLast')};
   }
 });
