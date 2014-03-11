@@ -54,8 +54,8 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
 
 Discourse.KbBreadcrumb.reopenClass({
 
-  // creates a breadcrumb from a serialized string and adds the given kb obj
-  reconstruct: function(obj, str) {
+  // creates a breadcrumb from a serialized string
+  reconstruct: function(str) {
     var breadcrumb = Discourse.KbBreadcrumb.create();
 
     // split the param string
@@ -90,6 +90,6 @@ Discourse.KbBreadcrumb.reopenClass({
       });
     }
 
-    return breadcrumb.add(obj);
+    return breadcrumb;
   }
 });

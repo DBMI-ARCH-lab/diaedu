@@ -3,7 +3,7 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
     var obj = this.modelFor('kbObj').get('modelClass').create({id: params.id});
 
     // reconstruct breadcrumb from params
-    obj.set('breadcrumb', Discourse.KbBreadcrumb.reconstruct(obj, params.breadcrumb));
+    obj.set('breadcrumb', Discourse.KbBreadcrumb.reconstruct(params.breadcrumb).add(obj));
 
     return obj;
   },
