@@ -17,7 +17,10 @@ Discourse.KbRelatedGroup = Discourse.Model.extend({
   tagFilterSerialized: null,
 
   // whether there are no objects in the group
-  isEmpty: Ember.computed.alias('objPage.isEmpty'),
+  isEmpty: function() {
+    // We check for null since we don't want to show anything until it's loaded.
+    return this.get('objPage') === null || this.get('objPage.isEmpty');
+  }.property('objPage.isEmpty'),
 
   // gets the KbDataType obj for the related subtype
   dataType: function() { var self = this;
