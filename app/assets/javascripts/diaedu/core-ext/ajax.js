@@ -26,7 +26,6 @@ Discourse.cleanAjax = function() {
 
   // send ajax
   return Discourse.ajax(arguments[0], arguments[1]).then(function(data){
-    // transform incoming to camel
-    return transformHash(data, snakeToCamel);
+    return data && data.constructor == Object ? transformHash(data, snakeToCamel) : data;
   });
 };

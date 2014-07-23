@@ -16,10 +16,7 @@ Discourse.KbLinkToKbButtonView = Discourse.ButtonView.extend({
     // fetch the kb obj related to this topic (if available)
     // I feel like this should really be done in the controller but couldn't figure out an appropriate thing to hook on to
     Discourse.KbObj.findByTopicId(self.get('controller.topic.id')).then(function(obj){
-      // store in controller
       self.set('controller.kbObj', obj);
-
-      // set hidden depending on if null
       self.set('hidden', obj === null);
     });
   },
