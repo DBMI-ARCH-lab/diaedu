@@ -66,7 +66,7 @@ li.token-input-input-token {
 div.token-input-dropdown {
   position: absolute;
   width: 99%;
-  /*background-color: #eee;*/
+  background-color: #eee;
   overflow: hidden;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
@@ -87,7 +87,7 @@ div.token-input-dropdown ul {
 }
 
 div.token-input-dropdown ul li {
-  background-color: white;
+  /* background-color: white; */
   padding: 3px;
   margin: 0;
   list-style-type: none;
