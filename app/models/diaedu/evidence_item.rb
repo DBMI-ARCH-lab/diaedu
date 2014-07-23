@@ -9,6 +9,7 @@ module Diaedu
     validates(:url, :presence => true, :if => ->(i) {i.kind == 'link'})
     validates(:url, :format => %r@\A(https?|ftp)://(-\.)?([^\s/?\.#-]+\.?)+(/[^\s]*)?\z@i, :if => ->(i) {i.kind == 'link'})
     validates_attachment :file, :size => { :in => 0..10.megabytes }
+    do_not_validate_attachment_file_type :file
 
     attr_accessor(:temporary)
 
