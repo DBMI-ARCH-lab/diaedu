@@ -12,7 +12,7 @@ module Diaedu
     def self.suggestions(query)
       query.downcase!
 
-      matches = where("name LIKE ?", "#{query}%").all
+      matches = where("name LIKE ?", "#{query}%").to_a
 
       # scan matches for exact match
       exact_match = false
