@@ -168,6 +168,10 @@ div.flow-area {
   div.flow {
     text-align: center;
 
+    div.step:first-child a div {
+      color: black;
+    }
+
     div.step {
       display: inline-block;
       text-align: center;
