@@ -16,10 +16,6 @@ Discourse.KbEvidenceItem = Discourse.Model.extend({
   failed: Ember.computed.equal('status', 'failed'),
   complete: Ember.computed.equal('status', 'complete'),
 
-  init: function() { var self = this;
-    self._super();
-  },
-
   // returns Rails compatible object
   serialize: function() { var self = this;
     return self.getProperties('id', 'kind', 'title', 'url');
