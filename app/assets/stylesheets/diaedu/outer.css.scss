@@ -199,6 +199,11 @@ div.flow-area {
 /* 'view in knowledge base' button */
 div#topic-title div.inner button.btn.standard {
   float: right;
+
+  /* The hidden class provided by foundation is overridden by discourse elsewhere so we need to do this explicitly. */
+  &.hidden {
+    display: none;
+  }
 }
 
 /* hide stuff in print mode */
