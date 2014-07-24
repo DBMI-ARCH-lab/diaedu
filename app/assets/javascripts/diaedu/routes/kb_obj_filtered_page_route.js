@@ -1,4 +1,4 @@
-Discourse.KbObjFilteredPageRoute = Discourse.Route.extend({
+Discourse.KbObjFilteredPageRoute = Discourse.Route.extend(Discourse.KbLoginRedirectable, {
   model: function(params) {
     // on first load, create empty shell that will be updated by setupController
     return Discourse.KbObjPage.create({pageId: parseInt(params.pageId), filterParams: params.filterParams});

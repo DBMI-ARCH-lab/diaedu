@@ -28,4 +28,6 @@ Diaedu::Engine.routes.draw do
   get('/events/suggest' => 'events#suggest')
 
   post('/evidence' => 'evidence#create')
+
+  get('/login' => 'home#login') # This will be redirected on client side
 end

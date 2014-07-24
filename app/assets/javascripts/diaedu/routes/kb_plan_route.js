@@ -1,5 +1,5 @@
 // route for patient plan
-Discourse.KbPlanRoute = Discourse.Route.extend({
+Discourse.KbPlanRoute = Discourse.Route.extend(Discourse.KbLoginRedirectable, {
   model: function(params, transition) {
     // reconstruct breadcrumb from params
     return Discourse.KbBreadcrumb.reconstruct(params.breadcrumb);

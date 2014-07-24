@@ -1,4 +1,4 @@
-Discourse.KbHomeRoute = Discourse.Route.extend({
+Discourse.KbHomeRoute = Discourse.Route.extend(Discourse.KbLoginRedirectable, {
   activate: function() {
     Discourse.set('title', I18n.t('diaedu.title'));
   },

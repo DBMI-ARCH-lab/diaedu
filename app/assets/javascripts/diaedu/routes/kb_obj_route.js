@@ -1,4 +1,4 @@
-Discourse.KbObjRoute = Discourse.Route.extend({
+Discourse.KbObjRoute = Discourse.Route.extend(Discourse.KbLoginRedirectable, {
   model: function(params, transition) {
     return Discourse.KbDataType.get(params.dataType);
   },
