@@ -61,7 +61,7 @@ module Diaedu
       # trims whitespace, etc.
       def normalize_fields
         self.description = description.strip unless description.blank?
+        return true
       end
-
   end
 end
