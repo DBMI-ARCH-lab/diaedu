@@ -20,10 +20,6 @@ module Diaedu
       EVALS
     end
 
-    def self.admin_route_key
-      "kb_admin_glycemic_problem"
-    end
-
     def name
       "#{evaluation.capitalize} #{event.name}"
     end
