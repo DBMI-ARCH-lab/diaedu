@@ -16,8 +16,8 @@
     {{textarea id="obj-description" value=description class="obj-form"}}
   </div>
 </div>
-<div class="control-group obj-glyprobs">
-  <label class="control-label" for="obj-glyprobs">
+<div class="control-group obj-barriers">
+  <label class="control-label" for="obj-barriers">
     {{relatedHeading}}
   </label>
   <div class="controls">
@@ -33,3 +33,4 @@
     {{view Discourse.KbTagEditView}}
   </div>
 </div>
+{{render 'kbEvidenceList' evidenceList}}

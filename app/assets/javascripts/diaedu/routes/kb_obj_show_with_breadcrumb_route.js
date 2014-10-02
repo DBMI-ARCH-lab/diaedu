@@ -1,9 +1,9 @@
-Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
+Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend(Discourse.KbLoginRedirectable, {
   model: function(params, transition) {
     var obj = this.modelFor('kbObj').get('modelClass').create({id: params.id});
 
     // reconstruct breadcrumb from params
-    obj.set('breadcrumb', Discourse.KbBreadcrumb.reconstruct(obj, params.breadcrumb));
+    obj.set('breadcrumb', Discourse.KbBreadcrumb.reconstruct(params.breadcrumb).add(obj));
 
     return obj;
   },
@@ -28,11 +28,11 @@ Discourse.KbObjShowWithBreadcrumbRoute = Discourse.Route.extend({
   },
 
   renderTemplate: function() {
-    this.render('javascripts/diaedu/templates/kb_objs/show_with_breadcrumb');
+    this.render('javascripts/diaedu/templates/show');
   },
 
   serialize: function(model) {
-    return {id: model.id, dataType: model.get('dataType.name'), breadcrumb: model.get('breadcrumb.serialized')};
+    return {id: model.get('id'), dataType: model.get('dataType.name'), breadcrumb: model.get('breadcrumb.serialized')};
   },
 
   actions: {

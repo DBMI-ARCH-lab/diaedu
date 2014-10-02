@@ -11,7 +11,7 @@ I18n.load_path << "#{File.dirname(__FILE__)}/config/locales/client.en.yml"
 
 # register the two main assets (sprockets will take over from here)
 register_asset('javascripts/diaedu.js')
-register_asset('stylesheets/diaedu.css')
+register_asset('stylesheets/diaedu.scss')
 
 after_initialize do
 

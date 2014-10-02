@@ -32,6 +32,16 @@ div.diaedu-content {
 
     div.description {
       margin-left: 85px;
+
+      div.evidence {
+        margin-top: 10px;
+
+        ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+        }
+      }
     }
 
     div.comments {

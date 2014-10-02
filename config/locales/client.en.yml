@@ -1,5 +1,8 @@
 en:
   activerecord:
+    attributes:
+      diaedu/evidence_item:
+        url: "URL"
     errors:
       models:
         diaedu/glyprob:
@@ -53,6 +56,18 @@ en:
         low: "Low"
         high: "High"
 
+      evidence:
+        evidence: "Evidence"
+        add_link: "Add link"
+        add_file: "Attach file"
+        uploading: "Uploading..."
+        failed: "Upload failed."
+        toobig: "File is too large."
+        title_for_file: "Title for attachment"
+        title_for_link: "Title for link"
+        link: "Link"
+        remove: "Remove"
+
       filter:
         title:
           barriers: "Filter by Barrier"
@@ -88,6 +103,12 @@ en:
 
       objs:
         sent_for_approval: "Thanks! Your submission has been sent to the site moderators for approval."
+
+      patient_plan:
+        view_print: "View & Print"
+        patient_plan: "Patient Plan"
+        print: "Print"
+        back: "Back to Knowledge Base"
 
       tags:
         none_found: "No matching tags found"

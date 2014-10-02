@@ -1,0 +1,23 @@
+{{! included from show template }}
+<div class="block breadcrumb">
+  <h3>
+    <i class="fa fa-random"></i>
+    {{i18n diaedu.how_got_here}}
+  </h3>
+  {{#unless loading}}
+    <ol>
+      {{#each breadcrumb.crumbs}}
+        <li>
+          <div>{{dataType.singularTitle}}</div>
+          {{#link-to 'kbObj.showWithBreadcrumb' dataType this}}<strong>{{name}}</strong>{{/link-to}}
+        </li>
+      {{/each}}
+    </ol>
+
+    {{#if breadcrumb.hasEndCrumb}}
+      <div class="buttons">
+        {{#link-to 'kbPlan' breadcrumb classNames='btn btn-primary'}}<i class="fa fa-print"></i>{{i18n diaedu.patient_plan.view_print}}{{/link-to}}
+      </div>
+    {{/if}}
+  {{/unless}}
+</div>

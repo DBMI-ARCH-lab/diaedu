@@ -4,7 +4,13 @@ Discourse.KbRelatedObjView = Discourse.View.extend({
   // template is initially empty
   template: '',
 
-  // observe when related objPage is populated and build multiselect using it
+  didInsertElement: function() { var self = this;
+    // for some reason this needs to be here else the observer below never fires
+    self.get('controller');
+  },
+
+  // when the obj new view is shown, an ajax request is issued to get the options for the related object list (this view)
+  // so we observe when the controller's objPage is populated and build multiselect using it
   setupMultiselect: function() { var self = this;
 
     // build and insert the select tag and option tags

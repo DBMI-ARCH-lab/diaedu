@@ -6,14 +6,24 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
 
   // returns a string representation of this breadcrumb
   serialized: function() { var self = this;
-    // get crumb ids and type abbreviations
-    var ids = self.get('crumbs').map(function(c){ return c.get('dataType.abbrv') + c.get('id'); });
+    return self.serialize(self.get('crumbs').slice(0, -1));
+  }.property('crumbs.@each'),
 
-    // remove the last id as we don't include the current obj in the serialized version
-    ids.pop();
+  // returns the same style string as .serialized but does not remove the last crumb
+  serializedWithLast: function() { var self = this;
+    return self.serialize(self.get('crumbs'));
+  }.property('crumbs.@each'),
 
-    return ids.length == 0 ? '' : 'trail-' + ids.join('-');
-  }.property('crumbs'),
+  // whether this breadcrumb has a crumb in the last position
+  // that is, with no forward relations
+  hasEndCrumb: function() { var self = this;
+    return self.get('crumbs').filterBy('isEndPoint').length > 0;
+  }.property('crumbs.@each'),
+
+  // gets last crumb
+  lastCrumb: function() { var self = this;
+    return self.get('crumbs.lastObject');
+  }.property('crumbs.@each'),
 
   init: function() { var self = this;
     self._super();
@@ -43,14 +53,19 @@ Discourse.KbBreadcrumb = Discourse.Model.extend({
       newBc.get('crumbs').pop();
     }
     return newBc;
-  }
+  },
 
+  // converts an array of crumbs into a serialized string
+  serialize: function(crumbs) { var self = this;
+    var ids = crumbs.map(function(c){ return c.get('dataType.abbrv') + c.get('id'); });
+    return ids.length == 0 ? '' : 'trail-' + ids.join('-');
+  }
 });
 
 Discourse.KbBreadcrumb.reopenClass({
 
-  // creates a breadcrumb from a serialized string and adds the given kb obj
-  reconstruct: function(obj, str) {
+  // creates a breadcrumb from a serialized string
+  reconstruct: function(str) {
     var breadcrumb = Discourse.KbBreadcrumb.create();
 
     // split the param string
@@ -76,7 +91,8 @@ Discourse.KbBreadcrumb.reopenClass({
         metaCrumb = metaCrumb.add(crumb);
         crumb.set('breadcrumb', metaCrumb);
 
-        // load the name (right now we only have the id)
+        // load the name and description (right now we only have the id)
+        // we need the description for the patient view
         crumb.loadFully();
 
         // add the current crumb to the reconstructed trail
@@ -84,6 +100,6 @@ Discourse.KbBreadcrumb.reopenClass({
       });
     }
 
-    return breadcrumb.add(obj);
+    return breadcrumb;
   }
 });

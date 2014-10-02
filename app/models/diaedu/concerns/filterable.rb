@@ -87,7 +87,7 @@ module Diaedu
           # if the filterable field spec said to include all objects, add any that are missing
           # and give them a special 'isGreyed' property
           if filterable_fields[field] == :all
-            (model_for_field(field).all - objs).each do |o|
+            (model_for_field(field).all.to_a - objs).each do |o|
               items << {:isChecked => false, :isGreyed => true, :obj => o}
             end
           end

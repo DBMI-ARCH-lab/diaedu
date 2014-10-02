@@ -12,8 +12,8 @@
   {{/if}}
 
   <h1>
-    <img {{bindAttr src="objPage.dataType.iconPath"}} />
-    {{dataType.title}}
+    <img {{bind-attr src="objPage.dataType.iconPath"}} />
+    <span>{{dataType.title}}</span>
   </h1>
 
   {{#if loading}}

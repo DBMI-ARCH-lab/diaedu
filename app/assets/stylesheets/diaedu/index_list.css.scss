@@ -1,7 +1,9 @@
 div.diaedu-content div.index-list {
   display: table;
-  width: 856px;
   margin-bottom: 20px;
+
+  /* should expand to fill width of container even if row text is short */
+  width: 100%;
 
   div.index-row {
     display: table-row;
@@ -34,7 +36,6 @@ div.diaedu-content div.index-list {
     }
 
     div.main-cell {
-      width: 620px;
       padding-right: 0;
 
       div.tags {

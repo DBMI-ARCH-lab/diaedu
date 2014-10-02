@@ -1,7 +1,9 @@
 module Diaedu
   class Tag < ActiveRecord::Base
-    has_many(:taggings, :class_name => 'Diaedu::Tagging')
+    has_many(:taggings, :class_name => 'Diaedu::Tagging', :dependent => :destroy)
     has_many(:objs, :through => :taggings)
+
+    scope(:default_order, ->{ order('name') })
 
     MAX_SUGGESTIONS = 5
 
@@ -10,7 +12,7 @@ module Diaedu
     def self.suggestions(query)
       query.downcase!
 
-      matches = where("name LIKE ?", "#{query}%").all
+      matches = where("name LIKE ?", "#{query}%").to_a
 
       # scan matches for exact match
       exact_match = false

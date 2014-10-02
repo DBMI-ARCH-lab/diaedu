@@ -50,14 +50,29 @@ module Diaedu
     end
 
     def create
-      obj = klass.new(params.require(:obj).permit(:name, :description, :event_name, :evaluation, :inlink_ids => [],
-        :taggings_attributes => [:tag_id, :_destroy, :tag_attributes => [:name]]))
+      # permit attributes and extract evidence
+      attribs = params.require(:obj).permit(:name, :description, :event_name, :evaluation, :inlink_ids => [],
+        :taggings_attributes => [:tag_id, :_destroy, :tag_attributes => [:name]],
+        :evidence_items_attributes => [:id, :kind, :title, :url]
+      )
+      evidence_attribs = attribs.delete(:evidence_items_attributes) || {}
 
-      if obj.save
-        render(:json => {})
-      else
-        render(:json => {:errors => obj.errors})
+      # build the obj minus the evidence items
+      obj = klass.new(attribs)
+
+      # assign evidence attributes
+      evidence_attribs.values.each do |a|
+        if a[:id].present?
+          item = EvidenceItem.find(a[:id])
+          item.assign_attributes(a)
+          obj.evidence_items << item
+        else
+          obj.evidence_items.build(a)
+        end
       end
+
+      # save and render
+      render(:json => obj.save ? {} : {:errors => obj.errors, :evidence_errors => obj.evidence_items.map(&:error_messages)})
     end
 
     # ensures there is a topic associated with the given object
@@ -70,6 +85,10 @@ module Diaedu
     def by_topic_id
       obj = KbObj.where(:topic_id => params[:topic_id]).first
       render(:json => obj ? obj.as_json(:only => :id, :methods => :unqualified_type) : nil)
+    end
+
+    def plan
+      # nothing needed here
     end
 
     private

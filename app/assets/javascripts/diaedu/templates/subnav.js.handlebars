@@ -2,7 +2,7 @@
 <nav class="kb-subnav">
   {{#if isKbActive}}
     {{#each dataTypes}}
-      {{#linkTo 'kbObj' this}}{{title}}{{/linkTo}}
+      {{#link-to 'kbObj' this}}{{title}}{{/link-to}}
     {{/each}}
   {{/if}}
 </nav>

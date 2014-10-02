@@ -42,8 +42,6 @@ Discourse.KbFilterSet.reopenClass({
     }).then(function(data) {
 
       // build block objects
-      console.log(data.filterOptions);
-
       var blocks = data.filterOptions.map(function(blockData){
         return Discourse.KbFilterBlock.create({itemsData: blockData.items, type: blockData.type});
       });

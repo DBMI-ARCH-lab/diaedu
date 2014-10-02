@@ -7,6 +7,8 @@ Discourse.KbObjNewController = Discourse.ObjectController.extend(Discourse.Modal
 
   saving: false,
 
+  objPage: null,
+
   relatedHeading: function() { var self = this;
     return I18n.t('diaedu.' + self.get('model.preferredParentDataType.shortName') + '.related_heading');
   }.property('model.preferredParentDataType'),
@@ -16,9 +18,10 @@ Discourse.KbObjNewController = Discourse.ObjectController.extend(Discourse.Modal
 
     // get the parent's datatype and request an obj page
     var dataType = self.get('model.preferredParentDataType');
-    Discourse.KbObjPage.find({dataType: dataType, filterParams: 'all', pageNum: 1, perPage: 1000000000}).then(function(objPage){
-      self.set('objPage', objPage);
-    });
+    if (dataType)
+      Discourse.KbObjPage.find({dataType: dataType, filterParams: 'all', pageNum: 1, perPage: 1000000000}).then(function(objPage){
+        self.set('objPage', objPage);
+      });
   },
 
   actions: {

@@ -1,10 +1,10 @@
-Discourse.KbObjRoute = Discourse.Route.extend({
+Discourse.KbObjRoute = Discourse.Route.extend(Discourse.KbLoginRedirectable, {
   model: function(params, transition) {
     return Discourse.KbDataType.get(params.dataType);
   },
 
   renderTemplate: function() {
-    this.render('javascripts/diaedu/templates/kb_objs/layout');
+    this.render('javascripts/diaedu/templates/obj_layout');
   },
 
   serialize: function(model) {

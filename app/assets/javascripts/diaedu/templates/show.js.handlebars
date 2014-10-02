@@ -1,7 +1,7 @@
 <div class="left-pane">
 
   {{! breadcrumb}}
-  {{partial 'javascripts/diaedu/templates/kb_objs/_breadcrumb'}}
+  {{partial 'javascripts/diaedu/templates/_breadcrumb'}}
 
   {{! related groups of other kb objects (backward relations only)}}
   {{#each backwardRelatedGroups}}
@@ -13,8 +13,8 @@
 <div class="main">
   {{#unless loading}}
     <h1>
-      <img {{bindAttr src="dataType.iconPath"}} />
-      {{dataType.title}}: <span class="weaker">{{name}}</span>
+      <img {{bind-attr src="dataType.iconPath"}} />
+      <span>{{dataType.title}}:</span> <span class="weaker">{{name}}</span>
     </h1>
   {{/unless}}
 
@@ -38,6 +38,25 @@
       </div>
       <div class="description">
         {{description}}
+
+        {{#if hasEvidence}}
+          <div class="evidence">
+            <ul>
+              {{#each evidenceList}}
+                <li>
+                  <a {{bind-attr href="href"}} target="_blank">
+                    {{#if isFile}}
+                      <i class="fa fa-file-o"></i>
+                    {{else}}
+                      <i class="fa fa-external-link"></i>
+                    {{/if}}
+                    {{title}}
+                  </a>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
       </div>
 
       <div class="comments">
@@ -46,7 +65,7 @@
           <ul>
             {{#each commentPreview}}
               <li>
-                {{#linkTo 'userActivity.index' this.user}}{{avatar this.user imageSize="medium"}}{{/linkTo}}
+                {{#link-to 'userActivity.index' this.user}}{{avatar this.user imageSize="medium"}}{{/link-to}}
                 <div>
                   {{{cooked}}}
                   <div class="comment-fade"></div>
@@ -69,7 +88,9 @@
     {{! related groups of other kb objects (forward only)}}
     <div class="forward-related-groups">
       {{#each forwardRelatedGroups}}
-        {{render 'kbRelatedGroup' this}}
+        {{#unless isEmpty}}
+          {{render 'kbRelatedGroup' this}}
+        {{/unless}}
       {{/each}}
     </div>
 
